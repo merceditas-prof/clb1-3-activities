@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer Activities Flashcards and Quiz - CLB 1-3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #eaf6f6;
+    --sand: #fffdf7;
+    --ink: #1b3b4b;
+    --teal: #0b5563;
+    --teal-light: #1a7d8f;
+    --coral: #ff6f59;
+    --sun: #f4b942;
+    --leaf: #4c9a6a;
+    --line: #d8e6e2;
+    --shadow: rgba(11, 85, 99, 0.18);
+    --good: #2f9e5e;
+    --bad: #e0503f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 32px 20px 60px;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(244,185,66,0.25), transparent 40%),
+      radial-gradient(circle at 88% 92%, rgba(255,111,89,0.15), transparent 45%),
+      var(--sky);
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  header { text-align: center; margin-bottom: 20px; }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--teal-light);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 48px);
+    margin: 0 0 6px;
+    color: var(--teal);
+  }
+
+  h1 span { color: var(--coral); }
+
+  .subtitle {
+    font-size: 16px;
+    color: #3f6270;
+    margin: 0 auto 4px;
+    max-width: 520px;
+    line-height: 1.5;
+  }
+
+  .instructions {
+    font-size: 14px;
+    font-style: italic;
+    color: #5c7d88;
+  }
+
+  .hidden { display: none !important; }
+
+  /* Mode tabs */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 22px 0 6px;
+  }
+
+  .tab-btn {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    border: 2px solid var(--teal);
+    background: #ffffff;
+    color: var(--teal);
+    padding: 10px 24px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .tab-btn:hover { transform: translateY(-2px); }
+
+  .tab-btn.active {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: #fff;
+  }
+
+  /* How-to box (shared style) */
+  .howto {
+    max-width: 640px;
+    margin: 18px auto 28px;
+    background: #ffffff;
+    border: 2px solid var(--teal-light);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 8px 18px var(--shadow);
+  }
+
+  .howto h2 {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--teal);
+    margin: 0 0 10px;
+    text-align: center;
+  }
+
+  .howto ol, .howto ul {
+    margin: 0;
+    padding-left: 22px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #2b4d59;
+  }
+
+  .howto .tip {
+    margin: 12px 0 0;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--coral);
+    text-align: center;
+  }
+
+  /* Category filters */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 24px 0 8px;
+  }
+
+  .filter-btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    border: 2px solid var(--teal);
+    background: #ffffff;
+    color: var(--teal);
+    padding: 8px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .filter-btn:hover { transform: translateY(-2px); }
+
+  .filter-btn.active {
+    background: var(--teal);
+    color: #fff;
+  }
+
+  /* Progress */
+  .progress-wrap {
+    max-width: 420px;
+    margin: 18px auto 30px;
+    text-align: center;
+  }
+
+  .progress-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal-light);
+    margin-bottom: 6px;
+  }
+
+  .progress-track {
+    height: 10px;
+    border-radius: 999px;
+    background: #dcece9;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--sun), var(--coral));
+    border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+
+  /* Card grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 22px;
+  }
+
+  .card-slot {
+    perspective: 1200px;
+    height: 190px;
+  }
+
+  .card-slot.hidden { display: none; }
+
+  .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(.2,.8,.3,1.1);
+  }
+
+  .card.flipped { transform: rotateY(180deg); }
+
+  .face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 14px;
+    box-shadow: 0 10px 22px var(--shadow);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    background: var(--sand);
+    border: 2px dashed #cfd9a8;
+  }
+
+  .front {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .front .emoji { font-size: 42px; line-height: 1; }
+
+  .front .phrase {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--teal);
+  }
+
+  .front .flip-hint {
+    font-size: 11px;
+    color: #7c9aa3;
+    font-style: italic;
+    margin-top: auto;
+  }
+
+  .stamp {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border: 2px dotted var(--coral);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--coral);
+    background: #fff5f2;
+  }
+
+  .back {
+    transform: rotateY(180deg);
+    background: linear-gradient(160deg, #ffffff, #f2fbf7);
+    border-style: solid;
+    border-color: var(--teal-light);
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .postmark {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--teal-light);
+    border: 2px solid var(--teal-light);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.1;
+    transform: rotate(-8deg);
+    opacity: 0.7;
+  }
+
+  .back .ing {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--coral);
+    text-align: center;
+    margin-top: 6px;
+  }
+
+  .back .example {
+    font-size: 12.5px;
+    color: #2b4d59;
+    line-height: 1.45;
+  }
+
+  .back .example b { color: var(--teal); }
+
+  /* Game view */
+  .game-stats {
+    max-width: 560px;
+    margin: 18px auto 20px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--teal);
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 10px 22px;
+    box-shadow: 0 6px 14px var(--shadow);
+  }
+
+  .question-card {
+    max-width: 560px;
+    margin: 0 auto;
+    background: var(--sand);
+    border: 2px dashed #cfd9a8;
+    border-radius: 18px;
+    padding: 26px 24px;
+    box-shadow: 0 10px 22px var(--shadow);
+  }
+
+  .question-prompt {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--teal);
+    text-align: center;
+    margin: 0 0 18px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .option-btn {
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    border: 2px solid var(--teal-light);
+    background: #ffffff;
+    color: var(--ink);
+    padding: 12px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .option-btn:hover:not(:disabled) { transform: translateX(4px); }
+
+  .option-btn:disabled { cursor: default; }
+
+  .option-btn.correct {
+    background: #e6f6ec;
+    border-color: var(--good);
+    color: var(--good);
+  }
+
+  .option-btn.wrong {
+    background: #fdecea;
+    border-color: var(--bad);
+    color: var(--bad);
+  }
+
+  .feedback {
+    min-height: 24px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    margin-top: 14px;
+  }
+
+  .feedback.good { color: var(--good); }
+  .feedback.bad { color: var(--bad); }
+
+  .next-btn, .play-again-btn {
+    display: block;
+    margin: 18px auto 0;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    padding: 10px 26px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+
+  .next-btn:hover, .play-again-btn:hover { transform: translateY(-2px); }
+
+  .end-screen {
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: center;
+    background: #ffffff;
+    border: 2px solid var(--teal-light);
+    border-radius: 18px;
+    padding: 30px 26px;
+    box-shadow: 0 10px 22px var(--shadow);
+  }
+
+  .end-screen h2 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 24px;
+    color: var(--teal);
+    margin: 0 0 10px;
+  }
+
+  .end-screen p { font-size: 15px; color: #2b4d59; margin: 6px 0; }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    color: #7c9aa3;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card, .progress-fill, .filter-btn, .tab-btn, .option-btn, .next-btn, .play-again-btn { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">CLB 1-3 &middot; Vocabulary &amp; Grammar</div>
+    <h1>&#9728;&#65039; Summer <span>Activities</span></h1>
+    <p class="subtitle">Like / don't like + V-ing &nbsp;&bull;&nbsp; going to + verb</p>
+  </header>
+
+  <div class="tabs" id="tabs">
+    <button class="tab-btn active" data-view="study">Study Cards</button>
+    <button class="tab-btn" data-view="game">Play the Quiz</button>
+  </div>
+
+  <div id="studyView">
+    <div class="howto">
+      <h2>How to Use This Page</h2>
+      <ol>
+        <li>Look at the picture and the word.</li>
+        <li>Tap the card to flip it.</li>
+        <li>Read the new word and two example sentences.</li>
+        <li>Try all the cards! Check the number at the top.</li>
+        <li>Pick a topic: Beach, Nature, Trips, Sports, or Home.</li>
+      </ol>
+      <p class="tip">Tip: Say the sentences out loud!</p>
+    </div>
+
+    <div class="filters" id="filters"></div>
+
+    <div class="progress-wrap">
+      <div class="progress-label" id="progressLabel">0 / 19 cards flipped</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div id="gameView" class="hidden">
+    <div class="howto">
+      <h2>How to Play</h2>
+      <ol>
+        <li>Read the three sentences.</li>
+        <li>Tap the one that is correct.</li>
+        <li>Green means correct. Red means try again next time.</li>
+        <li>Answer 10 questions. Try to get a high score!</li>
+      </ol>
+      <p class="tip">Tip: If you're not sure, study the flashcards first!</p>
+    </div>
+
+    <div class="game-stats">
+      <span id="qCounter">Question 1 of 10</span>
+      <span id="scoreDisplay">Score: 0</span>
+      <span id="streakDisplay">Streak: 0</span>
+    </div>
+
+    <div class="question-card" id="questionCard">
+      <p class="question-prompt" id="questionPrompt">Which sentence is correct?</p>
+      <div class="options" id="optionsWrap"></div>
+      <div class="feedback" id="feedback"></div>
+      <button class="next-btn hidden" id="nextBtn">Next Question</button>
+    </div>
+
+    <div class="end-screen hidden" id="endScreen">
+      <h2 id="endTitle"></h2>
+      <p id="endScore"></p>
+      <p id="endBreakdown"></p>
+      <button class="play-again-btn" id="playAgainBtn">Play Again</button>
+    </div>
+  </div>
+
+  <footer>Summer Activities &middot; CLB 1-3 &middot; Mercedes' ESL Class</footer>
+</div>
+
+<script>
+const CATEGORIES = [
+  { key: "beach", label: "\u{1F3D6}\uFE0F Beach", plain: "Beach" },
+  { key: "nature", label: "\u{1F332} Nature", plain: "Nature" },
+  { key: "trips", label: "\u2708\uFE0F Trips", plain: "Trips" },
+  { key: "sports", label: "\u26BE Sports", plain: "Sports" },
+  { key: "home", label: "\u{1F3E1} Home", plain: "Home" },
+];
+
+const WORDS = [
+  { cat: "beach", emoji: "\u{1F3D6}\uFE0F", base: "go to the beach", ing: "going to the beach",
+    like: "I like going to the beach.", going: "I'm going to go to the beach this weekend." },
+  { cat: "beach", emoji: "\u2600\uFE0F", base: "put on sunscreen", ing: "putting on sunscreen",
+    like: "I like putting on sunscreen.", going: "I'm going to put on sunscreen." },
+  { cat: "beach", emoji: "\u{1F3CA}", base: "swim", ing: "swimming",
+    like: "I like swimming in the lake.", going: "I'm going to swim this weekend." },
+  { cat: "beach", emoji: "\u{1F3F0}", base: "build a sandcastle", ing: "building a sandcastle",
+    like: "I like building sandcastles.", going: "We're going to build a sandcastle." },
+  { cat: "beach", emoji: "\u{1F41A}", base: "collect seashells", ing: "collecting seashells",
+    like: "I like collecting seashells.", going: "I'm going to collect seashells." },
+  { cat: "beach", emoji: "\u26F5", base: "sail a boat", ing: "sailing a boat",
+    like: "I like sailing a boat.", going: "We're going to sail a boat this summer." },
+  { cat: "nature", emoji: "\u{1F697}", base: "drive in the country", ing: "driving in the country",
+    like: "I like driving in the country.", going: "We're going to drive in the country on Sunday." },
+  { cat: "nature", emoji: "\u{1F3D5}\uFE0F", base: "hike in the woods", ing: "hiking in the woods",
+    like: "I like hiking in the woods.", going: "I'm going to hike in the woods this weekend." },
+  { cat: "nature", emoji: "\u{1F40E}", base: "ride a horse", ing: "riding a horse",
+    like: "I like riding a horse.", going: "I'm going to ride a horse at the farm." },
+  { cat: "nature", emoji: "\u{1F6F6}", base: "go whitewater rafting", ing: "going whitewater rafting",
+    like: "I like going whitewater rafting.", going: "We're going to go whitewater rafting." },
+  { cat: "trips", emoji: "\u{1F30A}", base: "go to Hawaii", ing: "going to Hawaii",
+    like: "I like going to Hawaii.", going: "We're going to go to Hawaii next year." },
+  { cat: "trips", emoji: "\u{1F6F3}\uFE0F", base: "go on a cruise", ing: "going on a cruise",
+    like: "I like going on a cruise.", going: "My family is going to go on a cruise." },
+  { cat: "sports", emoji: "\u26F3", base: "play golf", ing: "playing golf",
+    like: "I like playing golf.", going: "I'm going to play golf on Saturday." },
+  { cat: "sports", emoji: "\u26BE", base: "play baseball", ing: "playing baseball",
+    like: "I like playing baseball.", going: "We're going to play baseball this weekend." },
+  { cat: "home", emoji: "\u{1FA91}", base: "sleep in a hammock", ing: "sleeping in a hammock",
+    like: "I like sleeping in a hammock.", going: "I'm going to sleep in a hammock this weekend." },
+  { cat: "home", emoji: "\u{1F34B}", base: "sell lemonade", ing: "selling lemonade",
+    like: "I like selling lemonade in the summer.", going: "My kids are going to sell lemonade." },
+  { cat: "home", emoji: "\u{1F356}", base: "grill food", ing: "grilling food",
+    like: "I like grilling food outside.", going: "We're going to grill food this weekend." },
+  { cat: "home", emoji: "\u{1F331}", base: "plant a garden", ing: "planting a garden",
+    like: "I like planting a garden.", going: "I'm going to plant a garden this summer." },
+  { cat: "home", emoji: "\u{1F6B6}", base: "walk in the park", ing: "walking in the park",
+    like: "I like walking in the park.", going: "I'm going to walk in the park after work." },
+];
+
+/* ---------- Study mode ---------- */
+
+const grid = document.getElementById('grid');
+const filtersEl = document.getElementById('filters');
+const progressLabel = document.getElementById('progressLabel');
+const progressFill = document.getElementById('progressFill');
+const flipped = new Set();
+
+function catLabel(key) {
+  const c = CATEGORIES.find(c => c.key === key);
+  return c ? c.label : key;
+}
+
+function catPlain(key) {
+  const c = CATEGORIES.find(c => c.key === key);
+  return c ? c.plain : key;
+}
+
+function updateProgress() {
+  progressLabel.textContent = `${flipped.size} / ${WORDS.length} cards flipped`;
+  progressFill.style.width = `${(flipped.size / WORDS.length) * 100}%`;
+}
+
+function buildFilters() {
+  const allBtn = document.createElement('button');
+  allBtn.className = 'filter-btn active';
+  allBtn.textContent = 'All';
+  allBtn.dataset.cat = 'all';
+  filtersEl.appendChild(allBtn);
+
+  CATEGORIES.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.textContent = c.label;
+    btn.dataset.cat = c.key;
+    filtersEl.appendChild(btn);
+  });
+
+  filtersEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.card-slot').forEach(slot => {
+      slot.classList.toggle('hidden', cat !== 'all' && slot.dataset.cat !== cat);
+    });
+  });
+}
+
+function buildCards() {
+  WORDS.forEach((w, i) => {
+    const slot = document.createElement('div');
+    slot.className = 'card-slot';
+    slot.dataset.cat = w.cat;
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = `card-${i}`;
+
+    card.innerHTML = `
+      <div class="face front">
+        <div class="stamp">&#9993;</div>
+        <div class="emoji">${w.emoji}</div>
+        <div class="phrase">${w.base}</div>
+        <div class="flip-hint">tap to flip</div>
+      </div>
+      <div class="face back">
+        <div class="postmark">${catPlain(w.cat)}</div>
+        <div class="ing">${w.ing}</div>
+        <div class="example"><b>Like:</b> ${w.like}</div>
+        <div class="example"><b>Going to:</b> ${w.going}</div>
+      </div>
+    `;
+
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+      if (card.classList.contains('flipped')) {
+        flipped.add(i);
+        updateProgress();
+      }
+    });
+
+    slot.appendChild(card);
+    grid.appendChild(slot);
+  });
+}
+
+buildFilters();
+buildCards();
+updateProgress();
+
+/* ---------- Tabs ---------- */
+
+const tabsEl = document.getElementById('tabs');
+const studyView = document.getElementById('studyView');
+const gameView = document.getElementById('gameView');
+
+tabsEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  tabsEl.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const view = btn.dataset.view;
+  studyView.classList.toggle('hidden', view !== 'study');
+  gameView.classList.toggle('hidden', view !== 'game');
+  if (view === 'game' && !gameStarted) {
+    startGame();
+  }
+});
+
+/* ---------- Game mode ---------- */
+
+const QUESTIONS = [
+  // Type A: like + V-ing
+  { type: 'A', options: ["I like swimming in the lake.", "I like swim in the lake.", "I like swiming in the lake."], correct: 0 },
+  { type: 'A', options: ["I like build sandcastles.", "I like building sandcastles.", "I like buildng sandcastles."], correct: 1 },
+  { type: 'A', options: ["I like collect seashells.", "I like colecting seashells.", "I like collecting seashells."], correct: 2 },
+  { type: 'A', options: ["I like sailing a boat.", "I like sail a boat.", "I like sailling a boat."], correct: 0 },
+  { type: 'A', options: ["I like drive in the country.", "I like driveing in the country.", "I like driving in the country."], correct: 2 },
+  { type: 'A', options: ["I like hiking in the woods.", "I like hike in the woods.", "I like hikeing in the woods."], correct: 0 },
+  { type: 'A', options: ["I like ride a horse.", "I like riding a horse.", "I like rideing a horse."], correct: 1 },
+  { type: 'A', options: ["I like going whitewater rafting.", "I like go whitewater rafting.", "I like goeing whitewater rafting."], correct: 0 },
+  { type: 'A', options: ["I like go to Hawaii.", "I like goeing to Hawaii.", "I like going to Hawaii."], correct: 2 },
+  { type: 'A', options: ["I like go on a cruise.", "I like going on a cruise.", "I like goeing on a cruise."], correct: 1 },
+  { type: 'A', options: ["I like play golf.", "I like playng golf.", "I like playing golf."], correct: 2 },
+  { type: 'A', options: ["I like playing baseball.", "I like play baseball.", "I like playng baseball."], correct: 0 },
+  { type: 'A', options: ["I like sleep in a hammock.", "I like sleeping in a hammock.", "I like sleepping in a hammock."], correct: 1 },
+  { type: 'A', options: ["I like selling lemonade.", "I like sell lemonade.", "I like seling lemonade."], correct: 0 },
+  { type: 'A', options: ["I like grill food.", "I like griling food.", "I like grilling food."], correct: 2 },
+  { type: 'A', options: ["I like planting a garden.", "I like plant a garden.", "I like plantting a garden."], correct: 0 },
+  { type: 'A', options: ["I like walk in the park.", "I like walking in the park.", "I like walkking in the park."], correct: 1 },
+  { type: 'A', options: ["I like going to the beach.", "I like go to the beach.", "I like goeing to the beach."], correct: 0 },
+  { type: 'A', options: ["I like put on sunscreen.", "I like putting on sunscreen.", "I like puting on sunscreen."], correct: 1 },
+  // Type B: going to + verb
+  { type: 'B', options: ["This weekend, I'm going to swim.", "This weekend, I'm going to swimming.", "This weekend, I going to swim."], correct: 0 },
+  { type: 'B', options: ["We're going to building a sandcastle.", "We're going to build a sandcastle.", "We going to build a sandcastle."], correct: 1 },
+  { type: 'B', options: ["I'm going to collecting seashells.", "I going to collect seashells.", "I'm going to collect seashells."], correct: 2 },
+  { type: 'B', options: ["We're going to sail a boat.", "We're going to sailing a boat.", "We going to sail a boat."], correct: 0 },
+  { type: 'B', options: ["We're going to driving in the country.", "We're going to drive in the country.", "We going to drive in the country."], correct: 1 },
+  { type: 'B', options: ["I'm going to hiking in the woods.", "I going to hike in the woods.", "I'm going to hike in the woods."], correct: 2 },
+  { type: 'B', options: ["I'm going to ride a horse.", "I'm going to riding a horse.", "I going to ride a horse."], correct: 0 },
+  { type: 'B', options: ["We're going to going whitewater rafting.", "We're going to go whitewater rafting.", "We going to go whitewater rafting."], correct: 1 },
+  { type: 'B', options: ["We're going to going to Hawaii.", "We going to go to Hawaii.", "We're going to go to Hawaii."], correct: 2 },
+  { type: 'B', options: ["My family is going to go on a cruise.", "My family is going to going on a cruise.", "My family going to go on a cruise."], correct: 0 },
+  { type: 'B', options: ["I'm going to playing golf.", "I'm going to play golf.", "I going to play golf."], correct: 1 },
+  { type: 'B', options: ["We're going to play baseball.", "We're going to playing baseball.", "We going to play baseball."], correct: 0 },
+  { type: 'B', options: ["I'm going to sleeping in a hammock.", "I going to sleep in a hammock.", "I'm going to sleep in a hammock."], correct: 2 },
+  { type: 'B', options: ["My kids are going to sell lemonade.", "My kids are going to selling lemonade.", "My kids going to sell lemonade."], correct: 0 },
+  { type: 'B', options: ["We're going to grilling food.", "We're going to grill food.", "We going to grill food."], correct: 1 },
+  { type: 'B', options: ["I'm going to planting a garden.", "I going to plant a garden.", "I'm going to plant a garden."], correct: 2 },
+  { type: 'B', options: ["I'm going to walk in the park.", "I'm going to walking in the park.", "I going to walk in the park."], correct: 0 },
+  { type: 'B', options: ["I'm going to going to the beach.", "I going to go to the beach.", "I'm going to go to the beach."], correct: 2 },
+  { type: 'B', options: ["I'm going to putting on sunscreen.", "I'm going to put on sunscreen.", "I going to put on sunscreen."], correct: 1 },
+];
+
+const ROUND_SIZE = 10;
+let gameStarted = false;
+let roundQuestions = [];
+let qIndex = 0;
+let score = 0;
+let streak = 0;
+let correctByType = { A: 0, B: 0 };
+let totalByType = { A: 0, B: 0 };
+
+const qCounter = document.getElementById('qCounter');
+const scoreDisplay = document.getElementById('scoreDisplay');
+const streakDisplay = document.getElementById('streakDisplay');
+const questionCard = document.getElementById('questionCard');
+const optionsWrap = document.getElementById('optionsWrap');
+const feedbackEl = document.getElementById('feedback');
+const nextBtn = document.getElementById('nextBtn');
+const endScreen = document.getElementById('endScreen');
+const endTitle = document.getElementById('endTitle');
+const endScore = document.getElementById('endScore');
+const endBreakdown = document.getElementById('endBreakdown');
+const playAgainBtn = document.getElementById('playAgainBtn');
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildRound() {
+  const typeA = shuffle(QUESTIONS.filter(q => q.type === 'A')).slice(0, ROUND_SIZE / 2);
+  const typeB = shuffle(QUESTIONS.filter(q => q.type === 'B')).slice(0, ROUND_SIZE / 2);
+  return shuffle(typeA.concat(typeB));
+}
+
+function startGame() {
+  gameStarted = true;
+  roundQuestions = buildRound();
+  qIndex = 0;
+  score = 0;
+  streak = 0;
+  correctByType = { A: 0, B: 0 };
+  totalByType = { A: 0, B: 0 };
+  questionCard.classList.remove('hidden');
+  endScreen.classList.add('hidden');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = roundQuestions[qIndex];
+  qCounter.textContent = `Question ${qIndex + 1} of ${roundQuestions.length}`;
+  scoreDisplay.textContent = `Score: ${score}`;
+  streakDisplay.textContent = `Streak: ${streak}`;
+  feedbackEl.textContent = '';
+  feedbackEl.className = 'feedback';
+  nextBtn.classList.add('hidden');
+
+  const order = shuffle(q.options.map((text, i) => ({ text, isCorrect: i === q.correct })));
+
+  optionsWrap.innerHTML = '';
+  order.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt.text;
+    btn.addEventListener('click', () => selectAnswer(btn, opt.isCorrect, q.type));
+    optionsWrap.appendChild(btn);
+  });
+}
+
+function selectAnswer(btn, isCorrect, type) {
+  optionsWrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+  totalByType[type]++;
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    feedbackEl.textContent = 'Correct! Great job.';
+    feedbackEl.classList.add('good');
+    score++;
+    streak++;
+    correctByType[type]++;
+  } else {
+    btn.classList.add('wrong');
+    optionsWrap.querySelectorAll('.option-btn').forEach(b => {
+      if (!b.classList.contains('wrong') && b.textContent === roundQuestions[qIndex].options[roundQuestions[qIndex].correct]) {
+        b.classList.add('correct');
+      }
+    });
+    feedbackEl.textContent = 'Not quite. The correct sentence is highlighted in green.';
+    feedbackEl.classList.add('bad');
+    streak = 0;
+  }
+
+  scoreDisplay.textContent = `Score: ${score}`;
+  streakDisplay.textContent = `Streak: ${streak}`;
+  nextBtn.classList.remove('hidden');
+}
+
+nextBtn.addEventListener('click', () => {
+  qIndex++;
+  if (qIndex < roundQuestions.length) {
+    renderQuestion();
+  } else {
+    showEndScreen();
+  }
+});
+
+function showEndScreen() {
+  questionCard.classList.add('hidden');
+  endScreen.classList.remove('hidden');
+
+  let title = 'Nice try!';
+  if (score >= 9) title = 'Amazing! You are a Summer Grammar Star!';
+  else if (score >= 7) title = 'Great job!';
+  else if (score >= 5) title = 'Good effort!';
+
+  endTitle.textContent = title;
+  endScore.textContent = `You scored ${score} out of ${roundQuestions.length}.`;
+  endBreakdown.textContent = `Like + V-ing: ${correctByType.A}/${totalByType.A} correct  -  Going to + verb: ${correctByType.B}/${totalByType.B} correct`;
+}
+
+playAgainBtn.addEventListener('click', () => {
+  startGame();
+});
+</script>
+</body>
+</html>
