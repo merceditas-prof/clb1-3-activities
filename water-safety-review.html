@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Being Safe in the Water - Review and Practice</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Verdana, Arial, sans-serif;
+    background: linear-gradient(180deg, #eaf6fb 0%, #ffffff 40%);
+    color: #1b2a3a;
+  }
+  header {
+    background: linear-gradient(90deg, #0f7ea3, #17a2b8);
+    color: #ffffff;
+    padding: 22px 20px 16px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  }
+  header h1 { margin: 0 0 4px; font-size: 1.7em; }
+  header p { margin: 0; font-size: 1em; opacity: 0.95; }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 18px auto 6px;
+    max-width: 700px;
+    padding: 0 12px;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 12px 10px;
+    font-size: 1.05em;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    background: #d7ecf3;
+    color: #0f7ea3;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn.active {
+    background: #0f7ea3;
+    color: #ffffff;
+    box-shadow: 0 3px 8px rgba(15,126,163,0.4);
+  }
+
+  .panel { display: none; max-width: 1000px; margin: 0 auto; padding: 10px 16px 50px; }
+  .panel.active { display: block; }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 14px 0 18px;
+  }
+  .filter-pill {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 2px solid #0f7ea3;
+    background: #ffffff;
+    color: #0f7ea3;
+    font-weight: 600;
+    font-size: 0.9em;
+    cursor: pointer;
+  }
+  .filter-pill.active {
+    background: #0f7ea3;
+    color: #ffffff;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+    padding: 14px;
+    text-align: center;
+    border: 3px solid transparent;
+  }
+  .card.device { border-color: #f39c12; }
+  .card.vocab { border-color: #17a2b8; }
+  .card .icon-box { width: 96px; height: 96px; margin: 4px auto 8px; }
+  .card .icon-box svg { width: 100%; height: 100%; }
+  .card .term { font-size: 1.15em; font-weight: 700; margin-bottom: 6px; text-transform: capitalize; }
+  .card .sentence { font-size: 0.88em; color: #45566b; line-height: 1.3; }
+
+  .rule-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: stretch;
+  }
+  .rule-card {
+    flex: 1;
+    min-width: 220px;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    color: #ffffff;
+  }
+  .rule-card.always { background: linear-gradient(160deg, #27ae60, #1e8449); }
+  .rule-card.never { background: linear-gradient(160deg, #e74c3c, #b03a2e); }
+  .rule-card .tag { font-size: 0.85em; letter-spacing: 1px; text-transform: uppercase; opacity: 0.9; margin-bottom: 4px; }
+  .rule-card .icon-box { width: 78px; height: 78px; margin: 6px auto 8px; background: rgba(255,255,255,0.15); border-radius: 50%; padding: 8px; }
+  .rule-card .icon-box svg { width: 100%; height: 100%; }
+  .rule-card .rule-text { font-size: 1.05em; font-weight: 700; }
+
+  /* Quiz styles */
+  .quiz-wrap { max-width: 640px; margin: 0 auto; text-align: center; }
+  .quiz-stats {
+    display: flex;
+    justify-content: space-between;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 10px 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 16px;
+    font-weight: 700;
+    color: #0f7ea3;
+  }
+  .quiz-card {
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    padding: 24px 20px;
+  }
+  .quiz-icon-box { width: 130px; height: 130px; margin: 0 auto 14px; }
+  .quiz-icon-box svg { width: 100%; height: 100%; }
+  .quiz-prompt { font-size: 1.2em; font-weight: 700; margin-bottom: 18px; }
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .quiz-options.two-col-wide { grid-template-columns: 1fr; }
+  .opt-btn {
+    padding: 14px 10px;
+    font-size: 1.05em;
+    font-weight: 600;
+    border-radius: 12px;
+    border: 2px solid #cfe3ea;
+    background: #f5fbfd;
+    color: #1b2a3a;
+    cursor: pointer;
+  }
+  .opt-btn:hover { border-color: #0f7ea3; }
+  .opt-btn.correct { background: #27ae60; border-color: #27ae60; color: #fff; }
+  .opt-btn.wrong { background: #e74c3c; border-color: #e74c3c; color: #fff; }
+  .opt-btn[disabled] { cursor: default; }
+
+  .rule-btn.always { border-color: #27ae60; }
+  .rule-btn.never { border-color: #e74c3c; }
+
+  .feedback { margin-top: 14px; font-weight: 700; min-height: 24px; }
+  .feedback.good { color: #1e8449; }
+  .feedback.bad { color: #b03a2e; }
+
+  .next-btn, .play-again-btn {
+    margin-top: 16px;
+    padding: 12px 24px;
+    font-size: 1em;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    background: #0f7ea3;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .end-screen { text-align: center; padding: 30px 10px; }
+  .end-screen .big-score { font-size: 2.4em; font-weight: 800; color: #0f7ea3; margin-bottom: 8px; }
+  .end-screen .tier-msg { font-size: 1.15em; margin-bottom: 20px; }
+
+  footer { text-align: center; padding: 18px; color: #6b7c8f; font-size: 0.85em; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Being Safe in the Water</h1>
+  <p>Vocabulary review and practice - floating devices, Always and Never rules</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" id="tabStudyBtn" onclick="showTab('study')">Study Cards</button>
+  <button class="tab-btn" id="tabQuizBtn" onclick="showTab('quiz')">Practice Quiz</button>
+</div>
+
+<div class="panel active" id="study">
+  <div class="filters">
+    <button class="filter-pill active" onclick="filterStudy('all', this)">All</button>
+    <button class="filter-pill" onclick="filterStudy('devices', this)">Floating Devices</button>
+    <button class="filter-pill" onclick="filterStudy('vocab', this)">Key Vocabulary</button>
+    <button class="filter-pill" onclick="filterStudy('rules', this)">Always and Never Rules</button>
+  </div>
+
+  <div id="devicesSection" class="study-section">
+    <h2>Floating Devices</h2>
+    <div class="card-grid" id="devicesGrid"></div>
+  </div>
+
+  <div id="vocabSection" class="study-section">
+    <h2>Key Vocabulary</h2>
+    <div class="card-grid" id="vocabGrid"></div>
+  </div>
+
+  <div id="rulesSection" class="study-section">
+    <h2>Always and Never Rules</h2>
+    <div id="rulesRows"></div>
+  </div>
+</div>
+
+<div class="panel" id="quiz">
+  <div class="quiz-wrap">
+    <div class="quiz-stats">
+      <span id="statScore">Score: 0</span>
+      <span id="statStreak">Streak: 0</span>
+      <span id="statProgress">Question 0 / 0</span>
+    </div>
+    <div id="quizArea"></div>
+  </div>
+</div>
+
+<footer>CLB 1-3 - Being Safe in the Water - review activity</footer>
+
+<script>
+/* ---------- ICON LIBRARY (all inline SVG, no external images) ---------- */
+const ICONS = {
+  poolRing: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="60" r="42" fill="none" stroke="#e74c3c" stroke-width="20"/>
+    <circle cx="60" cy="60" r="42" fill="none" stroke="#ffffff" stroke-width="7" stroke-dasharray="14 12"/>
+    <circle cx="60" cy="60" r="18" fill="#eaf6fb"/>
+  </svg>`,
+
+  waterWings: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="40" cy="60" rx="24" ry="34" fill="#f39c12"/>
+    <ellipse cx="80" cy="60" rx="24" ry="34" fill="#f39c12"/>
+    <ellipse cx="40" cy="60" rx="7" ry="34" fill="#ffffff"/>
+    <ellipse cx="80" cy="60" rx="7" ry="34" fill="#ffffff"/>
+    <rect x="46" y="55" width="28" height="10" rx="5" fill="#d35400"/>
+  </svg>`,
+
+  poolFloat: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect x="10" y="42" width="100" height="38" rx="19" fill="#1abc9c"/>
+    <rect x="22" y="52" width="76" height="18" rx="9" fill="#a6ecdf"/>
+    <circle cx="30" cy="30" r="8" fill="#f1c40f"/>
+  </svg>`,
+
+  poolNoodle: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <path d="M28,95 Q28,20 60,20 Q92,20 92,60" fill="none" stroke="#2ecc71" stroke-width="18" stroke-linecap="round"/>
+    <circle cx="28" cy="95" r="11" fill="#27ae60"/>
+  </svg>`,
+
+  lifeJacket: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect x="34" y="26" width="52" height="70" rx="12" fill="#e67e22"/>
+    <path d="M50,26 L60,42 L70,26 Z" fill="#eaf6fb"/>
+    <rect x="40" y="52" width="40" height="7" fill="#c1590c"/>
+    <rect x="40" y="68" width="40" height="7" fill="#c1590c"/>
+    <circle cx="60" cy="88" r="6" fill="#eaf6fb"/>
+  </svg>`,
+
+  wearVest: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="18" r="12" fill="#34495e"/>
+    <rect x="34" y="34" width="52" height="66" rx="12" fill="#e67e22"/>
+    <path d="M50,34 L60,50 L70,34 Z" fill="#eaf6fb"/>
+    <rect x="40" y="58" width="40" height="7" fill="#c1590c"/>
+    <rect x="18" y="40" width="14" height="45" rx="7" fill="#34495e"/>
+    <rect x="88" y="40" width="14" height="45" rx="7" fill="#34495e"/>
+  </svg>`,
+
+  diveHeadfirst: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="30" cy="30" r="10" fill="#34495e"/>
+    <line x1="38" y1="36" x2="80" y2="66" stroke="#34495e" stroke-width="9" stroke-linecap="round"/>
+    <line x1="80" y1="66" x2="100" y2="50" stroke="#34495e" stroke-width="7" stroke-linecap="round"/>
+    <line x1="80" y1="66" x2="95" y2="88" stroke="#34495e" stroke-width="7" stroke-linecap="round"/>
+    <path d="M10,95 Q35,85 60,95 Q85,105 110,95" fill="none" stroke="#2980b9" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="98" cy="30" r="16" fill="#e74c3c"/>
+    <text x="98" y="37" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">X</text>
+  </svg>`,
+
+  feetFirst: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="20" r="10" fill="#34495e"/>
+    <line x1="60" y1="30" x2="60" y2="62" stroke="#34495e" stroke-width="9" stroke-linecap="round"/>
+    <line x1="60" y1="36" x2="42" y2="20" stroke="#34495e" stroke-width="7" stroke-linecap="round"/>
+    <line x1="60" y1="36" x2="78" y2="20" stroke="#34495e" stroke-width="7" stroke-linecap="round"/>
+    <line x1="60" y1="62" x2="50" y2="90" stroke="#34495e" stroke-width="8" stroke-linecap="round"/>
+    <line x1="60" y1="62" x2="70" y2="90" stroke="#34495e" stroke-width="8" stroke-linecap="round"/>
+    <path d="M15,92 Q37,82 60,92 Q83,102 105,92" fill="none" stroke="#2980b9" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="98" cy="30" r="16" fill="#27ae60"/>
+    <path d="M90,30 L96,37 L108,22" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`,
+
+  watchEye: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10,45 Q60,10 110,45 Q60,80 10,45 Z" fill="#eaf6fb" stroke="#0f7ea3" stroke-width="5"/>
+    <circle cx="60" cy="45" r="16" fill="#0f7ea3"/>
+    <circle cx="60" cy="45" r="6" fill="#0b1b2a"/>
+    <circle cx="30" cy="95" r="10" fill="#f5c16c"/>
+    <path d="M18,112 Q30,90 42,112 Z" fill="#e67e22"/>
+  </svg>`,
+
+  turnBack: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="45" cy="24" r="12" fill="#34495e"/>
+    <rect x="27" y="38" width="36" height="46" rx="12" fill="#34495e"/>
+    <rect x="20" y="40" width="10" height="30" rx="5" fill="#34495e"/>
+    <rect x="60" y="40" width="10" height="30" rx="5" fill="#34495e"/>
+    <circle cx="95" cy="90" r="9" fill="#f5c16c"/>
+    <path d="M85,110 Q95,92 105,110 Z" fill="#3498db"/>
+    <circle cx="90" cy="30" r="15" fill="#e74c3c"/>
+    <text x="90" y="37" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">X</text>
+  </svg>`,
+
+  aloneFigure: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="60" cy="28" r="13" fill="#34495e"/>
+    <line x1="60" y1="41" x2="60" y2="80" stroke="#34495e" stroke-width="10" stroke-linecap="round"/>
+    <line x1="60" y1="52" x2="38" y2="70" stroke="#34495e" stroke-width="8" stroke-linecap="round"/>
+    <line x1="60" y1="52" x2="82" y2="70" stroke="#34495e" stroke-width="8" stroke-linecap="round"/>
+    <line x1="60" y1="80" x2="46" y2="106" stroke="#34495e" stroke-width="9" stroke-linecap="round"/>
+    <line x1="60" y1="80" x2="74" y2="106" stroke="#34495e" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="60" cy="60" r="52" fill="none" stroke="#e74c3c" stroke-width="7"/>
+    <line x1="24" y1="24" x2="96" y2="96" stroke="#e74c3c" stroke-width="7"/>
+  </svg>`,
+
+  friendsFigures: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="38" cy="28" r="12" fill="#34495e"/>
+    <line x1="38" y1="40" x2="38" y2="76" stroke="#34495e" stroke-width="9" stroke-linecap="round"/>
+    <line x1="38" y1="76" x2="26" y2="102" stroke="#34495e" stroke-width="8" stroke-linecap="round"/>
+    <line x1="38" y1="76" x2="50" y2="102" stroke="#34495e" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="82" cy="28" r="12" fill="#0f7ea3"/>
+    <line x1="82" y1="40" x2="82" y2="76" stroke="#0f7ea3" stroke-width="9" stroke-linecap="round"/>
+    <line x1="82" y1="76" x2="70" y2="102" stroke="#0f7ea3" stroke-width="8" stroke-linecap="round"/>
+    <line x1="82" y1="76" x2="94" y2="102" stroke="#0f7ea3" stroke-width="8" stroke-linecap="round"/>
+    <line x1="50" y1="58" x2="70" y2="58" stroke="#7f8c8d" stroke-width="7" stroke-linecap="round"/>
+  </svg>`,
+
+  dangerousWater: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect x="8" y="55" width="104" height="50" rx="8" fill="#8d6e4a"/>
+    <path d="M8,60 Q30,50 52,60 Q74,70 96,60 Q104,57 112,60" fill="none" stroke="#6b4f30" stroke-width="5"/>
+    <path d="M8,75 Q30,65 52,75 Q74,85 96,75 Q104,72 112,75" fill="none" stroke="#6b4f30" stroke-width="5"/>
+    <path d="M60,10 L100,80 L20,80 Z" fill="#e74c3c"/>
+    <rect x="56" y="30" width="8" height="26" fill="#ffffff"/>
+    <circle cx="60" cy="65" r="5" fill="#ffffff"/>
+  </svg>`,
+
+  safeWater: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect x="8" y="55" width="104" height="50" rx="8" fill="#3498db"/>
+    <path d="M8,60 Q30,50 52,60 Q74,70 96,60 Q104,57 112,60" fill="none" stroke="#2471a3" stroke-width="5"/>
+    <path d="M8,75 Q30,65 52,75 Q74,85 96,75 Q104,72 112,75" fill="none" stroke="#2471a3" stroke-width="5"/>
+    <circle cx="60" cy="30" r="20" fill="#27ae60"/>
+    <path d="M50,30 L58,40 L74,18" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`,
+
+  waterQuestion: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect x="8" y="55" width="104" height="50" rx="8" fill="#7f8c8d"/>
+    <path d="M8,60 Q30,50 52,60 Q74,70 96,60 Q104,57 112,60" fill="none" stroke="#5f6a6a" stroke-width="5"/>
+    <path d="M8,75 Q30,65 52,75 Q74,85 96,75 Q104,72 112,75" fill="none" stroke="#5f6a6a" stroke-width="5"/>
+    <circle cx="60" cy="30" r="20" fill="#f39c12"/>
+    <text x="60" y="40" font-size="26" font-weight="bold" fill="#ffffff" text-anchor="middle">?</text>
+  </svg>`,
+
+  swimmerBook: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="34" cy="42" r="11" fill="#f5c16c"/>
+    <path d="M20,58 Q34,48 48,58" fill="none" stroke="#0f7ea3" stroke-width="8" stroke-linecap="round"/>
+    <path d="M16,70 Q34,60 52,70" fill="none" stroke="#0f7ea3" stroke-width="8" stroke-linecap="round"/>
+    <path d="M8,90 Q40,80 72,90" fill="none" stroke="#3498db" stroke-width="6" stroke-linecap="round"/>
+    <rect x="66" y="50" width="44" height="34" rx="4" fill="#e67e22"/>
+    <line x1="88" y1="50" x2="88" y2="84" stroke="#ffffff" stroke-width="3"/>
+    <line x1="72" y1="58" x2="84" y2="58" stroke="#ffffff" stroke-width="3"/>
+    <line x1="72" y1="66" x2="84" y2="66" stroke="#ffffff" stroke-width="3"/>
+    <line x1="92" y1="58" x2="104" y2="58" stroke="#ffffff" stroke-width="3"/>
+    <line x1="92" y1="66" x2="104" y2="66" stroke="#ffffff" stroke-width="3"/>
+  </svg>`,
+
+  handRing: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="82" cy="40" r="26" fill="none" stroke="#e74c3c" stroke-width="12"/>
+    <circle cx="82" cy="40" r="26" fill="none" stroke="#ffffff" stroke-width="4" stroke-dasharray="8 8"/>
+    <rect x="14" y="80" width="34" height="22" rx="10" fill="#f5c16c"/>
+    <rect x="18" y="68" width="8" height="20" rx="4" fill="#f5c16c"/>
+    <rect x="28" y="64" width="8" height="24" rx="4" fill="#f5c16c"/>
+    <rect x="38" y="68" width="8" height="20" rx="4" fill="#f5c16c"/>
+    <line x1="48" y1="80" x2="66" y2="55" stroke="#7f8c8d" stroke-width="4" stroke-dasharray="4 4"/>
+  </svg>`
+};
+
+function iconSvg(key) { return ICONS[key] || ''; }
+
+/* ---------- CONTENT DATA ---------- */
+const DEVICES = [
+  { key: 'poolRing',   name: 'pool ring (pool tube)' },
+  { key: 'waterWings', name: 'water wings' },
+  { key: 'poolFloat',  name: 'pool float' },
+  { key: 'poolNoodle', name: 'pool noodle' },
+  { key: 'lifeJacket', name: 'life jacket' }
+];
+
+const VOCAB = [
+  { icon: 'diveHeadfirst', term: 'dive', sentence: 'Never dive in unknown water.' },
+  { icon: 'feetFirst', term: 'feet first', sentence: 'Always enter unknown water feet first.' },
+  { icon: 'waterQuestion', term: 'unknown water', sentence: 'You do not know how deep unknown water is. Be careful.' },
+  { icon: 'swimmerBook', term: 'take swimming lessons', sentence: 'Children take swimming lessons. Adults can take swimming lessons too.' },
+  { icon: 'handRing', term: 'take a floating device', sentence: 'Take a pool noodle or a pool float to play in the water.' },
+  { icon: 'wearVest', term: 'wear a floating device', sentence: 'Wear a life jacket if you cannot swim well.' },
+  { icon: 'watchEye', term: 'watch child / children', sentence: 'Always watch children when they are in the water.' },
+  { icon: 'turnBack', term: 'turn your back on', sentence: 'Never turn your back on a child who is near water.' },
+  { icon: 'aloneFigure', term: 'alone', sentence: 'Never swim alone. Always swim with a friend.' },
+  { icon: 'dangerousWater', term: 'dangerous water', sentence: 'Murky, cloudy water can be dangerous water.' },
+  { icon: 'safeWater', term: 'safe water', sentence: 'A clean pool with a lifeguard is safe water.' }
+];
+
+const RULES = [
+  { rule: 'Swim with a friend.', answer: 'always', icon: 'friendsFigures' },
+  { rule: 'Swim alone.', answer: 'never', icon: 'aloneFigure' },
+  { rule: 'Watch children in the water.', answer: 'always', icon: 'watchEye' },
+  { rule: 'Turn your back on a child near water.', answer: 'never', icon: 'turnBack' },
+  { rule: 'Enter unknown water feet first.', answer: 'always', icon: 'feetFirst' },
+  { rule: 'Dive in unknown water.', answer: 'never', icon: 'diveHeadfirst' }
+];
+
+const VOCAB_QUESTIONS = [
+  { type: 'vocab', icon: 'feetFirst', prompt: 'Always enter unknown water ____.', options: ['feet first', 'headfirst', 'slowly'], answer: 0 },
+  { type: 'vocab', icon: 'diveHeadfirst', prompt: 'It is not safe to ____ in unknown water.', options: ['dive', 'float', 'rest'], answer: 0 },
+  { type: 'vocab', icon: 'waterQuestion', prompt: 'A lake is ____ water if you do not know how deep it is.', options: ['unknown', 'clean', 'warm'], answer: 0 },
+  { type: 'vocab', icon: 'swimmerBook', prompt: 'Children ____ swimming lessons at the pool.', options: ['take', 'wear', 'watch'], answer: 0 },
+  { type: 'vocab', icon: 'handRing', prompt: 'You want to play with a pool float. First, ____ it from an adult.', options: ['take', 'wear', 'dive'], answer: 0 },
+  { type: 'vocab', icon: 'wearVest', prompt: 'You cannot swim well. You should ____ a life jacket.', options: ['wear', 'take', 'dive'], answer: 0 },
+  { type: 'vocab', icon: 'watchEye', prompt: 'Parents must always ____ their children near water.', options: ['watch', 'ignore', 'dive'], answer: 0 },
+  { type: 'vocab', icon: 'turnBack', prompt: 'Never ____ on a child who is near water.', options: ['turn your back', 'smile', 'swim'], answer: 0 },
+  { type: 'vocab', icon: 'aloneFigure', prompt: 'Never swim ____. Swim with a friend instead.', options: ['alone', 'together', 'fast'], answer: 0 },
+  { type: 'vocab', icon: 'dangerousWater', prompt: 'Murky, cloudy water can be ____ water.', options: ['dangerous', 'safe', 'warm'], answer: 0 },
+  { type: 'vocab', icon: 'safeWater', prompt: 'A clean pool with a lifeguard is ____ water.', options: ['safe', 'dangerous', 'deep'], answer: 0 }
+];
+
+/* ---------- RENDER STUDY CARDS ---------- */
+function renderDevices() {
+  const grid = document.getElementById('devicesGrid');
+  grid.innerHTML = DEVICES.map(d => `
+    <div class="card device">
+      <div class="icon-box">${iconSvg(d.key)}</div>
+      <div class="term">${d.name}</div>
+    </div>
+  `).join('');
+}
+
+function renderVocab() {
+  const grid = document.getElementById('vocabGrid');
+  grid.innerHTML = VOCAB.map(v => `
+    <div class="card vocab">
+      <div class="icon-box">${iconSvg(v.icon)}</div>
+      <div class="term">${v.term}</div>
+      <div class="sentence">${v.sentence}</div>
+    </div>
+  `).join('');
+}
+
+function renderRules() {
+  const container = document.getElementById('rulesRows');
+  const alwaysRules = RULES.filter(r => r.answer === 'always');
+  const neverRules = RULES.filter(r => r.answer === 'never');
+  let html = '<div class="rule-row">';
+  for (let i = 0; i < alwaysRules.length; i++) {
+    html += `
+      <div class="rule-card always">
+        <div class="tag">Always</div>
+        <div class="icon-box">${iconSvg(alwaysRules[i].icon)}</div>
+        <div class="rule-text">${alwaysRules[i].rule}</div>
+      </div>
+      <div class="rule-card never">
+        <div class="tag">Never</div>
+        <div class="icon-box">${iconSvg(neverRules[i].icon)}</div>
+        <div class="rule-text">${neverRules[i].rule}</div>
+      </div>
+    `;
+  }
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+renderDevices();
+renderVocab();
+renderRules();
+
+/* ---------- TABS ---------- */
+function showTab(name) {
+  document.getElementById('study').classList.toggle('active', name === 'study');
+  document.getElementById('quiz').classList.toggle('active', name === 'quiz');
+  document.getElementById('tabStudyBtn').classList.toggle('active', name === 'study');
+  document.getElementById('tabQuizBtn').classList.toggle('active', name === 'quiz');
+  if (name === 'quiz' && !quizStarted) startQuiz();
+}
+
+function filterStudy(which, btn) {
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const dSec = document.getElementById('devicesSection');
+  const vSec = document.getElementById('vocabSection');
+  const rSec = document.getElementById('rulesSection');
+  if (which === 'all') { dSec.style.display = ''; vSec.style.display = ''; rSec.style.display = ''; }
+  if (which === 'devices') { dSec.style.display = ''; vSec.style.display = 'none'; rSec.style.display = 'none'; }
+  if (which === 'vocab') { dSec.style.display = 'none'; vSec.style.display = ''; rSec.style.display = 'none'; }
+  if (which === 'rules') { dSec.style.display = 'none'; vSec.style.display = 'none'; rSec.style.display = ''; }
+}
+
+/* ---------- QUIZ LOGIC ---------- */
+let quizStarted = false;
+let quizQuestions = [];
+let quizIndex = 0;
+let score = 0;
+let streak = 0;
+const ROUND_SIZE = 12;
+
+function shuffleArr(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildBank() {
+  const bank = [];
+  DEVICES.forEach(d => {
+    const distractors = shuffleArr(DEVICES.filter(x => x.key !== d.key)).slice(0, 3).map(x => x.name);
+    const options = shuffleArr([d.name, ...distractors]);
+    bank.push({ type: 'device', icon: d.key, prompt: 'What is this called?', options, answer: options.indexOf(d.name) });
+  });
+  RULES.forEach(r => {
+    bank.push({ type: 'rule', icon: r.icon, prompt: r.rule, options: ['Always', 'Never'], answer: r.answer === 'always' ? 0 : 1 });
+  });
+  VOCAB_QUESTIONS.forEach(v => {
+    const options = shuffleArr(v.options.map((opt, i) => ({ opt, correct: i === v.answer })));
+    bank.push({ type: 'vocab', icon: v.icon, prompt: v.prompt, options: options.map(o => o.opt), answer: options.findIndex(o => o.correct) });
+  });
+  return bank;
+}
+
+function startQuiz() {
+  quizStarted = true;
+  const bank = buildBank();
+  quizQuestions = shuffleArr(bank).slice(0, ROUND_SIZE);
+  quizIndex = 0;
+  score = 0;
+  streak = 0;
+  renderQuestion();
+}
+
+function updateStats() {
+  document.getElementById('statScore').textContent = 'Score: ' + score;
+  document.getElementById('statStreak').textContent = 'Streak: ' + streak;
+  document.getElementById('statProgress').textContent = 'Question ' + (quizIndex + 1) + ' / ' + quizQuestions.length;
+}
+
+function renderQuestion() {
+  if (quizIndex >= quizQuestions.length) { renderEnd(); return; }
+  updateStats();
+  const q = quizQuestions[quizIndex];
+  const area = document.getElementById('quizArea');
+  const optClass = q.type === 'rule' ? 'quiz-options two-col-wide' : 'quiz-options';
+  area.innerHTML = `
+    <div class="quiz-card">
+      <div class="quiz-icon-box">${iconSvg(q.icon)}</div>
+      <div class="quiz-prompt">${q.prompt}</div>
+      <div class="${optClass}" id="optWrap">
+        ${q.options.map((o, i) => `<button class="opt-btn ${q.type === 'rule' ? (o === 'Always' ? 'rule-btn always' : 'rule-btn never') : ''}" onclick="answerQuestion(${i})">${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  `;
+}
+
+function answerQuestion(i) {
+  const q = quizQuestions[quizIndex];
+  const buttons = document.querySelectorAll('#optWrap .opt-btn');
+  buttons.forEach(b => b.setAttribute('disabled', 'true'));
+  const feedback = document.getElementById('feedback');
+  if (i === q.answer) {
+    buttons[i].classList.add('correct');
+    score++;
+    streak++;
+    feedback.textContent = 'Correct!';
+    feedback.className = 'feedback good';
+  } else {
+    buttons[i].classList.add('wrong');
+    buttons[q.answer].classList.add('correct');
+    streak = 0;
+    feedback.textContent = 'Not quite. The correct answer is: ' + q.options[q.answer];
+    feedback.className = 'feedback bad';
+  }
+  updateStats();
+  const area = document.getElementById('quizArea');
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'next-btn';
+  nextBtn.textContent = (quizIndex === quizQuestions.length - 1) ? 'See Results' : 'Next Question';
+  nextBtn.onclick = () => { quizIndex++; renderQuestion(); };
+  area.querySelector('.quiz-card').appendChild(nextBtn);
+}
+
+function renderEnd() {
+  const area = document.getElementById('quizArea');
+  const total = quizQuestions.length;
+  let msg = '';
+  const pct = score / total;
+  if (pct === 1) msg = 'Perfect score! You know how to be safe in the water.';
+  else if (pct >= 0.8) msg = 'Great work! You remember the water safety rules well.';
+  else if (pct >= 0.5) msg = 'Good try! Review the Study Cards and play again.';
+  else msg = 'Keep practicing! Look at the Study Cards, then try again.';
+  area.innerHTML = `
+    <div class="quiz-card end-screen">
+      <div class="big-score">${score} / ${total}</div>
+      <div class="tier-msg">${msg}</div>
+      <button class="play-again-btn" onclick="startQuiz()">Play Again</button>
+    </div>
+  `;
+  updateStats();
+}
+</script>
+</body>
+</html>
