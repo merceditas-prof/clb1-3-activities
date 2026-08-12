@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>In My Town - CLB 1-3</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f7fb;
+  color: #1f2d3d;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #2e5aa8;
+  color: #ffffff;
+  padding: 24px 20px;
+  text-align: center;
+}
+header h1 { margin: 0 0 6px 0; font-size: 28px; }
+header p { margin: 0; font-size: 15px; opacity: 0.92; }
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  background: #ffffff;
+  padding: 14px 10px;
+  border-bottom: 2px solid #dbe4f0;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 10px 22px;
+  border: 2px solid #2e5aa8;
+  background: #ffffff;
+  color: #2e5aa8;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.tab-btn.active { background: #2e5aa8; color: #ffffff; }
+.panel { display: none; max-width: 1000px; margin: 0 auto; padding: 24px 16px 60px 16px; }
+.panel.active { display: block; }
+.card {
+  background: #ffffff;
+  border: 1px solid #dbe4f0;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.card h2 { margin-top: 0; color: #2e5aa8; }
+.card h3 { color: #1f2d3d; margin-bottom: 8px; }
+svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.building { cursor: pointer; }
+.building rect { stroke-width: 2; transition: stroke-width 0.15s; }
+.building:hover rect, .building.selected rect { stroke-width: 4; }
+.building text { font-size: 13px; font-weight: bold; fill: #1f2d3d; pointer-events: none; }
+#sentenceBox {
+  background: #eef4ff;
+  border: 2px solid #2e5aa8;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-top: 14px;
+  font-size: 17px;
+  min-height: 30px;
+}
+.legend { display: flex; gap: 20px; justify-content: center; margin-top: 10px; font-size: 14px; flex-wrap: wrap; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.swatch { width: 16px; height: 16px; border-radius: 4px; display: inline-block; border: 2px solid; }
+table { border-collapse: collapse; width: 100%; margin: 10px 0 16px 0; }
+th, td { border: 1px solid #dbe4f0; padding: 10px 12px; text-align: left; font-size: 15px; }
+th { background: #eef4ff; color: #2e5aa8; }
+.note { background: #fff8e1; border-left: 4px solid #e0a800; padding: 10px 14px; border-radius: 6px; font-size: 14px; margin-top: 10px; }
+.section-banner {
+  color: #ffffff;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+.banner-class { background: #2e7d4f; }
+.banner-home { background: #c26a1d; }
+.exercise-item { margin-bottom: 12px; font-size: 16px; }
+.exercise-item input[type=text] {
+  width: 70px;
+  padding: 4px 8px;
+  font-size: 15px;
+  border: 2px solid #b8c6dc;
+  border-radius: 6px;
+  margin: 0 4px;
+  text-align: center;
+}
+.exercise-item select {
+  padding: 4px 8px;
+  font-size: 15px;
+  border: 2px solid #b8c6dc;
+  border-radius: 6px;
+  margin: 0 4px;
+}
+.correct { background: #d4f4dd !important; border-color: #2e7d4f !important; }
+.incorrect { background: #ffd6d6 !important; border-color: #c0392b !important; }
+.check-btn {
+  background: #2e5aa8;
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 6px;
+}
+.score { font-weight: bold; margin-top: 10px; font-size: 15px; }
+textarea {
+  width: 100%;
+  min-height: 110px;
+  font-size: 15px;
+  padding: 10px;
+  border: 2px solid #b8c6dc;
+  border-radius: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.wordbank { background: #eef4ff; border-radius: 8px; padding: 12px 16px; font-size: 15px; margin: 10px 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>In My Town</h1>
+  <p>CLB 1-3 - Places in the City, Prepositions, and There is / There are</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('map', this)">Town Map</button>
+  <button class="tab-btn" onclick="showTab('grammar', this)">Grammar</button>
+  <button class="tab-btn" onclick="showTab('practice', this)">Practice</button>
+</div>
+
+<div id="map" class="panel active">
+  <div class="card">
+    <h2>Close to / Near / Far from</h2>
+    <p>Close to and near mean the same thing. Far from is the opposite.</p>
+    <ul>
+      <li>I live close to the library. = I live near the library.</li>
+      <li>I live far from the fire station.</li>
+      <li>The school is near the community centre.</li>
+      <li>The pharmacy is far from the bus stop.</li>
+      <li>My apartment is close to the grocery store.</li>
+      <li>The gas station is far from the police station.</li>
+      <li>The post office is near the shopping mall.</li>
+      <li>The hospital is far from the park.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Explore the Map</h2>
+    <p>Click a building. Read the sentence about the distance from home.</p>
+    <svg id="townMap" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="legend">
+      <span><span class="swatch" style="background:#d4f4dd;border-color:#2e7d4f;"></span> Near / close to my house</span>
+      <span><span class="swatch" style="background:#ffe3c2;border-color:#c26a1d;"></span> Far from my house</span>
+    </div>
+    <div id="sentenceBox">Click a building on the map to see a sentence.</div>
+  </div>
+</div>
+
+<div id="grammar" class="panel">
+  <div class="card">
+    <h2>Chart 1: There is / There are</h2>
+    <table>
+      <tr><th></th><th>Meaning</th><th>Example</th></tr>
+      <tr><td>There is</td><td>one thing</td><td>There is a bank on Main Street.</td></tr>
+      <tr><td>There is</td><td>one thing</td><td>There is a park near the school.</td></tr>
+      <tr><td>There are</td><td>more than one thing</td><td>There are two schools in town.</td></tr>
+      <tr><td>There are</td><td>more than one thing</td><td>There are three restaurants downtown.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Chart 2: Singular and Plural (a / an)</h2>
+    <table>
+      <tr><th>One (a / an + noun)</th><th>More than one (noun + s)</th></tr>
+      <tr><td>a bank</td><td>banks</td></tr>
+      <tr><td>a police station</td><td>police stations</td></tr>
+      <tr><td>a fire station</td><td>fire stations</td></tr>
+      <tr><td>a coffee shop</td><td>coffee shops</td></tr>
+      <tr><td>a community centre</td><td>community centres</td></tr>
+      <tr><td>a bus stop</td><td>bus stops</td></tr>
+      <tr><td>an apartment building</td><td>apartment buildings</td></tr>
+      <tr><td>an office</td><td>offices</td></tr>
+    </table>
+    <div class="note">Quick note: use "a" before a consonant sound (a bank, a school). Use "an" before a vowel sound (an office, an apartment building, an ATM).</div>
+  </div>
+</div>
+
+<div id="practice" class="panel">
+
+  <div class="card">
+    <span class="section-banner banner-class">IN CLASS</span>
+
+    <h3>Activity 1: Complete with is or are</h3>
+    <div id="ex1"></div>
+    <button class="check-btn" onclick="checkExercise('ex1', ex1Data, 'ex1score')">Check Answers</button>
+    <div class="score" id="ex1score"></div>
+
+    <h3>Activity 2: Match the sentence to is or are</h3>
+    <div id="ex2"></div>
+    <button class="check-btn" onclick="checkExercise('ex2', ex2Data, 'ex2score')">Check Answers</button>
+    <div class="score" id="ex2score"></div>
+
+    <h3>Activity 3: Pair Speaking</h3>
+    <p>Ask your partner. Use the word bank below.</p>
+    <div class="wordbank">bank, library, park, pharmacy, coffee shop, community centre, bus stop, grocery store, apartment building</div>
+    <p>"Is there a ___ near your house?" "Yes, there is." / "No, there isn't."</p>
+    <p>"Are there any ___ near your house?" "Yes, there are." / "No, there aren't."</p>
+  </div>
+
+  <div class="card">
+    <span class="section-banner banner-home">HOMEWORK</span>
+
+    <h3>Activity 4: Complete with is or are</h3>
+    <div id="ex4"></div>
+    <button class="check-btn" onclick="checkExercise('ex4', ex4Data, 'ex4score')">Check Answers</button>
+    <div class="score" id="ex4score"></div>
+
+    <h3>Activity 5: Match each place to its plural form</h3>
+    <div id="ex5"></div>
+    <button class="check-btn" onclick="checkExercise('ex5', ex5Data, 'ex5score')">Check Answers</button>
+    <div class="score" id="ex5score"></div>
+
+    <h3>Activity 6: Write about your neighbourhood</h3>
+    <p>Write 2-3 sentences about your real neighbourhood. Use close to / near / far from and there is / there are.</p>
+    <textarea placeholder="Example: I live close to a grocery store. There is a park near my house..."></textarea>
+  </div>
+
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+var places = [
+  {key:'library', label:'Library', cx:140, cy:80, zone:'near'},
+  {key:'bank', label:'Bank', cx:260, cy:80, zone:'near'},
+  {key:'park', label:'Park', cx:380, cy:80, zone:'near'},
+  {key:'coffee', label:'Coffee Shop', cx:140, cy:200, zone:'near'},
+  {key:'grocery', label:'Grocery Store', cx:260, cy:200, zone:'near'},
+  {key:'pharmacy', label:'Pharmacy', cx:380, cy:200, zone:'near'},
+  {key:'community', label:'Community Centre', cx:140, cy:320, zone:'near'},
+  {key:'busstop', label:'Bus Stop', cx:260, cy:320, zone:'near'},
+  {key:'apartment', label:'Apartment Building', cx:380, cy:320, zone:'near'},
+  {key:'school', label:'School', cx:500, cy:80, zone:'far'},
+  {key:'postoffice', label:'Post Office', cx:650, cy:80, zone:'far'},
+  {key:'mall', label:'Shopping Mall', cx:800, cy:80, zone:'far'},
+  {key:'firestation', label:'Fire Station', cx:500, cy:200, zone:'far'},
+  {key:'hospital', label:'Hospital', cx:650, cy:200, zone:'far'},
+  {key:'police', label:'Police Station', cx:800, cy:200, zone:'far'},
+  {key:'laundromat', label:'Laundromat', cx:500, cy:320, zone:'far'},
+  {key:'restaurant', label:'Restaurant', cx:650, cy:320, zone:'far'},
+  {key:'gasstation', label:'Gas Station', cx:800, cy:320, zone:'far'}
+];
+
+function wrapLabel(label, cx, cy) {
+  var words = label.split(' ');
+  if (words.length === 1) {
+    return '<text x="'+cx+'" y="'+(cy+5)+'" text-anchor="middle">'+label+'</text>';
+  }
+  var mid = Math.ceil(words.length/2);
+  var line1 = words.slice(0, mid).join(' ');
+  var line2 = words.slice(mid).join(' ');
+  return '<text x="'+cx+'" y="'+(cy-2)+'" text-anchor="middle">'+line1+'</text>' +
+         '<text x="'+cx+'" y="'+(cy+16)+'" text-anchor="middle">'+line2+'</text>';
+}
+
+function buildMap() {
+  var svg = document.getElementById('townMap');
+  var html = '';
+
+  html += '<line x1="420" y1="20" x2="420" y2="380" stroke="#b8c6dc" stroke-width="2" stroke-dasharray="8,6"/>';
+  html += '<text x="230" y="20" text-anchor="middle" font-size="14" font-weight="bold" fill="#2e7d4f">CLOSE TO MY HOUSE</text>';
+  html += '<text x="710" y="20" text-anchor="middle" font-size="14" font-weight="bold" fill="#c26a1d">FAR FROM MY HOUSE</text>';
+
+  html += '<g>';
+  html += '<polygon points="10,80 55,45 100,80" fill="#f4b8b8" stroke="#b23b3b" stroke-width="2"/>';
+  html += '<rect x="20" y="80" width="70" height="60" fill="#f4b8b8" stroke="#b23b3b" stroke-width="2"/>';
+  html += '<text x="55" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f2d3d">My</text>';
+  html += '<text x="55" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f2d3d">House</text>';
+  html += '</g>';
+
+  places.forEach(function(p){
+    var fill = p.zone === 'near' ? '#d4f4dd' : '#ffe3c2';
+    var stroke = p.zone === 'near' ? '#2e7d4f' : '#c26a1d';
+    var w = 130, h = 56;
+    var x = p.cx - w/2, y = p.cy - h/2;
+    html += '<g class="building" id="b_'+p.key+'" onclick="selectPlace(\''+p.key+'\')">';
+    html += '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="10" fill="'+fill+'" stroke="'+stroke+'"/>';
+    html += wrapLabel(p.label, p.cx, p.cy);
+    html += '</g>';
+  });
+
+  svg.innerHTML = html;
+}
+
+function selectPlace(key) {
+  document.querySelectorAll('.building').forEach(function(b){ b.classList.remove('selected'); });
+  document.getElementById('b_'+key).classList.add('selected');
+  var p = places.filter(function(pl){ return pl.key === key; })[0];
+  var box = document.getElementById('sentenceBox');
+  if (p.zone === 'near') {
+    box.innerHTML = 'The ' + p.label + ' is near my house.<br>= The ' + p.label + ' is close to my house.';
+  } else {
+    box.innerHTML = 'The ' + p.label + ' is far from my house.';
+  }
+}
+
+buildMap();
+
+var ex1Data = [
+  {text:'There ___ a park near the library.', answer:'is'},
+  {text:'There ___ two schools in town.', answer:'are'},
+  {text:'There ___ a hospital on Elm Street.', answer:'is'},
+  {text:'There ___ three restaurants on Main Street.', answer:'are'},
+  {text:'There ___ a bus stop next to the library.', answer:'is'},
+  {text:'There ___ a gas station on the corner.', answer:'is'}
+];
+
+var ex2Data = [
+  {text:'There ___ a post office near the mall.', answer:'is'},
+  {text:'There ___ two banks downtown.', answer:'are'},
+  {text:'There ___ a community centre on Elm Street.', answer:'is'},
+  {text:'There ___ three apartment buildings on this street.', answer:'are'},
+  {text:'There ___ a laundromat near the school.', answer:'is'},
+  {text:'There ___ two coffee shops on Main Street.', answer:'are'}
+];
+
+var ex4Data = [
+  {text:'There ___ a police station on Elm Street.', answer:'is'},
+  {text:'There ___ a fire station near the school.', answer:'is'},
+  {text:'There ___ a pharmacy on Main Street.', answer:'is'},
+  {text:'There ___ two grocery stores in town.', answer:'are'},
+  {text:'There ___ a shopping mall on the highway.', answer:'is'},
+  {text:'There ___ three bus stops on this street.', answer:'are'},
+  {text:'There ___ a park near the library.', answer:'is'},
+  {text:'There ___ four restaurants downtown.', answer:'are'}
+];
+
+var ex5Data = [
+  {text:'hospital', answer:'hospitals'},
+  {text:'school', answer:'schools'},
+  {text:'park', answer:'parks'},
+  {text:'restaurant', answer:'restaurants'},
+  {text:'grocery store', answer:'grocery stores'},
+  {text:'mall', answer:'malls'},
+  {text:'post office', answer:'post offices'}
+];
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i+1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function renderInputExercise(containerId, data) {
+  var container = document.getElementById(containerId);
+  var html = '';
+  data.forEach(function(item, i){
+    var parts = item.text.split('___');
+    html += '<div class="exercise-item">' + (i+1) + '. ' + parts[0] +
+      '<input type="text" id="'+containerId+'_'+i+'" data-answer="'+item.answer+'">' +
+      parts[1] + '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function renderSelectExercise(containerId, data) {
+  var container = document.getElementById(containerId);
+  var html = '';
+  data.forEach(function(item, i){
+    var parts = item.text.split('___');
+    html += '<div class="exercise-item">' + (i+1) + '. ' + parts[0] +
+      '<select id="'+containerId+'_'+i+'" data-answer="'+item.answer+'">' +
+      '<option value="">choose</option><option value="is">is</option><option value="are">are</option>' +
+      '</select>' + parts[1] + '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function renderMatchExercise(containerId, data) {
+  var container = document.getElementById(containerId);
+  var options = shuffle(data.map(function(d){ return d.answer; }));
+  var html = '';
+  data.forEach(function(item, i){
+    html += '<div class="exercise-item">' + (i+1) + '. ' + item.text + ' ->' +
+      '<select id="'+containerId+'_'+i+'" data-answer="'+item.answer+'">' +
+      '<option value="">choose</option>';
+    options.forEach(function(o){
+      html += '<option value="'+o+'">'+o+'</option>';
+    });
+    html += '</select></div>';
+  });
+  container.innerHTML = html;
+}
+
+function checkExercise(containerId, data, scoreId) {
+  var correctCount = 0;
+  data.forEach(function(item, i){
+    var el = document.getElementById(containerId + '_' + i);
+    var val = el.value.trim().toLowerCase();
+    var answer = el.getAttribute('data-answer').toLowerCase();
+    el.classList.remove('correct', 'incorrect');
+    if (val === answer) {
+      el.classList.add('correct');
+      correctCount++;
+    } else {
+      el.classList.add('incorrect');
+    }
+  });
+  document.getElementById(scoreId).textContent = 'Score: ' + correctCount + ' / ' + data.length;
+}
+
+renderInputExercise('ex1', ex1Data);
+renderSelectExercise('ex2', ex2Data);
+renderInputExercise('ex4', ex4Data);
+renderMatchExercise('ex5', ex5Data);
+</script>
+
+</body>
+</html>
