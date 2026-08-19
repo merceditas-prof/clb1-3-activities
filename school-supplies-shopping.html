@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Supplies Shopping - CLB 1-3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #eaf6f6;
+    --sand: #fffdf7;
+    --ink: #1b3b4b;
+    --teal: #0b5563;
+    --teal-light: #1a7d8f;
+    --coral: #ff6f59;
+    --sun: #f4b942;
+    --leaf: #4c9a6a;
+    --line: #d8e6e2;
+    --shadow: rgba(11, 85, 99, 0.18);
+    --good: #2f9e5e;
+    --bad: #e0503f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 32px 20px 60px;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(244,185,66,0.25), transparent 40%),
+      radial-gradient(circle at 88% 92%, rgba(255,111,89,0.15), transparent 45%),
+      var(--sky);
+    font-family: 'Nunito', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  header { text-align: center; margin-bottom: 20px; }
+
+  .eyebrow {
+    display: inline-block;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--teal-light);
+    background: #ffffff;
+    border: 1px solid var(--line);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 48px);
+    margin: 0 0 6px;
+    color: var(--teal);
+  }
+
+  h1 span { color: var(--coral); }
+
+  .subtitle {
+    font-size: 16px;
+    color: #3f6270;
+    margin: 0 auto 4px;
+    max-width: 560px;
+    line-height: 1.5;
+  }
+
+  .hidden { display: none !important; }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 22px 0 6px;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    border: 2px solid var(--teal);
+    background: #ffffff;
+    color: var(--teal);
+    padding: 10px 24px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .tab-btn:hover { transform: translateY(-2px); }
+
+  .tab-btn.active {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: #fff;
+  }
+
+  .howto {
+    max-width: 640px;
+    margin: 18px auto 28px;
+    background: #ffffff;
+    border: 2px solid var(--teal-light);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 8px 18px var(--shadow);
+  }
+
+  .howto h2 {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--teal);
+    margin: 0 0 10px;
+    text-align: center;
+  }
+
+  .howto ol, .howto ul {
+    margin: 0;
+    padding-left: 22px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #2b4d59;
+  }
+
+  .howto .tip {
+    margin: 12px 0 0;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--coral);
+    text-align: center;
+  }
+
+  /* Word bank */
+  .wordbank {
+    max-width: 900px;
+    margin: 0 auto 30px;
+    background: #ffffff;
+    border: 2px dashed var(--teal-light);
+    border-radius: 16px;
+    padding: 16px 22px;
+  }
+
+  .wordbank h2 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 16px;
+    color: var(--teal);
+    text-align: center;
+    margin: 0 0 12px;
+  }
+
+  .wordbank-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 14px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .wordbank-list li {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--teal-light);
+    background: var(--sky);
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+
+  /* Baskets */
+  .basket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .basket-card {
+    background: var(--sand);
+    border: 2px dashed #cfd9a8;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 10px 22px var(--shadow);
+  }
+
+  .basket-title {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--teal);
+    text-align: center;
+    margin: 0 0 14px;
+  }
+
+  .basket-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 14px;
+  }
+
+  .basket-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 2px solid var(--line);
+    border-radius: 12px;
+    padding: 10px;
+    height: 76px;
+  }
+
+  .basket-item svg { width: 48px; height: 48px; }
+
+  .writeline {
+    max-width: 1000px;
+    margin: 26px auto 0;
+    text-align: center;
+  }
+
+  .writeline p {
+    font-size: 14px;
+    color: #3f6270;
+    font-style: italic;
+  }
+
+  /* Conversation */
+  .convo-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 6px 0 22px;
+    flex-wrap: wrap;
+  }
+
+  .convo-dot {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    border: 2px solid var(--teal-light);
+    background: #ffffff;
+    color: var(--teal-light);
+    padding: 6px 16px;
+    border-radius: 999px;
+  }
+
+  .convo-dot.done { background: var(--leaf); border-color: var(--leaf); color: #fff; }
+  .convo-dot.current { background: var(--coral); border-color: var(--coral); color: #fff; }
+
+  .game-stats {
+    max-width: 620px;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--teal);
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 10px 22px;
+    box-shadow: 0 6px 14px var(--shadow);
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .dialogue-card {
+    max-width: 620px;
+    margin: 0 auto 20px;
+    background: #ffffff;
+    border: 2px solid var(--teal-light);
+    border-radius: 18px;
+    padding: 22px 24px;
+    box-shadow: 0 10px 22px var(--shadow);
+  }
+
+  .dialogue-title {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--teal);
+    text-align: center;
+    margin: 0 0 14px;
+  }
+
+  .dialogue-line {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: #2b4d59;
+    margin: 0 0 6px;
+  }
+
+  .dialogue-line b { color: var(--coral); }
+
+  .question-card {
+    max-width: 620px;
+    margin: 0 auto;
+    background: var(--sand);
+    border: 2px dashed #cfd9a8;
+    border-radius: 18px;
+    padding: 26px 24px;
+    box-shadow: 0 10px 22px var(--shadow);
+  }
+
+  .question-prompt {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--teal);
+    text-align: center;
+    margin: 0 0 18px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .option-btn {
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    border: 2px solid var(--teal-light);
+    background: #ffffff;
+    color: var(--ink);
+    padding: 12px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .option-btn:hover:not(:disabled) { transform: translateX(4px); }
+  .option-btn:disabled { cursor: default; }
+
+  .option-btn.correct {
+    background: #e6f6ec;
+    border-color: var(--good);
+    color: var(--good);
+  }
+
+  .option-btn.wrong {
+    background: #fdecea;
+    border-color: var(--bad);
+    color: var(--bad);
+  }
+
+  .feedback {
+    min-height: 24px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    margin-top: 14px;
+  }
+
+  .feedback.good { color: var(--good); }
+  .feedback.bad { color: var(--bad); }
+
+  .next-btn, .play-again-btn {
+    display: block;
+    margin: 18px auto 0;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    padding: 10px 26px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+
+  .next-btn:hover, .play-again-btn:hover { transform: translateY(-2px); }
+
+  .end-screen {
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: center;
+    background: #ffffff;
+    border: 2px solid var(--teal-light);
+    border-radius: 18px;
+    padding: 30px 26px;
+    box-shadow: 0 10px 22px var(--shadow);
+  }
+
+  .end-screen h2 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 24px;
+    color: var(--teal);
+    margin: 0 0 10px;
+  }
+
+  .end-screen p { font-size: 15px; color: #2b4d59; margin: 6px 0; }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    color: #7c9aa3;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tab-btn, .option-btn, .next-btn, .play-again-btn { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">CLB 1-3 &middot; Vocabulary &amp; Reading</div>
+    <h1>School Supplies <span>Shopping</span></h1>
+    <p class="subtitle">Look at the baskets, write a shopping list &nbsp;&bull;&nbsp; Read, listen, and answer</p>
+  </header>
+
+  <div class="tabs" id="tabs">
+    <button class="tab-btn active" data-view="baskets">Shopping Baskets</button>
+    <button class="tab-btn" data-view="convo">Shopping Conversations</button>
+  </div>
+
+  <div id="basketsView">
+    <div class="howto">
+      <h2>How to Use This Page</h2>
+      <ol>
+        <li>Look at the pictures in Basket 1.</li>
+        <li>On your own paper, write a shopping list of every item you see.</li>
+        <li>Use the Word Bank below if you need help with spelling.</li>
+        <li>Do the same for Basket 2, Basket 3, and Basket 4.</li>
+      </ol>
+      <p class="tip">Tip: Write "I need..." before your list. Example: I need a backpack.</p>
+    </div>
+
+    <div class="wordbank">
+      <h2>Word Bank</h2>
+      <ul class="wordbank-list">
+        <li>backpack</li><li>notebook</li><li>pencil</li><li>pen</li><li>eraser</li>
+        <li>ruler</li><li>scissors</li><li>glue stick</li><li>folder</li><li>binder</li>
+        <li>pencil case</li><li>markers</li><li>calculator</li><li>highlighter</li><li>stapler</li>
+      </ul>
+    </div>
+
+    <div class="basket-grid" id="basketGrid"></div>
+
+    <div class="writeline">
+      <p>Remember: write your shopping list on your own paper, one item on each line.</p>
+    </div>
+  </div>
+
+  <div id="convoView" class="hidden">
+    <div class="howto">
+      <h2>How to Play</h2>
+      <ol>
+        <li>Read the conversation.</li>
+        <li>Answer the four questions about it.</li>
+        <li>Green means correct. Red means try again next time.</li>
+        <li>Read all three conversations and answer 12 questions in total.</li>
+      </ol>
+      <p class="tip">Tip: Read the conversation two times before you answer.</p>
+    </div>
+
+    <div class="convo-nav" id="convoNav"></div>
+
+    <div class="game-stats">
+      <span id="qCounter">Question 1 of 12</span>
+      <span id="scoreDisplay">Score: 0</span>
+      <span id="streakDisplay">Streak: 0</span>
+    </div>
+
+    <div class="dialogue-card" id="dialogueCard">
+      <p class="dialogue-title" id="dialogueTitle"></p>
+      <div id="dialogueLines"></div>
+    </div>
+
+    <div class="question-card" id="questionCard">
+      <p class="question-prompt" id="questionPrompt"></p>
+      <div class="options" id="optionsWrap"></div>
+      <div class="feedback" id="feedback"></div>
+      <button class="next-btn hidden" id="nextBtn">Next Question</button>
+    </div>
+
+    <div class="end-screen hidden" id="endScreen">
+      <h2 id="endTitle"></h2>
+      <p id="endScore"></p>
+      <button class="play-again-btn" id="playAgainBtn">Play Again</button>
+    </div>
+  </div>
+
+  <footer>School Supplies Shopping &middot; CLB 1-3 &middot; Mercedes' ESL Class</footer>
+</div>
+
+<svg style="display:none" aria-hidden="true">
+<defs>
+
+<symbol id="icon-backpack" viewBox="0 0 64 64">
+  <path d="M22 20 C22 12 42 12 42 20 L42 24 L22 24 Z" fill="none" stroke="#0b5563" stroke-width="2"/>
+  <rect x="16" y="22" width="32" height="34" rx="8" fill="#ff6f59"/>
+  <rect x="24" y="30" width="16" height="10" rx="3" fill="#fffdf7"/>
+  <rect x="20" y="46" width="24" height="8" rx="4" fill="#0b5563"/>
+  <path d="M20 26 C14 30 14 46 20 50" fill="none" stroke="#0b5563" stroke-width="3" stroke-linecap="round"/>
+  <path d="M44 26 C50 30 50 46 44 50" fill="none" stroke="#0b5563" stroke-width="3" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="icon-notebook" viewBox="0 0 64 64">
+  <rect x="14" y="10" width="36" height="44" rx="4" fill="#fffdf7" stroke="#0b5563" stroke-width="2"/>
+  <circle cx="14" cy="16" r="2" fill="#0b5563"/>
+  <circle cx="14" cy="26" r="2" fill="#0b5563"/>
+  <circle cx="14" cy="36" r="2" fill="#0b5563"/>
+  <circle cx="14" cy="46" r="2" fill="#0b5563"/>
+  <line x1="22" y1="20" x2="44" y2="20" stroke="#1a7d8f" stroke-width="2"/>
+  <line x1="22" y1="28" x2="44" y2="28" stroke="#1a7d8f" stroke-width="2"/>
+  <line x1="22" y1="36" x2="40" y2="36" stroke="#1a7d8f" stroke-width="2"/>
+  <line x1="22" y1="44" x2="44" y2="44" stroke="#1a7d8f" stroke-width="2"/>
+</symbol>
+
+<symbol id="icon-pencil" viewBox="0 0 64 64">
+  <g transform="rotate(45 32 32)">
+    <rect x="20" y="14" width="24" height="10" rx="1" fill="#f4b942"/>
+    <rect x="20" y="14" width="24" height="10" rx="1" fill="none" stroke="#0b5563" stroke-width="1.5"/>
+    <rect x="20" y="8" width="24" height="6" rx="2" fill="#ff6f59"/>
+    <path d="M20 24 L20 14 L10 19 Z" fill="#e8c99a"/>
+    <path d="M10 19 L14 19" stroke="#0b5563" stroke-width="1.5"/>
+  </g>
+</symbol>
+
+<symbol id="icon-pen" viewBox="0 0 64 64">
+  <g transform="rotate(45 32 32)">
+    <rect x="18" y="16" width="28" height="8" rx="4" fill="#1a7d8f"/>
+    <rect x="42" y="17" width="8" height="6" rx="2" fill="#0b5563"/>
+    <path d="M18 20 L10 20 L18 24 Z" fill="#0b5563"/>
+  </g>
+</symbol>
+
+<symbol id="icon-eraser" viewBox="0 0 64 64">
+  <rect x="14" y="24" width="36" height="18" rx="4" fill="#ff6f59"/>
+  <rect x="14" y="24" width="14" height="18" rx="4" fill="#fffdf7"/>
+  <rect x="14" y="24" width="36" height="18" rx="4" fill="none" stroke="#0b5563" stroke-width="2"/>
+</symbol>
+
+<symbol id="icon-ruler" viewBox="0 0 64 64">
+  <rect x="8" y="26" width="48" height="12" rx="2" fill="#f4b942" stroke="#0b5563" stroke-width="2"/>
+  <line x1="14" y1="26" x2="14" y2="32" stroke="#0b5563" stroke-width="1.5"/>
+  <line x1="20" y1="26" x2="20" y2="34" stroke="#0b5563" stroke-width="1.5"/>
+  <line x1="26" y1="26" x2="26" y2="32" stroke="#0b5563" stroke-width="1.5"/>
+  <line x1="32" y1="26" x2="32" y2="34" stroke="#0b5563" stroke-width="1.5"/>
+  <line x1="38" y1="26" x2="38" y2="32" stroke="#0b5563" stroke-width="1.5"/>
+  <line x1="44" y1="26" x2="44" y2="34" stroke="#0b5563" stroke-width="1.5"/>
+  <line x1="50" y1="26" x2="50" y2="32" stroke="#0b5563" stroke-width="1.5"/>
+</symbol>
+
+<symbol id="icon-scissors" viewBox="0 0 64 64">
+  <circle cx="18" cy="46" r="6" fill="none" stroke="#0b5563" stroke-width="3"/>
+  <circle cx="18" cy="18" r="6" fill="none" stroke="#0b5563" stroke-width="3"/>
+  <path d="M22 42 L48 20" stroke="#ff6f59" stroke-width="3" stroke-linecap="round"/>
+  <path d="M22 22 L48 44" stroke="#1a7d8f" stroke-width="3" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="icon-gluestick" viewBox="0 0 64 64">
+  <rect x="22" y="10" width="20" height="10" rx="2" fill="#0b5563"/>
+  <rect x="20" y="18" width="24" height="34" rx="3" fill="#f4b942" stroke="#0b5563" stroke-width="2"/>
+  <rect x="20" y="30" width="24" height="10" fill="#fffdf7" stroke="#0b5563" stroke-width="1.5"/>
+</symbol>
+
+<symbol id="icon-folder" viewBox="0 0 64 64">
+  <path d="M10 20 L26 20 L30 24 L54 24 L54 48 L10 48 Z" fill="#f4b942" stroke="#0b5563" stroke-width="2"/>
+  <path d="M10 24 L54 24" stroke="#0b5563" stroke-width="1.5"/>
+</symbol>
+
+<symbol id="icon-binder" viewBox="0 0 64 64">
+  <rect x="18" y="8" width="36" height="48" rx="3" fill="#1a7d8f" stroke="#0b5563" stroke-width="2"/>
+  <rect x="18" y="8" width="10" height="48" fill="#0b5563"/>
+  <circle cx="23" cy="20" r="2.5" fill="#fffdf7"/>
+  <circle cx="23" cy="32" r="2.5" fill="#fffdf7"/>
+  <circle cx="23" cy="44" r="2.5" fill="#fffdf7"/>
+</symbol>
+
+<symbol id="icon-pencilcase" viewBox="0 0 64 64">
+  <rect x="10" y="22" width="44" height="20" rx="10" fill="#ff6f59" stroke="#0b5563" stroke-width="2"/>
+  <line x1="14" y1="24" x2="50" y2="24" stroke="#0b5563" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <circle cx="52" cy="32" r="2" fill="#0b5563"/>
+</symbol>
+
+<symbol id="icon-markers" viewBox="0 0 64 64">
+  <g transform="rotate(20 24 32)">
+    <rect x="14" y="20" width="20" height="8" rx="3" fill="#4c9a6a"/>
+    <path d="M14 24 L8 24 L14 28 Z" fill="#0b5563"/>
+  </g>
+  <g transform="rotate(-15 40 32)">
+    <rect x="30" y="26" width="20" height="8" rx="3" fill="#ff6f59"/>
+    <path d="M50 30 L56 30 L50 34 Z" fill="#0b5563"/>
+  </g>
+</symbol>
+
+<symbol id="icon-calculator" viewBox="0 0 64 64">
+  <rect x="14" y="8" width="36" height="48" rx="4" fill="#0b5563"/>
+  <rect x="18" y="14" width="28" height="10" rx="2" fill="#c8e6df"/>
+  <circle cx="22" cy="32" r="3" fill="#fffdf7"/>
+  <circle cx="32" cy="32" r="3" fill="#fffdf7"/>
+  <circle cx="42" cy="32" r="3" fill="#fffdf7"/>
+  <circle cx="22" cy="42" r="3" fill="#fffdf7"/>
+  <circle cx="32" cy="42" r="3" fill="#fffdf7"/>
+  <circle cx="42" cy="42" r="3" fill="#f4b942"/>
+</symbol>
+
+<symbol id="icon-highlighter" viewBox="0 0 64 64">
+  <g transform="rotate(45 32 32)">
+    <rect x="18" y="16" width="26" height="10" rx="2" fill="#f4b942"/>
+    <path d="M44 16 L52 21 L44 26 Z" fill="#f4b942"/>
+    <rect x="12" y="17" width="8" height="8" rx="1" fill="#0b5563"/>
+  </g>
+</symbol>
+
+<symbol id="icon-stapler" viewBox="0 0 64 64">
+  <path d="M8 44 L8 50 L56 50 L56 46 L20 30 L8 30 Z" fill="#1a7d8f" stroke="#0b5563" stroke-width="2"/>
+  <path d="M8 30 L20 30 L52 24 L52 30" fill="#ff6f59" stroke="#0b5563" stroke-width="2"/>
+</symbol>
+
+</defs>
+</svg>
+
+<script>
+const ITEMS = {
+  backpack: "backpack", notebook: "notebook", pencil: "pencil", pen: "pen",
+  eraser: "eraser", ruler: "ruler", scissors: "scissors", gluestick: "glue stick",
+  folder: "folder", binder: "binder", pencilcase: "pencil case", markers: "markers",
+  calculator: "calculator", highlighter: "highlighter", stapler: "stapler"
+};
+
+const BASKETS = [
+  { title: "Basket 1", items: ["backpack", "notebook", "pencil", "eraser", "ruler", "folder"] },
+  { title: "Basket 2", items: ["pen", "scissors", "gluestick", "pencilcase", "markers"] },
+  { title: "Basket 3", items: ["binder", "calculator", "highlighter", "stapler", "notebook"] },
+  { title: "Basket 4", items: ["backpack", "pencil", "pen", "folder", "markers", "eraser"] }
+];
+
+const basketGrid = document.getElementById('basketGrid');
+BASKETS.forEach(b => {
+  const card = document.createElement('div');
+  card.className = 'basket-card';
+  const title = document.createElement('p');
+  title.className = 'basket-title';
+  title.textContent = b.title;
+  card.appendChild(title);
+  const itemsWrap = document.createElement('div');
+  itemsWrap.className = 'basket-items';
+  b.items.forEach(key => {
+    const box = document.createElement('div');
+    box.className = 'basket-item';
+    box.innerHTML = `<svg><use href="#icon-${key}"></use></svg>`;
+    box.title = ITEMS[key];
+    itemsWrap.appendChild(box);
+  });
+  card.appendChild(itemsWrap);
+  basketGrid.appendChild(card);
+});
+
+/* ---------- Tabs ---------- */
+
+const tabsEl = document.getElementById('tabs');
+const basketsView = document.getElementById('basketsView');
+const convoView = document.getElementById('convoView');
+
+tabsEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  tabsEl.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const view = btn.dataset.view;
+  basketsView.classList.toggle('hidden', view !== 'baskets');
+  convoView.classList.toggle('hidden', view !== 'convo');
+  if (view === 'convo' && !gameStarted) {
+    startGame();
+  }
+});
+
+/* ---------- Conversations + quiz ---------- */
+
+const CONVERSATIONS = [
+  {
+    title: "Conversation 1: At the School Supply Store",
+    lines: [
+      ["Ana", "Excuse me, do you have notebooks?"],
+      ["Clerk", "Yes, they are on aisle two. How many do you need?"],
+      ["Ana", "I need three notebooks and two pencils."],
+      ["Clerk", "Do you need an eraser too?"],
+      ["Ana", "Yes, please. One eraser."],
+      ["Clerk", "Anything else?"],
+      ["Ana", "Yes, I also need a ruler and a folder."],
+      ["Clerk", "That is three notebooks, two pencils, one eraser, one ruler, and one folder. Is that all?"],
+      ["Ana", "Yes, thank you!"]
+    ],
+    questions: [
+      { prompt: "How many notebooks does Ana buy?", options: ["Three", "Two", "One"], correct: 0 },
+      { prompt: "How many pencils does Ana buy?", options: ["Three", "Two", "One"], correct: 1 },
+      { prompt: "What does Ana ask for after the eraser?", options: ["Scissors and glue", "A ruler and a folder", "A pen and a binder"], correct: 1 },
+      { prompt: "Does Ana ask for a calculator?", options: ["Yes", "No", "She isn't sure"], correct: 1 }
+    ]
+  },
+  {
+    title: "Conversation 2: Shopping for Art Class",
+    lines: [
+      ["Ben", "I need supplies for art class."],
+      ["Clerk", "What do you need?"],
+      ["Ben", "I need a glue stick, scissors, and markers."],
+      ["Clerk", "How many markers do you want?"],
+      ["Ben", "Five markers, please."],
+      ["Clerk", "Do you need a pencil case?"],
+      ["Ben", "No, I have one at home. But I need a highlighter."],
+      ["Clerk", "One highlighter?"],
+      ["Ben", "Yes, just one."],
+      ["Clerk", "OK, that is one glue stick, one pair of scissors, five markers, and one highlighter."],
+      ["Ben", "Perfect, thank you."]
+    ],
+    questions: [
+      { prompt: "How many markers does Ben buy?", options: ["Five", "Three", "One"], correct: 0 },
+      { prompt: "Does Ben need a pencil case?", options: ["Yes, he buys two", "No, he has one at home", "He doesn't answer"], correct: 1 },
+      { prompt: "What does Ben need for art class?", options: ["Notebook, pen, ruler", "Backpack, folder, binder", "Glue stick, scissors, markers"], correct: 2 },
+      { prompt: "How many highlighters does Ben buy?", options: ["Two", "Three", "One"], correct: 2 }
+    ]
+  },
+  {
+    title: "Conversation 3: Buying a New Backpack",
+    lines: [
+      ["Clerk", "Can I help you?"],
+      ["Sara", "Yes, I need a new backpack for school."],
+      ["Clerk", "What color do you like?"],
+      ["Sara", "I like the blue one."],
+      ["Clerk", "Do you need anything else?"],
+      ["Sara", "Yes, I need a binder, a stapler, and a calculator."],
+      ["Clerk", "How many binders?"],
+      ["Sara", "Just one binder."],
+      ["Clerk", "OK. One backpack, one binder, one stapler, and one calculator."],
+      ["Sara", "Yes, that's everything. Thank you!"]
+    ],
+    questions: [
+      { prompt: "What color backpack does Sara like?", options: ["Red", "Blue", "Green"], correct: 1 },
+      { prompt: "How many binders does Sara buy?", options: ["Two", "Three", "One"], correct: 2 },
+      { prompt: "What three things does Sara need besides the backpack?", options: ["Pen, eraser, ruler", "Notebook, folder, markers", "Binder, stapler, calculator"], correct: 2 },
+      { prompt: "Is Sara buying scissors?", options: ["Yes", "No", "She isn't sure"], correct: 1 }
+    ]
+  }
+];
+
+const TOTAL_QUESTIONS = CONVERSATIONS.reduce((n, c) => n + c.questions.length, 0);
+
+let gameStarted = false;
+let convoIndex = 0;
+let qInConvo = 0;
+let qOverall = 0;
+let score = 0;
+let streak = 0;
+
+const convoNav = document.getElementById('convoNav');
+const qCounter = document.getElementById('qCounter');
+const scoreDisplay = document.getElementById('scoreDisplay');
+const streakDisplay = document.getElementById('streakDisplay');
+const dialogueCard = document.getElementById('dialogueCard');
+const dialogueTitle = document.getElementById('dialogueTitle');
+const dialogueLines = document.getElementById('dialogueLines');
+const questionCard = document.getElementById('questionCard');
+const questionPrompt = document.getElementById('questionPrompt');
+const optionsWrap = document.getElementById('optionsWrap');
+const feedbackEl = document.getElementById('feedback');
+const nextBtn = document.getElementById('nextBtn');
+const endScreen = document.getElementById('endScreen');
+const endTitle = document.getElementById('endTitle');
+const endScore = document.getElementById('endScore');
+const playAgainBtn = document.getElementById('playAgainBtn');
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildConvoNav() {
+  convoNav.innerHTML = '';
+  CONVERSATIONS.forEach((c, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'convo-dot';
+    dot.textContent = `Conversation ${i + 1}`;
+    convoNav.appendChild(dot);
+  });
+  updateConvoNav();
+}
+
+function updateConvoNav() {
+  const dots = convoNav.querySelectorAll('.convo-dot');
+  dots.forEach((d, i) => {
+    d.classList.remove('done', 'current');
+    if (i < convoIndex) d.classList.add('done');
+    else if (i === convoIndex) d.classList.add('current');
+  });
+}
+
+function startGame() {
+  gameStarted = true;
+  convoIndex = 0;
+  qInConvo = 0;
+  qOverall = 0;
+  score = 0;
+  streak = 0;
+  buildConvoNav();
+  questionCard.classList.remove('hidden');
+  dialogueCard.classList.remove('hidden');
+  endScreen.classList.add('hidden');
+  renderConvo();
+  renderQuestion();
+}
+
+function renderConvo() {
+  const c = CONVERSATIONS[convoIndex];
+  dialogueTitle.textContent = c.title;
+  dialogueLines.innerHTML = c.lines.map(l => `<p class="dialogue-line"><b>${l[0]}:</b> ${l[1]}</p>`).join('');
+  updateConvoNav();
+}
+
+function renderQuestion() {
+  const c = CONVERSATIONS[convoIndex];
+  const q = c.questions[qInConvo];
+  qCounter.textContent = `Question ${qOverall + 1} of ${TOTAL_QUESTIONS}`;
+  scoreDisplay.textContent = `Score: ${score}`;
+  streakDisplay.textContent = `Streak: ${streak}`;
+  questionPrompt.textContent = q.prompt;
+  feedbackEl.textContent = '';
+  feedbackEl.className = 'feedback';
+  nextBtn.classList.add('hidden');
+  nextBtn.textContent = 'Next Question';
+
+  const order = shuffle(q.options.map((text, i) => ({ text, isCorrect: i === q.correct })));
+
+  optionsWrap.innerHTML = '';
+  order.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt.text;
+    btn.addEventListener('click', () => selectAnswer(btn, opt.isCorrect));
+    optionsWrap.appendChild(btn);
+  });
+}
+
+function selectAnswer(btn, isCorrect) {
+  optionsWrap.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+  const c = CONVERSATIONS[convoIndex];
+  const q = c.questions[qInConvo];
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    feedbackEl.textContent = 'Correct! Great job.';
+    feedbackEl.classList.add('good');
+    score++;
+    streak++;
+  } else {
+    btn.classList.add('wrong');
+    optionsWrap.querySelectorAll('.option-btn').forEach(b => {
+      if (b.textContent === q.options[q.correct]) b.classList.add('correct');
+    });
+    feedbackEl.textContent = 'Not quite. The correct answer is highlighted in green.';
+    feedbackEl.classList.add('bad');
+    streak = 0;
+  }
+
+  scoreDisplay.textContent = `Score: ${score}`;
+  streakDisplay.textContent = `Streak: ${streak}`;
+
+  const isLastQInConvo = qInConvo === c.questions.length - 1;
+  const isLastConvo = convoIndex === CONVERSATIONS.length - 1;
+  nextBtn.textContent = (isLastQInConvo && !isLastConvo) ? 'Next Conversation' : 'Next Question';
+  nextBtn.classList.remove('hidden');
+}
+
+nextBtn.addEventListener('click', () => {
+  const c = CONVERSATIONS[convoIndex];
+  qOverall++;
+  qInConvo++;
+
+  if (qInConvo < c.questions.length) {
+    renderQuestion();
+  } else if (convoIndex < CONVERSATIONS.length - 1) {
+    convoIndex++;
+    qInConvo = 0;
+    renderConvo();
+    renderQuestion();
+  } else {
+    showEndScreen();
+  }
+});
+
+function showEndScreen() {
+  questionCard.classList.add('hidden');
+  dialogueCard.classList.add('hidden');
+  endScreen.classList.remove('hidden');
+
+  let title = 'Nice try!';
+  if (score >= 11) title = 'Amazing! You are a Shopping Star!';
+  else if (score >= 9) title = 'Great job!';
+  else if (score >= 6) title = 'Good effort!';
+
+  endTitle.textContent = title;
+  endScore.textContent = `You scored ${score} out of ${TOTAL_QUESTIONS}.`;
+  updateConvoNav();
+}
+
+playAgainBtn.addEventListener('click', () => {
+  startGame();
+});
+</script>
+</body>
+</html>
