@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Going Shopping - Day 1: How Much Is It? (CLB 1-3)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%24%3C/text%3E%3C/svg%3E">
+<style>
+:root{--teal:#0b5563;--coral:#ff6f59;--gold:#f4b942;--navy:#12303a;--tealbg:#e4efef;--goldbg:#fbefc9;--grey:#f2f3f4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--navy);background:#fafbfb;line-height:1.5;}
+.wrap{max-width:960px;margin:0 auto;padding:14px;}
+header{background:var(--teal);color:#fff;padding:18px 16px;border-radius:0 0 14px 14px;}
+header h1{font-size:1.5rem;}
+header p{opacity:.92;font-size:.95rem;margin-top:4px;}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0;}
+.tabs button{flex:1 1 auto;min-width:110px;padding:10px 8px;border:2px solid var(--teal);background:#fff;color:var(--teal);font-weight:bold;font-size:.95rem;border-radius:10px;cursor:pointer;}
+.tabs button.active{background:var(--teal);color:#fff;}
+.panel{display:none;background:#fff;border:1px solid #dce3e3;border-radius:12px;padding:16px;}
+.panel.show{display:block;}
+h2{color:var(--teal);font-size:1.2rem;margin:14px 0 8px;}
+h2:first-child{margin-top:0;}
+.stage{border-left:5px solid var(--coral);background:var(--grey);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;}
+.stage b{color:var(--teal);}
+.linkcard{display:block;border:1px solid #cdd8d8;border-radius:10px;padding:10px 12px;margin:8px 0;background:#fff;text-decoration:none;color:var(--navy);}
+.linkcard:hover{background:var(--tealbg);}
+.linkcard .t{font-weight:bold;color:var(--teal);}
+.linkcard .how{font-size:.9rem;color:#4a5a5a;margin-top:2px;}
+.badge{display:inline-block;background:var(--coral);color:#fff;border-radius:6px;font-size:.75rem;padding:2px 7px;margin-right:6px;vertical-align:middle;}
+.badge.listen{background:#1e6bb8;}
+.badge.video{background:#c0392b;}
+.badge.game{background:#1e7a46;}
+.badge.here{background:var(--gold);color:#5a4300;}
+.scorebar{display:flex;gap:10px;align-items:center;margin:10px 0;flex-wrap:wrap;}
+.scorebar .pill{background:var(--tealbg);border-radius:999px;padding:6px 14px;font-weight:bold;color:var(--teal);}
+.qbox{background:var(--grey);border-radius:12px;padding:14px;margin:12px 0;text-align:center;}
+.coinrow{display:flex;justify-content:center;align-items:center;gap:4px;flex-wrap:wrap;min-height:110px;}
+.coinrow img{width:92px;height:92px;object-fit:contain;}
+.coinrow img.bill{width:150px;height:76px;}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:12px;}
+.opts button{padding:12px;border:2px solid var(--teal);border-radius:10px;background:#fff;color:var(--navy);font-size:1.15rem;font-weight:bold;cursor:pointer;}
+.opts button:hover{background:var(--tealbg);}
+.opts button.right{background:#d9efe2;border-color:#1e7a46;color:#1e7a46;}
+.opts button.wrong{background:#fce7e2;border-color:#c0392b;color:#c0392b;}
+.feedback{min-height:28px;font-weight:bold;margin-top:8px;}
+.feedback.ok{color:#1e7a46;}
+.feedback.no{color:#c0392b;}
+.bigbtn{padding:12px 22px;background:var(--coral);border:none;border-radius:10px;color:#fff;font-size:1.05rem;font-weight:bold;cursor:pointer;margin:6px 4px;}
+.bigbtn.teal{background:var(--teal);}
+.bigbtn:disabled{opacity:.5;cursor:default;}
+.tagrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:10px 0;}
+.tagrow figure{text-align:center;}
+.tagrow img{width:100%;max-width:180px;border-radius:10px;}
+.tagrow figcaption{font-weight:bold;color:var(--teal);}
+.dlgline{display:block;width:100%;text-align:left;padding:10px 12px;margin:6px 0;border:2px solid #cdd8d8;border-radius:10px;background:#fff;font-size:1rem;cursor:pointer;}
+.dlgline:hover{background:var(--tealbg);}
+.dlgline.placed{background:var(--tealbg);border-color:var(--teal);cursor:default;}
+.dlgline.err{background:#fce7e2;border-color:#c0392b;}
+.built{list-style:none;}
+.built li{padding:8px 12px;margin:5px 0;background:#d9efe2;border-radius:8px;font-weight:bold;}
+.note{background:var(--goldbg);border:1px solid var(--gold);border-radius:10px;padding:10px 12px;margin:10px 0;font-size:.95rem;}
+footer{text-align:center;color:#7a8a8a;font-size:.85rem;padding:18px 0;}
+img.scene{width:100%;border-radius:12px;margin:8px 0;}
+@media(max-width:560px){.coinrow img{width:70px;height:70px;}.coinrow img.bill{width:118px;height:60px;}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>Going Shopping - Day 1: How Much Is It?</h1>
+<p>CLB 1-3 | Canadian money, prices and sizes | class hub + practice games</p>
+</div></header>
+<div class="wrap">
+<div class="tabs">
+<button class="active" data-p="lesson">Lesson</button>
+<button data-p="coins">Coins Game</button>
+<button data-p="teenty">-teen / -ty</button>
+<button data-p="tags">Price Tags</button>
+<button data-p="dialog">Dialogue</button>
+<button data-p="links">All Links</button>
+</div>
+
+<!-- LESSON -->
+<section id="p-lesson" class="panel show">
+<img class="scene" src="icons/shopping/opener_scene.jpg" alt="A clothing store with a salesperson, customers and price tags">
+<h2>Class flow (1 h 45)</h2>
+<div class="stage"><b>1. Warm-up + the picture (15 min).</b> Look at the store picture above. What do you see? Point to: a salesperson, a customer, a price tag. Ask: How much is a jacket? A dress? The shoes?</div>
+<div class="stage"><b>2. Dollars and cents (25 min).</b> Coins and bills in the unit document. Then play the <b>Coins Game</b> tab together, or watch:
+<a class="linkcard" href="https://www.tvokids.com/school-age/tvokids-teacher-power-hour/videos/canadian-money-our-canadian-coins" target="_blank" rel="noopener"><span class="badge video">VIDEO</span><span class="t">TVOKids - Our Canadian Coins</span><div class="how">Teacher Andrea presents nickel, dime, quarter, loonie, toonie. Play a segment, pause, ask "What coin is this? How much?"</div></a></div>
+<div class="stage"><b>3. -teen or -ty? (10 min).</b> Use the <b>-teen / -ty</b> tab (the page speaks the numbers), or play the classic:
+<a class="linkcard" href="https://agendaweb.org/exercises/vocabulary/numbers/numbers-teen-ty.html" target="_blank" rel="noopener"><span class="badge listen">LISTENING</span><span class="t">Agendaweb - Numbers: -teen or -ty</span><div class="how">Play each audio; students write the number they hear (dictation) or shout it out.</div></a></div>
+<div class="stage"><b>4. Sizes (10 min).</b> S - M - L - XL chart in the unit document. Ask 3-4 students: "What size are you?"</div>
+<div class="stage"><b>5. Price tags (15 min).</b> Do exercise 5A in the document, then the <b>Price Tags</b> tab for instant-check practice.</div>
+<div class="stage"><b>6. Reading + listening (12 min).</b> Sara's Shopping Day in the document. Extra listening practice:
+<a class="linkcard" href="https://english-practice.net/listening-exercises-a1-prices/" target="_blank" rel="noopener"><span class="badge listen">LISTENING</span><span class="t">English-Practice - A1 Prices (5 exercises)</span><div class="how">Five short audios with tasks, transcripts and keys. Pick one; students write the prices they hear.</div></a></div>
+<div class="stage"><b>7. Communicate (13 min).</b> Two store windows in the document (breakout rooms). Finish with the <b>Dialogue</b> tab as a whole-class game.</div>
+<div class="note"><b>Homework:</b> the Day 1 practice form (auto-graded) - <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzcbIaqlebaOSplmsrB72g8EQG4n6DGMFnOd4sw6KdjlNt0g/viewform" target="_blank" rel="noopener">open the form</a> - plus any game on this page.</div>
+</section>
+
+<!-- COINS GAME -->
+<section id="p-coins" class="panel">
+<h2>Count the coins</h2>
+<p>Look at the money. How much is it? Click the correct amount.</p>
+<div class="scorebar"><span class="pill">Score: <span id="c-score">0</span></span><span class="pill">Streak: <span id="c-streak">0</span></span><span class="pill">Round: <span id="c-round">1</span>/10</span></div>
+<div class="qbox"><div class="coinrow" id="c-coins"></div>
+<div class="opts" id="c-opts"></div>
+<div class="feedback" id="c-fb"></div></div>
+<button class="bigbtn" id="c-again">Play Again</button>
+</section>
+
+<!-- TEEN TY -->
+<section id="p-teenty" class="panel">
+<h2>-teen or -ty? Listen and click</h2>
+<p>Click <b>Say it</b>. The page speaks a number or a price. Click what you hear. (Use it as a dictation too: students write the number first, then you click to check.)</p>
+<div class="scorebar"><span class="pill">Score: <span id="t-score">0</span></span><span class="pill">Streak: <span id="t-streak">0</span></span>
+<button class="bigbtn teal" id="t-say">Say it</button>
+<button class="bigbtn teal" id="t-mode">Mode: Numbers</button></div>
+<div class="qbox"><div class="opts" id="t-opts"></div><div class="feedback" id="t-fb"></div></div>
+<div class="note" id="t-nosound" style="display:none">This browser cannot speak. Use the Agendaweb listening on the Lesson tab instead.</div>
+</section>
+
+<!-- PRICE TAGS -->
+<section id="p-tags" class="panel">
+<h2>Read the price tags</h2>
+<div class="tagrow">
+<figure><img src="icons/shopping/tagcard_1.png" alt="T-shirt, size M, $9.99"><figcaption>1</figcaption></figure>
+<figure><img src="icons/shopping/tagcard_2.png" alt="Dress, size 8, $35.00"><figcaption>2</figcaption></figure>
+<figure><img src="icons/shopping/tagcard_3.png" alt="Running shoes, size 10, sale $30.00"><figcaption>3</figcaption></figure>
+<figure><img src="icons/shopping/tagcard_4.png" alt="Jacket, size L, $49.99"><figcaption>4</figcaption></figure>
+</div>
+<div class="scorebar"><span class="pill">Score: <span id="g-score">0</span></span><span class="pill">Question: <span id="g-round">1</span>/8</span></div>
+<div class="qbox"><div id="g-q" style="font-size:1.1rem;font-weight:bold;margin-bottom:6px"></div>
+<div class="opts" id="g-opts"></div><div class="feedback" id="g-fb"></div></div>
+<button class="bigbtn" id="g-again">Play Again</button>
+</section>
+
+<!-- DIALOGUE -->
+<section id="p-dialog" class="panel">
+<h2>Put the conversation in order</h2>
+<p>Click the lines in the correct order to build the shopping conversation.</p>
+<div class="scorebar"><span class="pill">Mistakes: <span id="d-miss">0</span></span></div>
+<ul class="built" id="d-built"></ul>
+<div id="d-pool"></div>
+<div class="feedback" id="d-fb"></div>
+<button class="bigbtn" id="d-again">Play Again</button>
+</section>
+
+<!-- LINKS -->
+<section id="p-links" class="panel">
+<h2>All external material (checked and working)</h2>
+<a class="linkcard" href="https://agendaweb.org/exercises/vocabulary/numbers/numbers-teen-ty.html" target="_blank" rel="noopener"><span class="badge listen">LISTENING</span><span class="t">Agendaweb - Numbers: -teen or -ty</span><div class="how">Audio discrimination 13/30, 14/40... Use as dictation or quick game.</div></a>
+<a class="linkcard" href="https://english-practice.net/listening-exercises-a1-prices/" target="_blank" rel="noopener"><span class="badge listen">LISTENING</span><span class="t">English-Practice - A1 Listening: Prices</span><div class="how">Five short price audios with transcripts and answer keys.</div></a>
+<a class="linkcard" href="https://english4real.com/practice/a1_l1-prices.html" target="_blank" rel="noopener"><span class="badge listen">LISTENING</span><span class="t">English4Real - A1 Prices</span><div class="how">Shop transactions: students write totals and change; fill-the-blanks dialogue at the end.</div></a>
+<a class="linkcard" href="https://www.tvokids.com/school-age/tvokids-teacher-power-hour/videos/canadian-money-our-canadian-coins" target="_blank" rel="noopener"><span class="badge video">VIDEO</span><span class="t">TVOKids - Our Canadian Coins</span><div class="how">Canadian coins and values, made for Ontario classrooms. Play short segments.</div></a>
+<a class="linkcard" href="https://www.youtube.com/watch?v=HQUW4T0w2zY" target="_blank" rel="noopener"><span class="badge video">VIDEO</span><span class="t">Bob the Canadian - Let's Learn English at the Shopping Mall</span><div class="how">Real Canadian mall walk-through. Great bridge to the mall topic: pause and ask "What store is this? What can you buy here?"</div></a>
+<a class="linkcard" href="https://learnenglishteens.britishcouncil.org/skills/speaking/a1-speaking/shop" target="_blank" rel="noopener"><span class="badge video">VIDEO + EXERCISES</span><span class="t">British Council - At the Shop (A1)</span><div class="how">Short shop dialogue video with gap-fill and reordering exercises; free worksheets and transcript.</div></a>
+<a class="linkcard" href="https://www.esleschool.com/at-the-shopping-mall/" target="_blank" rel="noopener"><span class="badge listen">LISTENING</span><span class="t">ESLeschool - A Day at the Shopping Mall (A1)</span><div class="how">Listen and match names to people in the mall picture. 10-15 min.</div></a>
+<h2>On this page</h2>
+<a class="linkcard" href="#" data-go="coins"><span class="badge here">GAME</span><span class="t">Count the Coins</span><div class="how">Real Canadian coin pictures; students say or click the amount.</div></a>
+<a class="linkcard" href="#" data-go="teenty"><span class="badge here">GAME</span><span class="t">-teen / -ty speaker</span><div class="how">The page speaks numbers and prices; click or dictate.</div></a>
+<a class="linkcard" href="#" data-go="tags"><span class="badge here">GAME</span><span class="t">Price Tag Quiz</span><div class="how">Eight self-checking questions on the four tags.</div></a>
+<a class="linkcard" href="#" data-go="dialog"><span class="badge here">GAME</span><span class="t">Dialogue Scramble</span><div class="how">Rebuild the shopping conversation line by line.</div></a>
+</section>
+
+<footer>Going Shopping - Day 1 | CLB 1-3 | merceditas-prof.github.io</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+// ---------- tabs ----------
+var tabs=document.querySelectorAll(".tabs button");
+function show(p){
+  tabs.forEach(function(b){b.classList.toggle("active",b.dataset.p===p);});
+  document.querySelectorAll(".panel").forEach(function(s){s.classList.remove("show");});
+  document.getElementById("p-"+p).classList.add("show");
+}
+tabs.forEach(function(b){b.addEventListener("click",function(){show(b.dataset.p);});});
+document.querySelectorAll("[data-go]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();show(a.dataset.go);});});
+
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function fmt(c){ if(c<100){return c+" cents";} var d=(c/100); return "$"+d.toFixed(2); }
+
+// ---------- coins game ----------
+var COIN={penny:1,nickel:5,dime:10,quarter:25,loonie:100,toonie:200};
+var BILL={five:500,ten:1000};
+var combos=[
+ ["quarter","dime"],["penny","penny","penny"],["quarter","quarter","quarter"],
+ ["loonie","quarter"],["toonie","loonie"],["dime","nickel"],["quarter","nickel"],
+ ["toonie","quarter"],["dime","dime","nickel"],["loonie","dime"],
+ ["toonie","loonie","loonie"],["quarter","dime","nickel"],["loonie","loonie","quarter"],
+ ["five","toonie"],["ten","loonie","quarter"],["five","loonie","dime"]
+];
+var cState={score:0,streak:0,round:0,order:[],lock:false};
+function cNew(){cState.score=0;cState.streak=0;cState.round=0;cState.order=shuffle(combos.slice()).slice(0,10);cNext();
+ document.getElementById("c-score").textContent="0";document.getElementById("c-streak").textContent="0";}
+function cVal(spec){var s=0;spec.forEach(function(k){s+=(COIN[k]||BILL[k]);});return s;}
+function cNext(){
+ if(cState.round>=10){document.getElementById("c-fb").textContent="Finished! Score: "+cState.score+"/10 - press Play Again.";document.getElementById("c-fb").className="feedback ok";document.getElementById("c-opts").innerHTML="";document.getElementById("c-coins").innerHTML="";return;}
+ cState.lock=false;
+ var spec=cState.order[cState.round];
+ document.getElementById("c-round").textContent=String(cState.round+1);
+ var row=document.getElementById("c-coins");row.innerHTML="";
+ spec.forEach(function(k){
+   var im=document.createElement("img");
+   if(BILL[k]){im.src="icons/shopping/bill_"+(k==="five"?"5":"10")+".png";im.className="bill";im.alt=k+" dollar bill";}
+   else{im.src="icons/shopping/coin_"+k+".png";im.alt="a "+k;}
+   row.appendChild(im);
+ });
+ var v=cVal(spec);
+ var opts=[v];
+ var tries=0;
+ while(opts.length<4&&tries<200){tries++;
+   var deltas=[5,10,15,20,25,50,75,100,100,200];
+   var d=deltas[Math.floor(Math.random()*deltas.length)]*(Math.random()<0.5?-1:1);
+   var nv=v+d; if(nv>0&&opts.indexOf(nv)<0){opts.push(nv);}
+ }
+ shuffle(opts);
+ var box=document.getElementById("c-opts");box.innerHTML="";
+ document.getElementById("c-fb").textContent="";document.getElementById("c-fb").className="feedback";
+ opts.forEach(function(o){
+   var b=document.createElement("button");b.textContent=fmt(o);
+   b.addEventListener("click",function(){
+     if(cState.lock){return;}cState.lock=true;
+     var fb=document.getElementById("c-fb");
+     if(o===v){b.classList.add("right");cState.score++;cState.streak++;fb.textContent="Correct! "+fmt(v);fb.className="feedback ok";}
+     else{b.classList.add("wrong");cState.streak=0;fb.textContent="Not quite - it is "+fmt(v);fb.className="feedback no";
+       Array.prototype.forEach.call(box.children,function(x){if(x.textContent===fmt(v)){x.classList.add("right");}});}
+     document.getElementById("c-score").textContent=String(cState.score);
+     document.getElementById("c-streak").textContent=String(cState.streak);
+     cState.round++;setTimeout(cNext,1200);
+   });
+   box.appendChild(b);
+ });
+}
+document.getElementById("c-again").addEventListener("click",cNew);
+cNew();
+
+// ---------- teen/ty ----------
+var tPairsNum=[[13,30],[14,40],[15,50],[16,60],[17,70],[18,80],[19,90]];
+var tPrices=["$13.99","$30.50","$14.25","$40.00","$15.75","$50.10","$16.49","$60.99","$17.20","$70.05","$19.99","$90.98"];
+var tState={score:0,streak:0,mode:"num",answer:null,lock:true};
+var synth=window.speechSynthesis;
+if(!synth){document.getElementById("t-nosound").style.display="block";document.getElementById("t-say").disabled=true;}
+function speak(text){
+ try{
+   var u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.85;synth.cancel();synth.speak(u);
+ }catch(e){}
+}
+function priceWords(p){
+ var m=p.replace("$","").split(".");var d=parseInt(m[0],10);var c=parseInt(m[1],10);
+ return String(d)+" "+(c>0?String(c):"dollars");
+}
+function tNext(){
+ var box=document.getElementById("t-opts");box.innerHTML="";
+ document.getElementById("t-fb").textContent="";document.getElementById("t-fb").className="feedback";
+ var opts;
+ if(tState.mode==="num"){
+   var pair=tPairsNum[Math.floor(Math.random()*tPairsNum.length)];
+   tState.answer=pair[Math.floor(Math.random()*2)];
+   opts=pair.slice();
+ }else{
+   var pick=shuffle(tPrices.slice()).slice(0,4);
+   tState.answer=pick[Math.floor(Math.random()*4)];
+   opts=pick;
+ }
+ shuffle(opts);
+ opts.forEach(function(o){
+   var b=document.createElement("button");b.textContent=String(o);
+   b.addEventListener("click",function(){
+     if(tState.lock){return;}tState.lock=true;
+     var fb=document.getElementById("t-fb");
+     if(String(o)===String(tState.answer)){b.classList.add("right");tState.score++;tState.streak++;fb.textContent="Correct!";fb.className="feedback ok";}
+     else{b.classList.add("wrong");tState.streak=0;fb.textContent="It was "+tState.answer;fb.className="feedback no";}
+     document.getElementById("t-score").textContent=String(tState.score);
+     document.getElementById("t-streak").textContent=String(tState.streak);
+     setTimeout(tNext,1100);
+   });
+   box.appendChild(b);
+ });
+ tState.lock=true; // unlocked when spoken
+}
+document.getElementById("t-say").addEventListener("click",function(){
+ if(!tState.answer){return;}
+ tState.lock=false;
+ if(tState.mode==="num"){speak(String(tState.answer));}
+ else{speak(priceWords(String(tState.answer)));}
+});
+document.getElementById("t-mode").addEventListener("click",function(){
+ tState.mode=tState.mode==="num"?"price":"num";
+ this.textContent="Mode: "+(tState.mode==="num"?"Numbers":"Prices");
+ tNext();
+});
+tNext();
+
+// ---------- price tags quiz ----------
+var gQs=[
+ {q:"Which item is on sale?",a:3},
+ {q:"Which item costs $9.99?",a:1},
+ {q:"Which item is a size 8?",a:2},
+ {q:"Which item is the most expensive?",a:4},
+ {q:"Which item is a size large?",a:4},
+ {q:"Which item costs $30.00 now?",a:3},
+ {q:"Which item can you wear on your feet?",a:3},
+ {q:"Which item is a medium?",a:1}
+];
+var gState={score:0,round:0,order:[],lock:false};
+function gNew(){gState.score=0;gState.round=0;gState.order=shuffle(gQs.slice());gNext();
+ document.getElementById("g-score").textContent="0";}
+function gNext(){
+ if(gState.round>=gState.order.length){
+   document.getElementById("g-q").textContent="Finished! Score: "+gState.score+"/"+gState.order.length;
+   document.getElementById("g-opts").innerHTML="";document.getElementById("g-fb").textContent="";return;}
+ gState.lock=false;
+ var item=gState.order[gState.round];
+ document.getElementById("g-round").textContent=String(gState.round+1);
+ document.getElementById("g-q").textContent=item.q;
+ document.getElementById("g-fb").textContent="";document.getElementById("g-fb").className="feedback";
+ var box=document.getElementById("g-opts");box.innerHTML="";
+ [1,2,3,4].forEach(function(n){
+   var b=document.createElement("button");b.textContent=String(n);
+   b.addEventListener("click",function(){
+     if(gState.lock){return;}gState.lock=true;
+     var fb=document.getElementById("g-fb");
+     if(n===item.a){b.classList.add("right");gState.score++;fb.textContent="Correct!";fb.className="feedback ok";}
+     else{b.classList.add("wrong");fb.textContent="It is tag "+item.a;fb.className="feedback no";}
+     document.getElementById("g-score").textContent=String(gState.score);
+     gState.round++;setTimeout(gNext,1100);
+   });
+   box.appendChild(b);
+ });
+}
+document.getElementById("g-again").addEventListener("click",gNew);
+gNew();
+
+// ---------- dialogue scramble ----------
+var dLines=[
+ "Shop assistant: Hello. Can I help you?",
+ "Customer: Yes, please. I am looking for a shirt.",
+ "Shop assistant: What size are you?",
+ "Customer: I am a medium.",
+ "Shop assistant: Here you are. It is $15.00.",
+ "Customer: Great. I will take it. Can I pay by card?",
+ "Shop assistant: Yes, of course. Have a nice day!"
+];
+var dState={next:0,miss:0};
+function dNew(){
+ dState.next=0;dState.miss=0;
+ document.getElementById("d-miss").textContent="0";
+ document.getElementById("d-fb").textContent="";document.getElementById("d-fb").className="feedback";
+ document.getElementById("d-built").innerHTML="";
+ var pool=document.getElementById("d-pool");pool.innerHTML="";
+ shuffle(dLines.map(function(t,i){return{t:t,i:i};})).forEach(function(o){
+   var b=document.createElement("button");b.className="dlgline";b.textContent=o.t;
+   b.addEventListener("click",function(){
+     if(o.i===dState.next){
+       b.remove();
+       var li=document.createElement("li");li.textContent=o.t;
+       document.getElementById("d-built").appendChild(li);
+       dState.next++;
+       if(dState.next===dLines.length){
+         var fb=document.getElementById("d-fb");
+         fb.textContent="Complete! Mistakes: "+dState.miss+". Now read it with a partner.";
+         fb.className="feedback ok";
+       }
+     }else{
+       dState.miss++;document.getElementById("d-miss").textContent=String(dState.miss);
+       b.classList.add("err");setTimeout(function(){b.classList.remove("err");},500);
+     }
+   });
+   pool.appendChild(b);
+ });
+}
+document.getElementById("d-again").addEventListener("click",dNew);
+dNew();
+})();
+</script>
+</body>
+</html>
