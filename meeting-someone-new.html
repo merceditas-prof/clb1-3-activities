@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meeting Someone New - In / On Practice</title>
+<style>
+  :root {
+    --teal: #0b5563;
+    --teal-dark: #073c47;
+    --coral: #ff6f59;
+    --gold: #f4b942;
+    --bg: #fbf9f4;
+    --card: #ffffff;
+    --ink: #1f2d2f;
+    --line: #dfe6e4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  header {
+    background: var(--teal);
+    color: #fff;
+    padding: 28px 20px 22px;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0 0 6px;
+    font-size: 1.9rem;
+    letter-spacing: 0.02em;
+  }
+  header p {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #d9ece9;
+  }
+  nav.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 16px;
+    background: var(--teal-dark);
+  }
+  nav.tabs button {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    padding: 10px 18px;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  nav.tabs button:hover { background: rgba(255,255,255,0.22); }
+  nav.tabs button.active {
+    background: var(--gold);
+    color: var(--teal-dark);
+    font-weight: bold;
+    border-color: var(--gold);
+  }
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 18px 60px;
+  }
+  .panel { display: none; }
+  .panel.active { display: block; animation: fade 0.2s ease; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .card h2 {
+    margin-top: 0;
+    color: var(--teal);
+    font-size: 1.3rem;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 8px;
+  }
+  .rule-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 14px 0;
+  }
+  @media (max-width: 560px) {
+    .rule-grid { grid-template-columns: 1fr; }
+  }
+  .rule-box {
+    border-radius: 12px;
+    padding: 16px;
+    color: #fff;
+  }
+  .rule-box.in-box { background: var(--teal); }
+  .rule-box.on-box { background: var(--coral); }
+  .rule-box h3 {
+    margin: 0 0 8px;
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+  }
+  .rule-box ul { margin: 8px 0 0; padding-left: 20px; }
+  .rule-box li { margin-bottom: 4px; }
+  .example {
+    background: #f3f0e6;
+    border-left: 5px solid var(--gold);
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 4px;
+    font-size: 1.08rem;
+  }
+  .example b.in-word { color: var(--teal); }
+  .example b.on-word { color: var(--coral); }
+
+  .mini-cal {
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.72rem;
+    background: #fff;
+  }
+  .mini-cal .cal-head {
+    background: var(--teal-dark);
+    color: #fff;
+    text-align: center;
+    padding: 4px 0;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+  .mini-cal .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    padding: 6px;
+  }
+  .mini-cal .cal-grid span {
+    text-align: center;
+    padding: 3px 0;
+    border-radius: 3px;
+    color: #7a8482;
+  }
+  .mini-cal.whole-month .cal-grid span.day { background: #cfe3df; color: var(--teal-dark); font-weight: bold; }
+  .mini-cal.one-day .cal-grid span.day10 { background: var(--coral); color: #fff; font-weight: bold; }
+  .cal-caption { text-align: center; font-size: 0.85rem; margin-top: 6px; color: #56605e; }
+
+  .frame-box {
+    background: #f3f0e6;
+    border: 2px dashed var(--teal);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 1.15rem;
+    margin: 12px 0;
+  }
+  .frame-box p { margin: 6px 0; }
+  .blank { border-bottom: 2px solid var(--teal-dark); padding: 0 4px; }
+
+  .var-list { list-style: none; padding: 0; margin: 10px 0 0; }
+  .var-list li {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+    font-size: 1.05rem;
+  }
+  .var-list li:last-child { border-bottom: none; }
+
+  .helper-box {
+    background: #eaf3f1;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  .helper-box p { margin: 4px 0; }
+  .helper-box .say { color: var(--teal); font-weight: bold; }
+
+  .quiz-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .stat {
+    background: var(--teal);
+    color: #fff;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.95rem;
+  }
+  .stat b { font-size: 1.15rem; color: var(--gold); }
+  #quiz-sentence {
+    font-size: 1.25rem;
+    text-align: center;
+    padding: 20px 10px;
+    min-height: 60px;
+  }
+  #quiz-sentence .gap {
+    display: inline-block;
+    min-width: 70px;
+    border-bottom: 3px solid var(--coral);
+    text-align: center;
+  }
+  .choice-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 10px 0 6px;
+  }
+  .choice-row button {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.2rem;
+    padding: 12px 40px;
+    border-radius: 10px;
+    border: 2px solid var(--teal);
+    background: #fff;
+    color: var(--teal);
+    cursor: pointer;
+  }
+  .choice-row button:hover { background: #eaf3f1; }
+  .choice-row button:disabled { cursor: default; opacity: 0.6; }
+  #quiz-feedback {
+    text-align: center;
+    min-height: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  #quiz-feedback.correct { color: #1f7a4c; }
+  #quiz-feedback.wrong { color: var(--coral); }
+  .quiz-actions { text-align: center; }
+  .quiz-actions button {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--gold);
+    border: none;
+    color: var(--teal-dark);
+    font-weight: bold;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  #quiz-done {
+    display: none;
+    text-align: center;
+    padding: 10px;
+  }
+  #quiz-done p { font-size: 1.3rem; margin: 6px 0; }
+
+  .check-item {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+  .check-item p { margin: 0 0 10px; font-size: 1.05rem; }
+  .check-buttons { display: flex; gap: 10px; }
+  .check-buttons button {
+    font-family: Georgia, 'Times New Roman', serif;
+    flex: 1;
+    padding: 8px 0;
+    border-radius: 8px;
+    border: 2px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  .check-buttons button.yes.picked { background: #1f7a4c; border-color: #1f7a4c; color: #fff; }
+  .check-buttons button.no.picked { background: var(--coral); border-color: var(--coral); color: #fff; }
+  #check-summary {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--teal);
+    margin-top: 4px;
+  }
+  footer {
+    text-align: center;
+    color: #8a938f;
+    font-size: 0.85rem;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Meeting Someone New</h1>
+  <p>When did you come to Canada? -- "in" or "on"</p>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="grammar">1. Grammar</button>
+  <button class="tab-btn" data-tab="practice">2. Practice</button>
+  <button class="tab-btn" data-tab="speaking">3. Speaking</button>
+  <button class="tab-btn" data-tab="checklist">4. Self-Check</button>
+</nav>
+
+<main>
+
+  <!-- TAB 1: GRAMMAR -->
+  <section class="panel active" id="panel-grammar">
+    <div class="card">
+      <h2>"In" or "On"?</h2>
+      <div class="rule-grid">
+        <div class="rule-box in-box">
+          <h3>IN</h3>
+          <p>Use <b>in</b> when there is no exact day:</p>
+          <ul>
+            <li>a year -- <i>in 2019</i></li>
+            <li>a month -- <i>in May</i></li>
+            <li>a month + year -- <i>in May 2019</i></li>
+          </ul>
+        </div>
+        <div class="rule-box on-box">
+          <h3>ON</h3>
+          <p>Use <b>on</b> with an exact date:</p>
+          <ul>
+            <li>day + month -- <i>on May 10</i></li>
+            <li>day + month + year -- <i>on May 10, 2019</i></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="example">I came to Canada <b class="in-word">in</b> May 2019. <span style="color:#8a938f;">(month + year, no exact day)</span></div>
+      <div class="example">I came to Canada <b class="on-word">on</b> May 10, 2019. <span style="color:#8a938f;">(exact date)</span></div>
+
+      <div class="rule-grid" style="margin-top:18px;">
+        <div>
+          <div class="mini-cal whole-month">
+            <div class="cal-head">MAY 2019</div>
+            <div class="cal-grid">
+              <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+              <span class="day">1</span><span class="day">2</span><span class="day">3</span><span class="day">4</span><span class="day">5</span><span class="day">6</span><span class="day">7</span>
+              <span class="day">8</span><span class="day">9</span><span class="day">10</span><span class="day">11</span><span class="day">12</span><span class="day">13</span><span class="day">14</span>
+              <span class="day">15</span><span class="day">16</span><span class="day">17</span><span class="day">18</span><span class="day">19</span><span class="day">20</span><span class="day">21</span>
+            </div>
+          </div>
+          <p class="cal-caption">The whole month is shaded &rarr; use <b>in</b></p>
+        </div>
+        <div>
+          <div class="mini-cal one-day">
+            <div class="cal-head">MAY 2019</div>
+            <div class="cal-grid">
+              <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+              <span>8</span><span>9</span><span class="day day10">10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+              <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+            </div>
+          </div>
+          <p class="cal-caption">Only one day is marked &rarr; use <b>on</b></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: PRACTICE QUIZ -->
+  <section class="panel" id="panel-practice">
+    <div class="card">
+      <h2>Practice: Choose "in" or "on"</h2>
+      <div class="quiz-top">
+        <div class="stat">Question <b id="q-num">1</b> / <b id="q-total">10</b></div>
+        <div class="stat">Score: <b id="q-score">0</b></div>
+        <div class="stat">Streak: <b id="q-streak">0</b></div>
+      </div>
+
+      <div id="quiz-sentence"></div>
+      <div class="choice-row" id="quiz-choices">
+        <button id="btn-in" onclick="answerQuiz('in')">in</button>
+        <button id="btn-on" onclick="answerQuiz('on')">on</button>
+      </div>
+      <div id="quiz-feedback"></div>
+      <div class="quiz-actions">
+        <button id="btn-next" onclick="nextQuestion()" style="display:none;">Next &rarr;</button>
+      </div>
+
+      <div id="quiz-done">
+        <p>You finished! Final score: <b id="final-score"></b> / 10</p>
+        <div class="quiz-actions"><button onclick="startQuiz()">Play Again</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 3: SPEAKING PRACTICE -->
+  <section class="panel" id="panel-speaking">
+    <div class="card">
+      <h2>Speaking Practice -- Breakout Rooms</h2>
+      <p>Go to your breakout room. Take turns with your partner. Use the sentences below and fill in your own information.</p>
+
+      <div class="frame-box">
+        <p>My name is <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+        <p>I am from <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+        <p>I came to Canada <b>in / on</b> <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+      </div>
+
+      <p><b>You can also say:</b></p>
+      <ul class="var-list">
+        <li>I came to Canada with my family <b>in / on</b> ____.</li>
+        <li>I came to Canada with my brother <b>in / on</b> ____.</li>
+        <li>I came to Canada with my sister <b>in / on</b> ____.</li>
+        <li>I came to Canada with my husband <b>in / on</b> ____.</li>
+        <li>I came to Canada with my wife <b>in / on</b> ____.</li>
+        <li>I came to Canada with my child <b>in / on</b> ____.</li>
+        <li>I came to Canada with my children <b>in / on</b> ____.</li>
+      </ul>
+
+      <div class="helper-box">
+        <p>If you don't hear your partner, ask: <span class="say">"Pardon?"</span></p>
+        <p>Then say your sentence again.</p>
+        <p style="margin-top:10px;">When you meet someone new, say: <span class="say">"Nice to meet you."</span></p>
+        <p>Your partner answers: <span class="say">"Nice to meet you too."</span></p>
+      </div>
+
+      <div class="example">Remember: <b class="in-word">in</b> = month or year. <b class="on-word">on</b> = exact date.</div>
+    </div>
+  </section>
+
+  <!-- TAB 4: SELF-CHECK -->
+  <section class="panel" id="panel-checklist">
+    <div class="card">
+      <h2>Can Do Checklist</h2>
+      <p>After your breakout room practice, check Yes or No for each sentence.</p>
+
+      <div class="check-item">
+        <p>1. I can answer introduction questions from a classmate.</p>
+        <div class="check-buttons">
+          <button class="yes" onclick="setCheck(0,'yes',this)">Yes</button>
+          <button class="no" onclick="setCheck(0,'no',this)">No</button>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <p>2. I answer in complete sentences. I say, "My name is ___. I am from ___. I came to Canada in / on ___."</p>
+        <div class="check-buttons">
+          <button class="yes" onclick="setCheck(1,'yes',this)">Yes</button>
+          <button class="no" onclick="setCheck(1,'no',this)">No</button>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <p>3. I use "in" for months and years, for example, "I came to Canada in May 2019." I use "on" for dates, for example, "I came to Canada on May 10, 2019."</p>
+        <div class="check-buttons">
+          <button class="yes" onclick="setCheck(2,'yes',this)">Yes</button>
+          <button class="no" onclick="setCheck(2,'no',this)">No</button>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <p>4. I say my sentence again when my classmate asks, "Pardon?"</p>
+        <div class="check-buttons">
+          <button class="yes" onclick="setCheck(3,'yes',this)">Yes</button>
+          <button class="no" onclick="setCheck(3,'no',this)">No</button>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <p>5. My new classmate says, "Nice to meet you." I say, "Nice to meet you too."</p>
+        <div class="check-buttons">
+          <button class="yes" onclick="setCheck(4,'yes',this)">Yes</button>
+          <button class="no" onclick="setCheck(4,'no',this)">No</button>
+        </div>
+      </div>
+
+      <p id="check-summary"></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>Easy Everyday English -- Meeting Someone New</footer>
+
+<script>
+  // ---- Tabs ----
+  var tabButtons = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.panel');
+  for (var i = 0; i < tabButtons.length; i++) {
+    tabButtons[i].addEventListener('click', function () {
+      var target = this.getAttribute('data-tab');
+      for (var j = 0; j < tabButtons.length; j++) { tabButtons[j].classList.remove('active'); }
+      this.classList.add('active');
+      for (var k = 0; k < panels.length; k++) { panels[k].classList.remove('active'); }
+      document.getElementById('panel-' + target).classList.add('active');
+    });
+  }
+
+  // ---- Quiz ----
+  var bank = [
+    { text: 'I came to Canada ___ 2019.', answer: 'in' },
+    { text: 'I came to Canada ___ March 2020.', answer: 'in' },
+    { text: 'I came to Canada ___ March 15, 2020.', answer: 'on' },
+    { text: 'My brother came to Canada ___ July 2018.', answer: 'in' },
+    { text: 'My family came to Canada ___ September 3, 2021.', answer: 'on' },
+    { text: 'My husband came to Canada ___ 2022.', answer: 'in' },
+    { text: 'My sister came to Canada ___ January 5, 2019.', answer: 'on' },
+    { text: 'My children came to Canada ___ June 2020.', answer: 'in' },
+    { text: 'I came to Canada ___ October 30, 2017.', answer: 'on' },
+    { text: 'My wife came to Canada ___ April 2021.', answer: 'in' }
+  ];
+  var order = [];
+  var qIndex = 0;
+  var score = 0;
+  var streak = 0;
+  var answered = false;
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function startQuiz() {
+    order = shuffle(bank.map(function (_, i) { return i; }));
+    qIndex = 0;
+    score = 0;
+    streak = 0;
+    document.getElementById('q-score').textContent = score;
+    document.getElementById('q-streak').textContent = streak;
+    document.getElementById('q-total').textContent = bank.length;
+    document.getElementById('quiz-done').style.display = 'none';
+    document.getElementById('quiz-choices').style.display = 'flex';
+    showQuestion();
+  }
+
+  function showQuestion() {
+    answered = false;
+    var item = bank[order[qIndex]];
+    document.getElementById('q-num').textContent = qIndex + 1;
+    document.getElementById('quiz-sentence').innerHTML = item.text.replace('___', '<span class="gap">&nbsp;</span>');
+    document.getElementById('quiz-feedback').textContent = '';
+    document.getElementById('quiz-feedback').className = '';
+    document.getElementById('btn-in').disabled = false;
+    document.getElementById('btn-on').disabled = false;
+    document.getElementById('btn-next').style.display = 'none';
+  }
+
+  function answerQuiz(choice) {
+    if (answered) { return; }
+    answered = true;
+    var item = bank[order[qIndex]];
+    var fb = document.getElementById('quiz-feedback');
+    document.getElementById('btn-in').disabled = true;
+    document.getElementById('btn-on').disabled = true;
+    if (choice === item.answer) {
+      score++;
+      streak++;
+      fb.textContent = 'Correct!';
+      fb.className = 'correct';
+    } else {
+      streak = 0;
+      fb.textContent = 'Not quite -- the answer is "' + item.answer + '".';
+      fb.className = 'wrong';
+    }
+    document.getElementById('q-score').textContent = score;
+    document.getElementById('q-streak').textContent = streak;
+    document.getElementById('btn-next').style.display = 'inline-block';
+  }
+
+  function nextQuestion() {
+    qIndex++;
+    if (qIndex >= order.length) {
+      document.getElementById('quiz-choices').style.display = 'none';
+      document.getElementById('btn-next').style.display = 'none';
+      document.getElementById('quiz-feedback').textContent = '';
+      document.getElementById('quiz-sentence').textContent = '';
+      document.getElementById('final-score').textContent = score;
+      document.getElementById('quiz-done').style.display = 'block';
+    } else {
+      showQuestion();
+    }
+  }
+
+  startQuiz();
+
+  // ---- Checklist ----
+  var checkState = [null, null, null, null, null];
+  function setCheck(idx, val, btn) {
+    checkState[idx] = val;
+    var group = btn.parentElement.querySelectorAll('button');
+    for (var i = 0; i < group.length; i++) { group[i].classList.remove('picked'); }
+    btn.classList.add('picked');
+    updateCheckSummary();
+  }
+  function updateCheckSummary() {
+    var answeredCount = checkState.filter(function (v) { return v !== null; }).length;
+    var yesCount = checkState.filter(function (v) { return v === 'yes'; }).length;
+    var el = document.getElementById('check-summary');
+    if (answeredCount === 0) { el.textContent = ''; return; }
+    el.textContent = yesCount + ' / ' + checkState.length + ' checked Yes';
+  }
+</script>
+
+</body>
+</html>
