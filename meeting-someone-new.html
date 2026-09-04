@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meeting Someone New - In / On Practice</title>
+<title>Meeting Someone New - In / On and I / My / His / Her</title>
 <style>
   :root {
     --teal: #0b5563;
@@ -29,16 +29,8 @@
     padding: 28px 20px 22px;
     text-align: center;
   }
-  header h1 {
-    margin: 0 0 6px;
-    font-size: 1.9rem;
-    letter-spacing: 0.02em;
-  }
-  header p {
-    margin: 0;
-    font-size: 1.05rem;
-    color: #d9ece9;
-  }
+  header h1 { margin: 0 0 6px; font-size: 1.9rem; letter-spacing: 0.02em; }
+  header p { margin: 0; font-size: 1.05rem; color: #d9ece9; }
   nav.tabs {
     display: flex;
     flex-wrap: wrap;
@@ -65,11 +57,7 @@
     font-weight: bold;
     border-color: var(--gold);
   }
-  main {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 24px 18px 60px;
-  }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 18px 60px; }
   .panel { display: none; }
   .panel.active { display: block; animation: fade 0.2s ease; }
   @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
@@ -88,27 +76,12 @@
     border-bottom: 2px solid var(--gold);
     padding-bottom: 8px;
   }
-  .rule-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 14px 0;
-  }
-  @media (max-width: 560px) {
-    .rule-grid { grid-template-columns: 1fr; }
-  }
-  .rule-box {
-    border-radius: 12px;
-    padding: 16px;
-    color: #fff;
-  }
+  .rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0; }
+  @media (max-width: 560px) { .rule-grid { grid-template-columns: 1fr; } }
+  .rule-box { border-radius: 12px; padding: 16px; color: #fff; }
   .rule-box.in-box { background: var(--teal); }
   .rule-box.on-box { background: var(--coral); }
-  .rule-box h3 {
-    margin: 0 0 8px;
-    font-size: 1.3rem;
-    letter-spacing: 0.05em;
-  }
+  .rule-box h3 { margin: 0 0 8px; font-size: 1.3rem; letter-spacing: 0.05em; }
   .rule-box ul { margin: 8px 0 0; padding-left: 20px; }
   .rule-box li { margin-bottom: 4px; }
   .example {
@@ -122,33 +95,10 @@
   .example b.in-word { color: var(--teal); }
   .example b.on-word { color: var(--coral); }
 
-  .mini-cal {
-    border: 2px solid var(--line);
-    border-radius: 8px;
-    overflow: hidden;
-    font-size: 0.72rem;
-    background: #fff;
-  }
-  .mini-cal .cal-head {
-    background: var(--teal-dark);
-    color: #fff;
-    text-align: center;
-    padding: 4px 0;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-  }
-  .mini-cal .cal-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 2px;
-    padding: 6px;
-  }
-  .mini-cal .cal-grid span {
-    text-align: center;
-    padding: 3px 0;
-    border-radius: 3px;
-    color: #7a8482;
-  }
+  .mini-cal { border: 2px solid var(--line); border-radius: 8px; overflow: hidden; font-size: 0.72rem; background: #fff; }
+  .mini-cal .cal-head { background: var(--teal-dark); color: #fff; text-align: center; padding: 4px 0; font-weight: bold; letter-spacing: 0.05em; }
+  .mini-cal .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; padding: 6px; }
+  .mini-cal .cal-grid span { text-align: center; padding: 3px 0; border-radius: 3px; color: #7a8482; }
   .mini-cal.whole-month .cal-grid span.day { background: #cfe3df; color: var(--teal-dark); font-weight: bold; }
   .mini-cal.one-day .cal-grid span.day10 { background: var(--coral); color: #fff; font-weight: bold; }
   .cal-caption { text-align: center; font-size: 0.85rem; margin-top: 6px; color: #56605e; }
@@ -165,56 +115,19 @@
   .blank { border-bottom: 2px solid var(--teal-dark); padding: 0 4px; }
 
   .var-list { list-style: none; padding: 0; margin: 10px 0 0; }
-  .var-list li {
-    padding: 8px 10px;
-    border-bottom: 1px solid var(--line);
-    font-size: 1.05rem;
-  }
+  .var-list li { padding: 8px 10px; border-bottom: 1px solid var(--line); font-size: 1.05rem; }
   .var-list li:last-child { border-bottom: none; }
 
-  .helper-box {
-    background: #eaf3f1;
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin: 12px 0;
-  }
+  .helper-box { background: #eaf3f1; border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
   .helper-box p { margin: 4px 0; }
   .helper-box .say { color: var(--teal); font-weight: bold; }
 
-  .quiz-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .stat {
-    background: var(--teal);
-    color: #fff;
-    border-radius: 8px;
-    padding: 6px 14px;
-    font-size: 0.95rem;
-  }
+  .quiz-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+  .stat { background: var(--teal); color: #fff; border-radius: 8px; padding: 6px 14px; font-size: 0.95rem; }
   .stat b { font-size: 1.15rem; color: var(--gold); }
-  #quiz-sentence {
-    font-size: 1.25rem;
-    text-align: center;
-    padding: 20px 10px;
-    min-height: 60px;
-  }
-  #quiz-sentence .gap {
-    display: inline-block;
-    min-width: 70px;
-    border-bottom: 3px solid var(--coral);
-    text-align: center;
-  }
-  .choice-row {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin: 10px 0 6px;
-  }
+  #quiz-sentence { font-size: 1.25rem; text-align: center; padding: 20px 10px; min-height: 60px; }
+  #quiz-sentence .gap { display: inline-block; min-width: 70px; border-bottom: 3px solid var(--coral); text-align: center; }
+  .choice-row { display: flex; justify-content: center; gap: 16px; margin: 10px 0 6px; }
   .choice-row button {
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 1.2rem;
@@ -227,13 +140,7 @@
   }
   .choice-row button:hover { background: #eaf3f1; }
   .choice-row button:disabled { cursor: default; opacity: 0.6; }
-  #quiz-feedback {
-    text-align: center;
-    min-height: 30px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
+  #quiz-feedback { text-align: center; min-height: 30px; font-size: 1.1rem; font-weight: bold; margin-bottom: 8px; }
   #quiz-feedback.correct { color: #1f7a4c; }
   #quiz-feedback.wrong { color: var(--coral); }
   .quiz-actions { text-align: center; }
@@ -248,19 +155,10 @@
     cursor: pointer;
     font-size: 1rem;
   }
-  #quiz-done {
-    display: none;
-    text-align: center;
-    padding: 10px;
-  }
+  #quiz-done { display: none; text-align: center; padding: 10px; }
   #quiz-done p { font-size: 1.3rem; margin: 6px 0; }
 
-  .check-item {
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 12px 14px;
-    margin-bottom: 12px;
-  }
+  .check-item { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
   .check-item p { margin: 0 0 10px; font-size: 1.05rem; }
   .check-buttons { display: flex; gap: 10px; }
   .check-buttons button {
@@ -276,38 +174,195 @@
   }
   .check-buttons button.yes.picked { background: #1f7a4c; border-color: #1f7a4c; color: #fff; }
   .check-buttons button.no.picked { background: var(--coral); border-color: var(--coral); color: #fff; }
-  #check-summary {
+  #check-summary { text-align: center; font-size: 1.1rem; font-weight: bold; color: var(--teal); margin-top: 4px; }
+  footer { text-align: center; color: #8a938f; font-size: 0.85rem; padding: 20px; }
+
+  /* ---------- added for I / my / his / her ---------- */
+  .word-pron { color: var(--teal); font-weight: bold; }
+  .word-poss { color: var(--coral); font-weight: bold; }
+
+  .person-table { margin: 16px 0 6px; }
+  .person-row {
+    display: grid;
+    grid-template-columns: 92px 78px 92px 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .person-row:last-child { border-bottom: none; }
+  .person-row.head {
+    font-size: 0.9rem;
+    color: #56605e;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--gold);
+  }
+  .person-row img { width: 84px; height: 84px; object-fit: contain; display: block; }
+  .person-row .pron { font-size: 1.35rem; font-weight: bold; color: var(--teal); }
+  .person-row .poss { font-size: 1.35rem; font-weight: bold; color: var(--coral); }
+  .person-row .sent { font-size: 1.02rem; }
+  @media (max-width: 560px) {
+    .person-row { grid-template-columns: 64px 62px 74px 1fr; gap: 8px; }
+    .person-row img { width: 58px; height: 58px; }
+    .person-row .pron, .person-row .poss { font-size: 1.1rem; }
+    .person-row .sent { font-size: 0.94rem; }
+  }
+
+  .warn-box {
+    background: #fdeceb;
+    border-left: 5px solid var(--coral);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+  .warn-box p { margin: 6px 0; font-size: 1.05rem; }
+  .cross { color: var(--coral); font-weight: bold; }
+  .tick { color: #1f7a4c; font-weight: bold; }
+
+  .tip-box {
+    background: #eaf3f1;
+    border-left: 5px solid var(--teal);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 1.05rem;
+  }
+
+  /* generic quiz blocks */
+  .quiz .quiz-img { text-align: center; min-height: 0; }
+  .quiz .quiz-img img { width: 120px; height: 120px; object-fit: contain; margin: 6px auto 0; }
+  .quiz .quiz-sentence { font-size: 1.25rem; text-align: center; padding: 16px 10px; min-height: 56px; }
+  .quiz .quiz-sentence .gap { display: inline-block; min-width: 70px; border-bottom: 3px solid var(--coral); text-align: center; }
+  .quiz .choice-row { flex-wrap: wrap; }
+  .quiz .choice-row button { padding: 12px 28px; }
+  .quiz .choice-row.stack { flex-direction: column; align-items: stretch; gap: 10px; }
+  .quiz .choice-row.stack button { padding: 12px 16px; font-size: 1.05rem; }
+  .quiz .choice-row button.right { background: #e3f3ea; border-color: #1f7a4c; color: #1f7a4c; opacity: 1; }
+  .quiz .choice-row button.wrongpick { background: #fdeceb; border-color: var(--coral); color: var(--coral); opacity: 1; }
+  .quiz .quiz-feedback { text-align: center; min-height: 30px; font-size: 1.08rem; font-weight: bold; margin-bottom: 8px; }
+  .quiz .quiz-feedback.correct { color: #1f7a4c; }
+  .quiz .quiz-feedback.wrong { color: var(--coral); }
+  .quiz .quiz-feedback .why { display: block; font-weight: normal; font-size: 0.95rem; color: #56605e; margin-top: 4px; }
+  .quiz .quiz-done { display: none; text-align: center; padding: 10px; }
+  .quiz .quiz-done p { font-size: 1.25rem; margin: 6px 0; }
+
+  /* matching game */
+  .match-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0 6px; }
+  .match-col { display: flex; flex-direction: column; gap: 10px; }
+  .match-col button {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.2rem;
+    padding: 14px 8px;
+    border-radius: 10px;
+    border: 2px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .match-col.left button { color: var(--teal); border-color: var(--teal); }
+  .match-col.right button { color: var(--coral); border-color: var(--coral); }
+  .match-col button.picked { background: var(--gold); border-color: var(--gold); color: var(--teal-dark); font-weight: bold; }
+  .match-col button.done { background: #e3f3ea; border-color: #1f7a4c; color: #1f7a4c; cursor: default; }
+  .match-col button.shake { background: #fdeceb; }
+  .match-msg { text-align: center; min-height: 28px; font-weight: bold; font-size: 1.08rem; }
+  .match-msg.good { color: #1f7a4c; }
+  .match-msg.bad { color: var(--coral); }
+
+  /* dialogue */
+  .dlg { background: #f3f0e6; border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
+  .dlg p { margin: 8px 0; font-size: 1.12rem; }
+  .dlg .who {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
     text-align: center;
-    font-size: 1.1rem;
+    border-radius: 50%;
+    background: var(--teal);
+    color: #fff;
+    font-size: 0.9rem;
+    margin-right: 8px;
+  }
+  .dlg p.b .who { background: var(--coral); }
+  .dlg select {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.02rem;
+    padding: 4px 6px;
+    border-radius: 6px;
+    border: 2px solid var(--teal);
+    background: #fff;
+    color: var(--ink);
+  }
+  .dlg select.ok { border-color: #1f7a4c; background: #e3f3ea; color: #1f7a4c; font-weight: bold; }
+  .dlg select.bad { border-color: var(--coral); background: #fdeceb; color: var(--coral); }
+  .dlg-result { text-align: center; min-height: 28px; font-weight: bold; font-size: 1.08rem; color: var(--teal); }
+  .btn-row { text-align: center; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .btn-row button {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--gold);
+    border: none;
+    color: var(--teal-dark);
     font-weight: bold;
-    color: var(--teal);
-    margin-top: 4px;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
   }
-  footer {
-    text-align: center;
-    color: #8a938f;
-    font-size: 0.85rem;
-    padding: 20px;
+  .btn-row button.ghost { background: #fff; border: 2px solid var(--teal); color: var(--teal); }
+
+  /* report */
+  .model-row { display: grid; grid-template-columns: 110px 1fr; gap: 14px; align-items: center; margin: 12px 0; }
+  .model-row img { width: 100px; height: 100px; object-fit: contain; }
+  .model-row .lines p { margin: 4px 0; font-size: 1.1rem; }
+  @media (max-width: 560px) {
+    .model-row { grid-template-columns: 72px 1fr; }
+    .model-row img { width: 68px; height: 68px; }
+    .model-row .lines p { font-size: 1rem; }
   }
+  .note-card {
+    border: 2px solid var(--teal);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 12px 0;
+    background: #fff;
+  }
+  .note-card p { margin: 10px 0; font-size: 1.1rem; }
+  .step-list { padding-left: 22px; }
+  .step-list li { margin-bottom: 8px; font-size: 1.05rem; }
+  .form-link {
+    display: inline-block;
+    background: var(--teal);
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 12px 22px;
+    border-radius: 10px;
+    margin-top: 6px;
+  }
+  .form-link:hover { background: var(--teal-dark); }
 </style>
 </head>
 <body>
 
 <header>
   <h1>Meeting Someone New</h1>
-  <p>When did you come to Canada? -- "in" or "on"</p>
+  <p>Introductions -- "in" or "on", and I / my / he / his / she / her</p>
 </header>
 
 <nav class="tabs">
-  <button class="tab-btn active" data-tab="grammar">1. Grammar</button>
-  <button class="tab-btn" data-tab="practice">2. Practice</button>
-  <button class="tab-btn" data-tab="speaking">3. Speaking</button>
-  <button class="tab-btn" data-tab="checklist">4. Self-Check</button>
+  <button class="tab-btn active" data-tab="grammar">1. Grammar: In / On</button>
+  <button class="tab-btn" data-tab="practice">2. Practice: In / On</button>
+  <button class="tab-btn" data-tab="grammar2">3. Grammar: I / My</button>
+  <button class="tab-btn" data-tab="practice2">4. Practice: I / My</button>
+  <button class="tab-btn" data-tab="dialogue">5. The Dialogue</button>
+  <button class="tab-btn" data-tab="speaking">6. Speaking</button>
+  <button class="tab-btn" data-tab="checklist">7. Self-Check</button>
 </nav>
 
 <main>
 
-  <!-- TAB 1: GRAMMAR -->
+  <!-- TAB 1: GRAMMAR IN / ON -->
   <section class="panel active" id="panel-grammar">
     <div class="card">
       <h2>"In" or "On"?</h2>
@@ -363,7 +418,7 @@
     </div>
   </section>
 
-  <!-- TAB 2: PRACTICE QUIZ -->
+  <!-- TAB 2: PRACTICE QUIZ IN / ON -->
   <section class="panel" id="panel-practice">
     <div class="card">
       <h2>Practice: Choose "in" or "on"</h2>
@@ -390,10 +445,235 @@
     </div>
   </section>
 
-  <!-- TAB 3: SPEAKING PRACTICE -->
+  <!-- TAB 3: GRAMMAR I / MY -->
+  <section class="panel" id="panel-grammar2">
+    <div class="card">
+      <h2>Two Kinds of Words</h2>
+      <p>In the conversation you say <b class="word-pron">I</b> and you say <b class="word-poss">my</b>.
+         They are not the same. Look at the difference.</p>
+
+      <div class="rule-grid">
+        <div class="rule-box in-box">
+          <h3>I, YOU, HE, SHE</h3>
+          <p>This is the <b>person</b> who does something.</p>
+          <p style="margin-top:8px;">An <b>action word</b> comes after it:</p>
+          <ul>
+            <li><b>I</b> am from Peru.</li>
+            <li><b>You</b> are from Iran.</li>
+            <li><b>He</b> is from Syria.</li>
+            <li><b>She</b> came to Canada in 2021.</li>
+          </ul>
+        </div>
+        <div class="rule-box on-box">
+          <h3>MY, YOUR, HIS, HER</h3>
+          <p>This shows the <b>thing belongs</b> to the person.</p>
+          <p style="margin-top:8px;">A <b>thing</b> comes after it:</p>
+          <ul>
+            <li><b>My</b> name is Ana.</li>
+            <li><b>Your</b> name is Sara.</li>
+            <li><b>His</b> wife is from Syria.</li>
+            <li><b>Her</b> family lives in Mexico.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <b>Easy way to remember:</b><br>
+        After <b class="word-poss">my / your / his / her</b> there is always a <b>THING</b>
+        (name, family, husband, country).<br>
+        After <b class="word-pron">I / you / he / she</b> there is always an <b>ACTION WORD</b>
+        (am, are, is, come, live).
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>The Four Pairs</h2>
+      <div class="person-table">
+        <div class="person-row head">
+          <div>Who</div><div>Person</div><div>Belongs to</div><div>Example</div>
+        </div>
+        <div class="person-row">
+          <img src="icons/pronouns/me.png" alt="a person pointing at himself">
+          <div class="pron">I</div>
+          <div class="poss">my</div>
+          <div class="sent"><b class="word-pron">I</b> am from Peru.<br><b class="word-poss">My</b> name is Ana.</div>
+        </div>
+        <div class="person-row">
+          <img src="icons/pronouns/you.png" alt="a person pointing at you">
+          <div class="pron">you</div>
+          <div class="poss">your</div>
+          <div class="sent"><b class="word-pron">You</b> are from Iran.<br>What is <b class="word-poss">your</b> name?</div>
+        </div>
+        <div class="person-row">
+          <img src="icons/pronouns/ali.png" alt="Ali, a man">
+          <div class="pron">he</div>
+          <div class="poss">his</div>
+          <div class="sent"><b class="word-pron">He</b> is from Syria.<br><b class="word-poss">His</b> name is Ali.</div>
+        </div>
+        <div class="person-row">
+          <img src="icons/pronouns/maria.png" alt="Maria, a woman">
+          <div class="pron">she</div>
+          <div class="poss">her</div>
+          <div class="sent"><b class="word-pron">She</b> is from Mexico.<br><b class="word-poss">Her</b> name is Maria.</div>
+        </div>
+      </div>
+      <p style="color:#56605e;font-size:0.95rem;margin-top:10px;">
+        <b>he / his</b> = a man. &nbsp; <b>she / her</b> = a woman.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Watch Out! Common Mistakes</h2>
+      <div class="warn-box">
+        <p><span class="cross">NO:</span> He name is Ali. &nbsp;&nbsp;
+           <span class="tick">YES:</span> <b class="word-poss">His</b> name is Ali.</p>
+        <p style="color:#56605e;font-size:0.95rem;">"Name" is a thing, so we need <b>his</b>.</p>
+      </div>
+      <div class="warn-box">
+        <p><span class="cross">NO:</span> My am from Peru. &nbsp;&nbsp;
+           <span class="tick">YES:</span> <b class="word-pron">I</b> am from Peru.</p>
+        <p style="color:#56605e;font-size:0.95rem;">"Am" is an action word, so we need <b>I</b>.</p>
+      </div>
+      <div class="warn-box">
+        <p><span class="cross">NO:</span> Her came to Canada in 2018. &nbsp;&nbsp;
+           <span class="tick">YES:</span> <b class="word-pron">She</b> came to Canada in 2018.</p>
+        <p style="color:#56605e;font-size:0.95rem;">"Came" is an action word, so we need <b>she</b>.</p>
+      </div>
+      <div class="warn-box">
+        <p><span class="cross">NO:</span> What is you name? &nbsp;&nbsp;
+           <span class="tick">YES:</span> What is <b class="word-poss">your</b> name?</p>
+        <p style="color:#56605e;font-size:0.95rem;">"Name" is a thing, so we need <b>your</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 4: PRACTICE I / MY -->
+  <section class="panel" id="panel-practice2">
+
+    <div class="card">
+      <h2>Exercise 1: Match the Pairs</h2>
+      <p>Click a blue word. Then click its partner in orange.</p>
+      <div class="match-wrap">
+        <div class="match-col left" id="match-left"></div>
+        <div class="match-col right" id="match-right"></div>
+      </div>
+      <p class="match-msg" id="match-msg"></p>
+      <div class="btn-row"><button id="btn-match-again">Play Again</button></div>
+    </div>
+
+    <div class="card quiz" id="quizB">
+      <h2>Exercise 2: Choose the Word</h2>
+      <p>Read the sentence. Choose the correct word for the blank.</p>
+      <div class="quiz-top">
+        <div class="stat">Question <b class="q-num">1</b> / <b class="q-total">12</b></div>
+        <div class="stat">Score: <b class="q-score">0</b></div>
+        <div class="stat">Streak: <b class="q-streak">0</b></div>
+      </div>
+      <div class="quiz-img"></div>
+      <div class="quiz-sentence"></div>
+      <div class="choice-row"></div>
+      <div class="quiz-feedback"></div>
+      <div class="quiz-actions"><button class="btn-next" style="display:none;">Next &rarr;</button></div>
+      <div class="quiz-done">
+        <p>You finished! Final score: <b class="final-score"></b> / <b class="final-total"></b></p>
+        <div class="quiz-actions"><button class="btn-again">Play Again</button></div>
+      </div>
+    </div>
+
+    <div class="card quiz" id="quizC">
+      <h2>Exercise 3: Look and Choose</h2>
+      <p>Look at the picture. Choose the correct word.</p>
+      <div class="quiz-top">
+        <div class="stat">Question <b class="q-num">1</b> / <b class="q-total">10</b></div>
+        <div class="stat">Score: <b class="q-score">0</b></div>
+        <div class="stat">Streak: <b class="q-streak">0</b></div>
+      </div>
+      <div class="quiz-img"></div>
+      <div class="quiz-sentence"></div>
+      <div class="choice-row"></div>
+      <div class="quiz-feedback"></div>
+      <div class="quiz-actions"><button class="btn-next" style="display:none;">Next &rarr;</button></div>
+      <div class="quiz-done">
+        <p>You finished! Final score: <b class="final-score"></b> / <b class="final-total"></b></p>
+        <div class="quiz-actions"><button class="btn-again">Play Again</button></div>
+      </div>
+    </div>
+
+    <div class="card quiz" id="quizD">
+      <h2>Exercise 4: Find the Correct Sentence</h2>
+      <p>One sentence has a mistake. Click the sentence that is correct.</p>
+      <div class="quiz-top">
+        <div class="stat">Question <b class="q-num">1</b> / <b class="q-total">8</b></div>
+        <div class="stat">Score: <b class="q-score">0</b></div>
+        <div class="stat">Streak: <b class="q-streak">0</b></div>
+      </div>
+      <div class="quiz-img"></div>
+      <div class="quiz-sentence"></div>
+      <div class="choice-row stack"></div>
+      <div class="quiz-feedback"></div>
+      <div class="quiz-actions"><button class="btn-next" style="display:none;">Next &rarr;</button></div>
+      <div class="quiz-done">
+        <p>You finished! Final score: <b class="final-score"></b> / <b class="final-total"></b></p>
+        <div class="quiz-actions"><button class="btn-again">Play Again</button></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- TAB 5: THE DIALOGUE -->
+  <section class="panel" id="panel-dialogue">
+    <div class="card">
+      <h2>Read the Conversation</h2>
+      <p>Two students meet for the first time. Read it with a partner. Then change places and read it again.</p>
+      <div class="dlg">
+        <p class="a"><span class="who">A</span> Hi. <b class="word-poss">My</b> name is <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. What is <b class="word-poss">your</b> name?</p>
+        <p class="b"><span class="who">B</span> <b class="word-poss">My</b> name is <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+        <p class="a"><span class="who">A</span> Where are <b class="word-pron">you</b> from?</p>
+        <p class="b"><span class="who">B</span> <b class="word-pron">I</b> am from <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. And <b class="word-pron">you</b>, where are <b class="word-pron">you</b> from?</p>
+        <p class="a"><span class="who">A</span> <b class="word-pron">I</b> am from <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+        <p class="b"><span class="who">B</span> When did <b class="word-pron">you</b> come to Canada?</p>
+        <p class="a"><span class="who">A</span> <b class="word-pron">I</b> came to Canada <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>. And <b class="word-pron">you</b>?</p>
+        <p class="b"><span class="who">B</span> <b class="word-pron">I</b> came to Canada <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+        <p class="a"><span class="who">A</span> Nice to meet <b class="word-pron">you</b>!</p>
+        <p class="b"><span class="who">B</span> Nice to meet <b class="word-pron">you</b>, too!</p>
+      </div>
+      <div class="tip-box">
+        Blue words = the <b>person</b> (<b class="word-pron">I</b>, <b class="word-pron">you</b>).<br>
+        Orange words = the thing <b>belongs</b> to the person (<b class="word-poss">my</b>, <b class="word-poss">your</b>).
+      </div>
+      <div class="example">
+        Remember the date: I came to Canada <b class="in-word">in</b> 2019.
+        I came to Canada <b class="on-word">on</b> May 10, 2021.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Now Fill In the Conversation</h2>
+      <p>Choose <b>I</b>, <b>My</b>, <b>you</b> or <b>your</b> for each blank. Then click "Check my answers".</p>
+      <div class="dlg" id="dlg-fill">
+        <p class="a"><span class="who">A</span> Hi. <select class="gap-sel" data-a="My"></select> name is Sara. What is <select class="gap-sel" data-a="your"></select> name?</p>
+        <p class="b"><span class="who">B</span> <select class="gap-sel" data-a="My"></select> name is Ali.</p>
+        <p class="a"><span class="who">A</span> Where are <select class="gap-sel" data-a="you"></select> from?</p>
+        <p class="b"><span class="who">B</span> <select class="gap-sel" data-a="I"></select> am from Syria. And <select class="gap-sel" data-a="you"></select>, where are <select class="gap-sel" data-a="you"></select> from?</p>
+        <p class="a"><span class="who">A</span> <select class="gap-sel" data-a="I"></select> am from Iran.</p>
+        <p class="b"><span class="who">B</span> When did <select class="gap-sel" data-a="you"></select> come to Canada?</p>
+        <p class="a"><span class="who">A</span> <select class="gap-sel" data-a="I"></select> came to Canada in 2019. And <select class="gap-sel" data-a="you"></select>?</p>
+        <p class="b"><span class="who">B</span> <select class="gap-sel" data-a="I"></select> came to Canada on May 10, 2021.</p>
+        <p class="a"><span class="who">A</span> Nice to meet <select class="gap-sel" data-a="you"></select>!</p>
+        <p class="b"><span class="who">B</span> Nice to meet <select class="gap-sel" data-a="you"></select>, too!</p>
+      </div>
+      <p class="dlg-result" id="dlg-result"></p>
+      <div class="btn-row">
+        <button id="btn-dlg-check">Check my answers</button>
+        <button id="btn-dlg-reset" class="ghost">Try again</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 6: SPEAKING + REPORT -->
   <section class="panel" id="panel-speaking">
     <div class="card">
-      <h2>Speaking Practice -- Breakout Rooms</h2>
+      <h2>Part 1: Speaking Practice -- Breakout Rooms</h2>
       <p>Go to your breakout room. Take turns with your partner. Use the sentences below and fill in your own information.</p>
 
       <div class="frame-box">
@@ -422,9 +702,70 @@
 
       <div class="example">Remember: <b class="in-word">in</b> = month or year. <b class="on-word">on</b> = exact date.</div>
     </div>
+
+    <div class="card">
+      <h2>Part 2: Tell the Class About Your Classmate</h2>
+      <p>Now you talk about your partner. You do not say "I" and "my". You say
+         <b class="word-pron">he</b> / <b class="word-poss">his</b> for a man, and
+         <b class="word-pron">she</b> / <b class="word-poss">her</b> for a woman.</p>
+
+      <ol class="step-list">
+        <li>In your breakout room, ask your partner the questions from the conversation.</li>
+        <li>Write the answers on the card below.</li>
+        <li>Come back to the big room and tell the class about your partner.</li>
+      </ol>
+
+      <div class="note-card">
+        <p><b>My partner's name:</b> <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+        <p><b>From:</b> <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+        <p><b>Came to Canada:</b> <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+        <p><b>Man or woman?</b> he / she</p>
+      </div>
+
+      <p><b>Listen to the model:</b></p>
+
+      <div class="model-row">
+        <img src="icons/pronouns/ali.png" alt="Ali, a man">
+        <div class="lines">
+          <p><b class="word-poss">His</b> name is Ali.</p>
+          <p><b class="word-pron">He</b> is from Syria.</p>
+          <p><b class="word-pron">He</b> came to Canada <b class="in-word">in</b> 2019.</p>
+        </div>
+      </div>
+
+      <div class="model-row">
+        <img src="icons/pronouns/maria.png" alt="Maria, a woman">
+        <div class="lines">
+          <p><b class="word-poss">Her</b> name is Maria.</p>
+          <p><b class="word-pron">She</b> is from Mexico.</p>
+          <p><b class="word-pron">She</b> came to Canada <b class="on-word">on</b> May 10, 2021.</p>
+        </div>
+      </div>
+
+      <p><b>Now say your sentences:</b></p>
+      <div class="frame-box">
+        <p><b>His / Her</b> name is <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+        <p><b>He / She</b> is from <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+        <p><b>He / She</b> came to Canada <b>in / on</b> <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.</p>
+      </div>
+
+      <div class="warn-box">
+        <p><span class="cross">NO:</span> He name is Ali. &nbsp;&nbsp; <span class="tick">YES:</span> <b>His</b> name is Ali.</p>
+        <p><span class="cross">NO:</span> Her is from Mexico. &nbsp;&nbsp; <span class="tick">YES:</span> <b>She</b> is from Mexico.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Homework</h2>
+      <p>Do the online exercise. It has 30 questions with answers, and at the end you write
+         about your classmate.</p>
+      <p style="text-align:center;">
+        <a class="form-link" href="https://docs.google.com/forms/d/e/1FAIpQLSd8FGm3bADwytAKs9L0z2fDgdg5eeZlhzCh0AD9OCDUwsOUyA/viewform" target="_blank" rel="noopener">Open the homework &rarr;</a>
+      </p>
+    </div>
   </section>
 
-  <!-- TAB 4: SELF-CHECK -->
+  <!-- TAB 7: SELF-CHECK -->
   <section class="panel" id="panel-checklist">
     <div class="card">
       <h2>Can Do Checklist</h2>
@@ -470,6 +811,30 @@
         </div>
       </div>
 
+      <div class="check-item">
+        <p>6. I use I, you, he and she before an action word. I say, "He is from Syria."</p>
+        <div class="check-buttons">
+          <button class="yes" onclick="setCheck(5,'yes',this)">Yes</button>
+          <button class="no" onclick="setCheck(5,'no',this)">No</button>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <p>7. I use my, your, his and her before a thing. I say, "His name is Ali."</p>
+        <div class="check-buttons">
+          <button class="yes" onclick="setCheck(6,'yes',this)">Yes</button>
+          <button class="no" onclick="setCheck(6,'no',this)">No</button>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <p>8. I can tell the class about my classmate. I say, "His name is ___. He is from ___. He came to Canada in ___."</p>
+        <div class="check-buttons">
+          <button class="yes" onclick="setCheck(7,'yes',this)">Yes</button>
+          <button class="no" onclick="setCheck(7,'no',this)">No</button>
+        </div>
+      </div>
+
       <p id="check-summary"></p>
     </div>
   </section>
@@ -489,10 +854,20 @@
       this.classList.add('active');
       for (var k = 0; k < panels.length; k++) { panels[k].classList.remove('active'); }
       document.getElementById('panel-' + target).classList.add('active');
+      window.scrollTo(0, 0);
     });
   }
 
-  // ---- Quiz ----
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  // ---- Quiz 1: in / on ----
   var bank = [
     { text: 'I came to Canada ___ 2019.', answer: 'in' },
     { text: 'I came to Canada ___ March 2020.', answer: 'in' },
@@ -510,15 +885,6 @@
   var score = 0;
   var streak = 0;
   var answered = false;
-
-  function shuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = a[i]; a[i] = a[j]; a[j] = t;
-    }
-    return a;
-  }
 
   function startQuiz() {
     order = shuffle(bank.map(function (_, i) { return i; }));
@@ -584,7 +950,7 @@
   startQuiz();
 
   // ---- Checklist ----
-  var checkState = [null, null, null, null, null];
+  var checkState = [null, null, null, null, null, null, null, null];
   function setCheck(idx, val, btn) {
     checkState[idx] = val;
     var group = btn.parentElement.querySelectorAll('button');
@@ -599,6 +965,288 @@
     if (answeredCount === 0) { el.textContent = ''; return; }
     el.textContent = yesCount + ' / ' + checkState.length + ' checked Yes';
   }
+
+  // ---- Reusable quiz engine for the I / my exercises ----
+  function initQuiz(rootId, itemBank) {
+    var root = document.getElementById(rootId);
+    var elNum = root.querySelector('.q-num');
+    var elTotal = root.querySelector('.q-total');
+    var elScore = root.querySelector('.q-score');
+    var elStreak = root.querySelector('.q-streak');
+    var elImg = root.querySelector('.quiz-img');
+    var elSent = root.querySelector('.quiz-sentence');
+    var elChoices = root.querySelector('.choice-row');
+    var elFb = root.querySelector('.quiz-feedback');
+    var elNext = root.querySelector('.btn-next');
+    var elDone = root.querySelector('.quiz-done');
+    var elFinal = root.querySelector('.final-score');
+    var elFinalTotal = root.querySelector('.final-total');
+    var elAgain = root.querySelector('.btn-again');
+
+    var qOrder = [];
+    var idx = 0;
+    var sc = 0;
+    var st = 0;
+    var locked = false;
+
+    function start() {
+      qOrder = shuffle(itemBank.map(function (_, i) { return i; }));
+      idx = 0; sc = 0; st = 0;
+      elScore.textContent = '0';
+      elStreak.textContent = '0';
+      elTotal.textContent = itemBank.length;
+      elFinalTotal.textContent = itemBank.length;
+      elDone.style.display = 'none';
+      elChoices.style.display = '';
+      show();
+    }
+
+    function show() {
+      locked = false;
+      var item = itemBank[qOrder[idx]];
+      elNum.textContent = idx + 1;
+      elImg.innerHTML = item.img ? '<img src="' + item.img + '" alt="">' : '';
+      elSent.innerHTML = item.text.replace('___', '<span class="gap">&nbsp;</span>');
+      elFb.innerHTML = '';
+      elFb.className = 'quiz-feedback';
+      elNext.style.display = 'none';
+      elChoices.innerHTML = '';
+      var opts = shuffle(item.choices);
+      for (var c = 0; c < opts.length; c++) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = opts[c];
+        b.setAttribute('data-val', opts[c]);
+        b.addEventListener('click', onPick);
+        elChoices.appendChild(b);
+      }
+    }
+
+    function onPick() {
+      if (locked) { return; }
+      locked = true;
+      var item = itemBank[qOrder[idx]];
+      var picked = this.getAttribute('data-val');
+      var all = elChoices.querySelectorAll('button');
+      for (var i = 0; i < all.length; i++) {
+        all[i].disabled = true;
+        if (all[i].getAttribute('data-val') === item.answer) { all[i].classList.add('right'); }
+      }
+      if (picked === item.answer) {
+        sc++; st++;
+        elFb.innerHTML = 'Correct!' + (item.why ? '<span class="why">' + item.why + '</span>' : '');
+        elFb.className = 'quiz-feedback correct';
+      } else {
+        st = 0;
+        this.classList.add('wrongpick');
+        elFb.innerHTML = 'Not quite -- the answer is "' + item.answer + '".' +
+                         (item.why ? '<span class="why">' + item.why + '</span>' : '');
+        elFb.className = 'quiz-feedback wrong';
+      }
+      elScore.textContent = sc;
+      elStreak.textContent = st;
+      elNext.style.display = 'inline-block';
+    }
+
+    function next() {
+      idx++;
+      if (idx >= qOrder.length) {
+        elChoices.style.display = 'none';
+        elNext.style.display = 'none';
+        elFb.innerHTML = '';
+        elSent.textContent = '';
+        elImg.innerHTML = '';
+        elFinal.textContent = sc;
+        elDone.style.display = 'block';
+      } else {
+        show();
+      }
+    }
+
+    elNext.addEventListener('click', next);
+    elAgain.addEventListener('click', start);
+    start();
+  }
+
+  var PIC = 'icons/pronouns/';
+
+  var bankB = [
+    { text: '___ name is Maria.', choices: ['I', 'My'], answer: 'My', why: 'name is a thing, so we use my.' },
+    { text: '___ am from Peru.', choices: ['I', 'My'], answer: 'I', why: 'am is an action word, so we use I.' },
+    { text: '___ is from Syria.', choices: ['He', 'His'], answer: 'He', why: 'is is an action word, so we use he.' },
+    { text: '___ name is Ali.', choices: ['He', 'His'], answer: 'His', why: 'name is a thing, so we use his.' },
+    { text: '___ name is Maria.', choices: ['She', 'Her'], answer: 'Her', why: 'name is a thing, so we use her.' },
+    { text: '___ is from Mexico.', choices: ['She', 'Her'], answer: 'She', why: 'is is an action word, so we use she.' },
+    { text: '___ are from Iran.', choices: ['You', 'Your'], answer: 'You', why: 'are is an action word, so we use you.' },
+    { text: 'What is ___ name?', choices: ['you', 'your'], answer: 'your', why: 'name is a thing, so we use your.' },
+    { text: '___ came to Canada in 2019.', choices: ['He', 'His'], answer: 'He', why: 'came is an action word, so we use he.' },
+    { text: '___ family is in Colombia.', choices: ['I', 'My'], answer: 'My', why: 'family is a thing, so we use my.' },
+    { text: '___ live in Toronto.', choices: ['I', 'My'], answer: 'I', why: 'live is an action word, so we use I.' },
+    { text: '___ husband came to Canada in 2020.', choices: ['She', 'Her'], answer: 'Her', why: 'husband is a person you have, so we use her.' }
+  ];
+
+  var four = ['he', 'his', 'she', 'her'];
+  var fourMe = ['I', 'my', 'you', 'your'];
+
+  var bankC = [
+    { img: PIC + 'ali.png', text: '___ name is Ali.', choices: four, answer: 'his', why: 'Ali is a man. name is a thing, so we use his.' },
+    { img: PIC + 'ali.png', text: '___ is from Syria.', choices: four, answer: 'he', why: 'Ali is a man. is is an action word, so we use he.' },
+    { img: PIC + 'maria.png', text: '___ name is Maria.', choices: four, answer: 'her', why: 'Maria is a woman. name is a thing, so we use her.' },
+    { img: PIC + 'maria.png', text: '___ is from Mexico.', choices: four, answer: 'she', why: 'Maria is a woman. is is an action word, so we use she.' },
+    { img: PIC + 'ali.png', text: '___ came to Canada in 2019.', choices: four, answer: 'he', why: 'came is an action word, so we use he.' },
+    { img: PIC + 'maria.png', text: '___ family lives in Mexico.', choices: four, answer: 'her', why: 'family is a thing, so we use her.' },
+    { img: PIC + 'maria.png', text: '___ came to Canada on May 10, 2021.', choices: four, answer: 'she', why: 'came is an action word, so we use she.' },
+    { img: PIC + 'ali.png', text: '___ wife is from Syria.', choices: four, answer: 'his', why: 'wife is a person he has, so we use his.' },
+    { img: PIC + 'me.png', text: '___ name is Ana.', choices: fourMe, answer: 'my', why: 'I am talking about me. name is a thing, so we use my.' },
+    { img: PIC + 'you.png', text: 'What is ___ name?', choices: fourMe, answer: 'your', why: 'I am talking to you. name is a thing, so we use your.' }
+  ];
+
+  var bankD = [
+    { text: 'Choose the correct sentence.', choices: ['He name is Ali.', 'His name is Ali.'], answer: 'His name is Ali.', why: 'name is a thing, so we use his.' },
+    { text: 'Choose the correct sentence.', choices: ['She is from Mexico.', 'Her is from Mexico.'], answer: 'She is from Mexico.', why: 'is is an action word, so we use she.' },
+    { text: 'Choose the correct sentence.', choices: ['My am from Peru.', 'I am from Peru.'], answer: 'I am from Peru.', why: 'am is an action word, so we use I.' },
+    { text: 'Choose the correct sentence.', choices: ['What is you name?', 'What is your name?'], answer: 'What is your name?', why: 'name is a thing, so we use your.' },
+    { text: 'Choose the correct sentence.', choices: ['Her came to Canada in 2018.', 'She came to Canada in 2018.'], answer: 'She came to Canada in 2018.', why: 'came is an action word, so we use she.' },
+    { text: 'Choose the correct sentence.', choices: ['My name is Ana.', 'I name is Ana.'], answer: 'My name is Ana.', why: 'name is a thing, so we use my.' },
+    { text: 'Choose the correct sentence.', choices: ['His is from Syria.', 'He is from Syria.'], answer: 'He is from Syria.', why: 'is is an action word, so we use he.' },
+    { text: 'Choose the correct sentence.', choices: ['He wife is from Iran.', 'His wife is from Iran.'], answer: 'His wife is from Iran.', why: 'wife is a person he has, so we use his.' }
+  ];
+
+  initQuiz('quizB', bankB);
+  initQuiz('quizC', bankC);
+  initQuiz('quizD', bankD);
+
+  // ---- Matching game ----
+  var pairs = [['I', 'my'], ['you', 'your'], ['he', 'his'], ['she', 'her']];
+  var mLeft = document.getElementById('match-left');
+  var mRight = document.getElementById('match-right');
+  var mMsg = document.getElementById('match-msg');
+  var picked = null;
+  var solved = 0;
+
+  function buildMatch() {
+    picked = null;
+    solved = 0;
+    mMsg.textContent = '';
+    mMsg.className = 'match-msg';
+    mLeft.innerHTML = '';
+    mRight.innerHTML = '';
+    var l = shuffle(pairs.map(function (p) { return p[0]; }));
+    var r = shuffle(pairs.map(function (p) { return p[1]; }));
+    for (var i = 0; i < l.length; i++) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = l[i];
+      b.setAttribute('data-word', l[i]);
+      b.addEventListener('click', pickLeft);
+      mLeft.appendChild(b);
+    }
+    for (var j = 0; j < r.length; j++) {
+      var c = document.createElement('button');
+      c.type = 'button';
+      c.textContent = r[j];
+      c.setAttribute('data-word', r[j]);
+      c.addEventListener('click', pickRight);
+      mRight.appendChild(c);
+    }
+  }
+
+  function partnerOf(word) {
+    for (var i = 0; i < pairs.length; i++) {
+      if (pairs[i][0] === word) { return pairs[i][1]; }
+    }
+    return null;
+  }
+
+  function pickLeft() {
+    if (this.classList.contains('done')) { return; }
+    var all = mLeft.querySelectorAll('button');
+    for (var i = 0; i < all.length; i++) { all[i].classList.remove('picked'); }
+    this.classList.add('picked');
+    picked = this;
+    mMsg.textContent = 'Now click the partner word.';
+    mMsg.className = 'match-msg';
+  }
+
+  function pickRight() {
+    if (this.classList.contains('done')) { return; }
+    if (!picked) {
+      mMsg.textContent = 'First click a blue word.';
+      mMsg.className = 'match-msg bad';
+      return;
+    }
+    var want = partnerOf(picked.getAttribute('data-word'));
+    if (this.getAttribute('data-word') === want) {
+      picked.classList.remove('picked');
+      picked.classList.add('done');
+      this.classList.add('done');
+      picked = null;
+      solved++;
+      if (solved === pairs.length) {
+        mMsg.textContent = 'All 4 correct! Well done.';
+        mMsg.className = 'match-msg good';
+      } else {
+        mMsg.textContent = 'Correct! ' + solved + ' / ' + pairs.length;
+        mMsg.className = 'match-msg good';
+      }
+    } else {
+      var wrongBtn = this;
+      wrongBtn.classList.add('shake');
+      window.setTimeout(function () { wrongBtn.classList.remove('shake'); }, 400);
+      picked.classList.remove('picked');
+      picked = null;
+      mMsg.textContent = 'Not that one. Try again.';
+      mMsg.className = 'match-msg bad';
+    }
+  }
+
+  document.getElementById('btn-match-again').addEventListener('click', buildMatch);
+  buildMatch();
+
+  // ---- Dialogue gap fill ----
+  var gapWords = ['I', 'My', 'you', 'your'];
+  var gapSels = document.querySelectorAll('#dlg-fill .gap-sel');
+  for (var g = 0; g < gapSels.length; g++) {
+    var sel = gapSels[g];
+    var blank = document.createElement('option');
+    blank.value = '';
+    blank.textContent = '--';
+    sel.appendChild(blank);
+    for (var w = 0; w < gapWords.length; w++) {
+      var o = document.createElement('option');
+      o.value = gapWords[w];
+      o.textContent = gapWords[w];
+      sel.appendChild(o);
+    }
+  }
+
+  document.getElementById('btn-dlg-check').addEventListener('click', function () {
+    var right = 0;
+    var empty = 0;
+    for (var i = 0; i < gapSels.length; i++) {
+      var s = gapSels[i];
+      s.classList.remove('ok', 'bad');
+      if (s.value === '') { empty++; continue; }
+      if (s.value === s.getAttribute('data-a')) { s.classList.add('ok'); right++; }
+      else { s.classList.add('bad'); }
+    }
+    var res = document.getElementById('dlg-result');
+    if (empty > 0) {
+      res.textContent = right + ' / ' + gapSels.length + ' correct. You still have ' + empty + ' empty.';
+    } else if (right === gapSels.length) {
+      res.textContent = 'All ' + gapSels.length + ' correct! Well done.';
+    } else {
+      res.textContent = right + ' / ' + gapSels.length + ' correct. Look at the orange boxes again.';
+    }
+  });
+
+  document.getElementById('btn-dlg-reset').addEventListener('click', function () {
+    for (var i = 0; i < gapSels.length; i++) {
+      gapSels[i].value = '';
+      gapSels[i].classList.remove('ok', 'bad');
+    }
+    document.getElementById('dlg-result').textContent = '';
+  });
 </script>
 
 </body>
