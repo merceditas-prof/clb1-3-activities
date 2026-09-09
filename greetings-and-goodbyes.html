@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greetings and Goodbyes - Easy Everyday English</title>
+<style>
+:root{
+  --teal:#0b5563;
+  --teal-dark:#083f4a;
+  --teal-light:#e6f1f3;
+  --coral:#ff6f59;
+  --gold:#f4b942;
+  --ink:#1d2b2f;
+  --paper:#ffffff;
+  --line:#c9dde1;
+  --ok:#0f7a53;
+  --ok-bg:#e4f5ec;
+  --no:#b4341f;
+  --no-bg:#fdeae6;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--teal-light);
+  color:var(--ink);
+  font-family:"Segoe UI",Tahoma,Verdana,Arial,sans-serif;
+  font-size:18px;
+  line-height:1.55;
+}
+header{
+  background:var(--teal);
+  color:#fff;
+  padding:18px 20px 14px;
+}
+header h1{margin:0;font-size:26px;letter-spacing:.3px}
+header p{margin:4px 0 0;font-size:16px;color:#cfe6ea}
+.scorebar{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  background:var(--teal-dark);color:#fff;padding:10px 20px;
+  position:sticky;top:0;z-index:20;
+}
+.chip{
+  background:rgba(255,255,255,.14);
+  border-radius:20px;padding:5px 14px;font-size:16px;font-weight:600;
+}
+.chip b{color:var(--gold);font-size:18px}
+.chip.streak b{color:var(--coral)}
+.tabs{
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:12px 14px 0;max-width:1000px;margin:0 auto;
+}
+.tabs button{
+  font:inherit;font-weight:600;font-size:16px;
+  border:2px solid var(--line);border-bottom:none;
+  background:#fff;color:var(--teal);
+  padding:9px 14px;border-radius:10px 10px 0 0;cursor:pointer;
+}
+.tabs button:hover{background:var(--teal-light)}
+.tabs button[aria-selected="true"]{
+  background:var(--teal);color:#fff;border-color:var(--teal);
+}
+main{max-width:1000px;margin:0 auto;padding:0 14px 60px}
+.panel{
+  background:var(--paper);border:2px solid var(--line);
+  border-radius:0 12px 12px 12px;padding:20px;
+}
+h2{margin:0 0 6px;font-size:23px;color:var(--teal)}
+h3{margin:26px 0 8px;font-size:19px;color:var(--teal-dark)}
+.lead{margin:0 0 18px;color:#42585d}
+.rulebox{
+  background:var(--teal-light);border-left:6px solid var(--teal);
+  border-radius:8px;padding:14px 16px;margin:0 0 18px;
+}
+.rulebox p{margin:6px 0}
+.warn{
+  background:#fff6e2;border-left:6px solid var(--gold);
+  border-radius:8px;padding:14px 16px;margin:18px 0;
+}
+.warn strong{color:#8a5b00}
+table{border-collapse:collapse;width:100%;margin:0 0 18px}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:var(--teal);color:#fff;font-size:16px}
+td.time{white-space:nowrap;font-weight:700;color:var(--teal)}
+.tablewrap{overflow-x:auto}
+.q{
+  border:2px solid var(--line);border-radius:10px;
+  padding:14px 16px;margin:0 0 12px;background:#fff;
+}
+.q.right{border-color:var(--ok);background:var(--ok-bg)}
+.q.wrong{border-color:var(--no);background:var(--no-bg)}
+.qtext{font-size:19px;font-weight:600;margin:0 0 4px}
+.qcue{font-size:15px;color:#5b7075;margin:0 0 10px}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opts button{
+  font:inherit;font-size:17px;font-weight:600;
+  background:#fff;color:var(--teal);
+  border:2px solid var(--teal);border-radius:9px;
+  padding:9px 16px;cursor:pointer;min-width:74px;
+}
+.opts button:hover:not(:disabled){background:var(--teal);color:#fff}
+.opts button:disabled{cursor:default;opacity:.55}
+.opts button.pick-right{background:var(--ok);border-color:var(--ok);color:#fff;opacity:1}
+.opts button.pick-wrong{background:var(--no);border-color:var(--no);color:#fff;opacity:1}
+.opts button.show-right{background:var(--ok);border-color:var(--ok);color:#fff;opacity:1}
+.fb{margin:10px 0 0;font-size:17px;font-weight:600}
+.fb.right{color:var(--ok)}
+.fb.wrong{color:var(--no)}
+.fb .why{display:block;font-weight:400;color:#3d5257;font-size:16px;margin-top:3px}
+.exhead{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  justify-content:space-between;margin:0 0 12px;
+}
+.exscore{font-weight:700;color:var(--teal)}
+.again{
+  font:inherit;font-size:16px;font-weight:600;cursor:pointer;
+  background:var(--gold);color:#3a2a00;border:none;
+  border-radius:9px;padding:9px 16px;
+}
+.again:hover{background:#e0a72d}
+.model{
+  border:2px solid var(--teal);border-radius:12px;overflow:hidden;margin:0 0 20px;
+}
+.model .row{display:flex;gap:0;border-bottom:1px solid var(--line)}
+.model .row:last-child{border-bottom:none}
+.model .num{
+  background:var(--teal);color:#fff;font-weight:700;
+  min-width:44px;display:flex;align-items:center;justify-content:center;
+}
+.model .body{padding:11px 14px;flex:1}
+.model .step{font-size:15px;color:#5b7075;margin:0 0 3px}
+.model .say{font-size:19px;font-weight:600;margin:0}
+.model .alt{font-size:16px;color:#42585d;margin:4px 0 0}
+.model .row.b{background:#f7fbfc}
+.dialog{
+  background:var(--teal-light);border-radius:10px;padding:14px 16px;margin:0 0 18px;
+}
+.dialog p{margin:3px 0;font-size:18px}
+.dialog .a{color:var(--teal-dark);font-weight:600}
+.dialog .b{color:var(--coral);font-weight:600}
+.orderwrap{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 12px}
+.orderwrap button{
+  font:inherit;font-size:17px;background:#fff;color:var(--teal);
+  border:2px solid var(--teal);border-radius:9px;padding:10px 14px;cursor:pointer;
+}
+.orderwrap button:hover:not(:disabled){background:var(--teal);color:#fff}
+.orderwrap button:disabled{opacity:.4;cursor:default}
+.orderwrap button.bad{background:var(--no);border-color:var(--no);color:#fff;opacity:1}
+.built{
+  background:var(--ok-bg);border:2px solid var(--ok);border-radius:10px;
+  padding:12px 14px;margin:0 0 12px;min-height:56px;
+}
+.built ol{margin:0;padding-left:24px}
+.built li{font-size:18px;margin:3px 0}
+.built .empty{color:#5b7075;margin:0;font-size:17px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:900px}
+.card{
+  border:2px solid var(--teal);border-radius:12px;overflow:hidden;background:#fff;
+}
+.card h4{
+  margin:0;background:var(--teal);color:#fff;
+  padding:9px 13px;font-size:17px;
+}
+.card.bcard h4{background:var(--coral);color:#3a1108}
+.card.bcard{border-color:var(--coral)}
+.card ol{margin:0;padding:12px 13px 14px 32px}
+.card li{margin:5px 0;font-size:17px}
+.card .say{font-weight:600}
+.pairhead{
+  margin:22px 0 10px;font-size:18px;font-weight:700;color:var(--teal-dark);
+  border-top:2px dashed var(--line);padding-top:16px;
+}
+.pairhead:first-of-type{border-top:none;padding-top:0}
+.blank{color:var(--coral);font-weight:700}
+footer{
+  max-width:1000px;margin:0 auto;padding:16px 14px 40px;
+  color:#4d666b;font-size:15px;
+}
+@media (max-width:700px){
+  body{font-size:17px}
+  header h1{font-size:22px}
+  .cards{grid-template-columns:1fr}
+  .panel{border-radius:12px;padding:16px}
+  .tabs button{font-size:15px;padding:8px 11px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Greetings and Goodbyes</h1>
+  <p>Easy Everyday English 1-3 &middot; practice page</p>
+</header>
+
+<div class="scorebar">
+  <span class="chip">Score <b id="score">0</b></span>
+  <span class="chip streak">Streak <b id="streak">0</b></span>
+  <span class="chip">Best streak <b id="best">0</b></span>
+</div>
+
+<div class="tabs" id="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-tab="t1">1. Greetings and times</button>
+  <button role="tab" aria-selected="false" data-tab="t2">2. Formal or casual</button>
+  <button role="tab" aria-selected="false" data-tab="t3">3. How is / How was</button>
+  <button role="tab" aria-selected="false" data-tab="t4">4. Meet or see</button>
+  <button role="tab" aria-selected="false" data-tab="t5">5. The conversation</button>
+  <button role="tab" aria-selected="false" data-tab="t6">6. Breakout cards</button>
+</div>
+
+<main>
+
+<!-- ============ TAB 1 ============ -->
+<section class="panel" id="t1">
+  <h2>Greetings and times of day</h2>
+  <p class="lead">In English we have four greetings for different times. We also have
+  <strong>hello</strong> and <strong>hi</strong> for any time.</p>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th>We say</th><th>When</th><th>Hello or goodbye?</th></tr>
+    <tr><td class="say"><strong>Good morning.</strong></td><td class="time">5:00 a.m. - 11:59 a.m.</td><td>Hello</td></tr>
+    <tr><td><strong>Good afternoon.</strong></td><td class="time">12:00 p.m. - 5:59 p.m.</td><td>Hello</td></tr>
+    <tr><td><strong>Good evening.</strong></td><td class="time">6:00 p.m. - 11:59 p.m.</td><td>Hello</td></tr>
+    <tr><td><strong>Hello. / Hi.</strong></td><td class="time">Any time</td><td>Hello</td></tr>
+    <tr><td><strong>Good night.</strong></td><td class="time">Evening or night</td><td><strong>Goodbye</strong></td></tr>
+  </table>
+  </div>
+
+  <div class="warn">
+    <p><strong>Careful!</strong> <strong>Good night</strong> is not hello. It is a
+    <strong>goodbye</strong>. We say good night when we go to bed, or when we will not see
+    the person again until tomorrow.</p>
+    <p>In many languages, "good night" means "good evening". In English it is different.</p>
+  </div>
+
+  <h3>Practice: choose the greeting</h3>
+  <div id="ex1"></div>
+</section>
+
+<!-- ============ TAB 2 ============ -->
+<section class="panel" id="t2" hidden>
+  <h2>Formal or casual?</h2>
+  <p class="lead">We change our words for different people. <strong>Formal</strong> is for
+  work, school, a boss, or a person we do not know. <strong>Casual</strong> (informal) is for
+  friends and family.</p>
+
+  <div class="rulebox">
+    <p><strong>Formal:</strong> Good morning. Good afternoon. Good evening. Goodbye.
+    Have a good day. See you next week.</p>
+    <p><strong>Casual:</strong> Hi! Hey! How's it going? What's up? Bye. Bye-bye. See ya! Later.</p>
+    <p>Not sure? <strong>Hello</strong> and <strong>goodbye</strong> are safe with everybody.</p>
+  </div>
+
+  <h3>Practice: formal or casual?</h3>
+  <div id="ex2"></div>
+</section>
+
+<!-- ============ TAB 3 ============ -->
+<section class="panel" id="t3" hidden>
+  <h2>How is ... ? and How was ... ?</h2>
+  <p class="lead">We can ask about many things, not only about the person.</p>
+
+  <div class="rulebox">
+    <p><strong>NOW</strong> (present) = <strong>How is</strong> your family?
+    How is your work? How is your school? How is your new job? How is your new house?</p>
+    <p><strong>FINISHED</strong> (past) = <strong>How was</strong> your day?
+    How was your weekend? How was your holiday?</p>
+  </div>
+
+  <h3>Practice: is or was?</h3>
+  <div id="ex3"></div>
+
+  <h3>Answers</h3>
+  <div class="tablewrap">
+  <table>
+    <tr><th>Answer</th><th>Meaning</th></tr>
+    <tr><td><strong>Very good. / Great.</strong></td><td>The best</td></tr>
+    <tr><td><strong>Good.</strong></td><td>Good</td></tr>
+    <tr><td><strong>Not bad.</strong></td><td>Between okay and good</td></tr>
+    <tr><td><strong>So-so. / Okay.</strong></td><td>In the middle</td></tr>
+    <tr><td><strong>Not good. / Bad.</strong></td><td>Not good</td></tr>
+  </table>
+  </div>
+
+  <h3>Practice: what does the answer mean?</h3>
+  <div id="ex3b"></div>
+</section>
+
+<!-- ============ TAB 4 ============ -->
+<section class="panel" id="t4" hidden>
+  <h2>Nice to meet you, or nice to see you?</h2>
+
+  <div class="rulebox">
+    <p><strong>Nice to meet you.</strong> = the <strong>first time</strong> only.</p>
+    <p><strong>Nice to see you.</strong> = the second time, the third time, every day.</p>
+    <p><strong>Long time no see!</strong> = we did not see the person for a long time.</p>
+  </div>
+
+  <h3>Practice: what do you say?</h3>
+  <div id="ex4"></div>
+</section>
+
+<!-- ============ TAB 5 ============ -->
+<section class="panel" id="t5" hidden>
+  <h2>The conversation</h2>
+  <p class="lead">In English a short conversation has the same order every time. Follow the
+  eight steps.</p>
+
+  <div class="model">
+    <div class="row"><div class="num">1</div><div class="body">
+      <p class="step">You say a greeting.</p>
+      <p class="say">Hello.</p>
+      <p class="alt">Also: Hi. / Good morning. / Good afternoon. / Good evening.</p>
+    </div></div>
+    <div class="row b"><div class="num">2</div><div class="body">
+      <p class="step">The other person answers.</p>
+      <p class="say">Good morning.</p>
+      <p class="alt">Also: Hello. / Hi.</p>
+    </div></div>
+    <div class="row"><div class="num">3</div><div class="body">
+      <p class="step">You ask about the other person.</p>
+      <p class="say">How are you?</p>
+      <p class="alt">Also: How are you doing?</p>
+    </div></div>
+    <div class="row b"><div class="num">4</div><div class="body">
+      <p class="step">The other person answers <strong>and asks you back</strong>.</p>
+      <p class="say">I'm fine, thanks. And you?</p>
+      <p class="alt">Also: I'm good, thank you. And you? / Not bad. And you?</p>
+    </div></div>
+    <div class="row"><div class="num">5</div><div class="body">
+      <p class="step">You ask a how question.</p>
+      <p class="say">How is your job?</p>
+      <p class="alt">Also: How is your family? / How was your weekend?</p>
+    </div></div>
+    <div class="row b"><div class="num">6</div><div class="body">
+      <p class="step">The other person answers.</p>
+      <p class="say">Very good.</p>
+      <p class="alt">Also: Good. / So-so. / Not bad.</p>
+    </div></div>
+    <div class="row"><div class="num">7</div><div class="body">
+      <p class="step">You finish the conversation.</p>
+      <p class="say">See you later.</p>
+      <p class="alt">Also: Goodbye. / See you tomorrow. / Have a good day.</p>
+    </div></div>
+    <div class="row b"><div class="num">8</div><div class="body">
+      <p class="step">The other person answers.</p>
+      <p class="say">Bye!</p>
+      <p class="alt">Also: Bye-bye. / Goodbye. / See you!</p>
+    </div></div>
+  </div>
+
+  <div class="warn">
+    <p><strong>Two important things.</strong></p>
+    <p>1. <strong>Answer the question. Do not repeat your partner's words.</strong><br>
+    Your partner says: "Hello, my name is Kate. What is your name?"<br>
+    You say: "Hello, my name is Maria." <span class="blank">(Not: "My name is Kate.")</span></p>
+    <p>2. <strong>Always ask back. Say "And you?"</strong><br>
+    "How are you?" - "I'm good, thank you. <strong>And you?</strong>"<br>
+    If you do not ask back, it is not polite.</p>
+  </div>
+
+  <h3>Example 1: formal (at work or at school)</h3>
+  <div class="dialog">
+    <p><span class="a">A:</span> Good morning.</p>
+    <p><span class="b">B:</span> Good morning.</p>
+    <p><span class="a">A:</span> How are you?</p>
+    <p><span class="b">B:</span> I'm fine, thank you. And you?</p>
+    <p><span class="a">A:</span> Very good, thank you. How is your work?</p>
+    <p><span class="b">B:</span> Not bad. How was your weekend?</p>
+    <p><span class="a">A:</span> It was great, thank you. Have a good day.</p>
+    <p><span class="b">B:</span> Thank you. Goodbye.</p>
+  </div>
+
+  <h3>Example 2: casual (with a friend)</h3>
+  <div class="dialog">
+    <p><span class="a">A:</span> Hi!</p>
+    <p><span class="b">B:</span> Hey! How's it going?</p>
+    <p><span class="a">A:</span> Good, thanks. And you?</p>
+    <p><span class="b">B:</span> Not bad. How is your family?</p>
+    <p><span class="a">A:</span> Very good, thanks. How was your holiday?</p>
+    <p><span class="b">B:</span> So-so.</p>
+    <p><span class="a">A:</span> Okay, gotta go. See ya!</p>
+    <p><span class="b">B:</span> Bye-bye!</p>
+  </div>
+
+  <h3>Practice: put the conversation in order</h3>
+  <p class="lead">Click the lines in the correct order, from 1 to 8.</p>
+  <div id="ex5order"></div>
+
+  <h3>Practice: choose the polite answer</h3>
+  <div id="ex5"></div>
+</section>
+
+<!-- ============ TAB 6 ============ -->
+<section class="panel" id="t6" hidden>
+  <h2>Breakout room cards</h2>
+  <p class="lead">Work with a partner. <strong>Student A</strong> reads the A card,
+  <strong>Student B</strong> reads the B card. Then change: A becomes B, B becomes A.</p>
+
+  <div class="rulebox">
+    <p>Remember: answer the question, and always say <strong>And you?</strong></p>
+  </div>
+
+  <div class="pairhead">Pair 1 - morning, at school (formal)</div>
+  <div class="cards">
+    <div class="card"><h4>Student A</h4><ol>
+      <li><span class="say">Good morning.</span></li>
+      <li>(listen)</li>
+      <li><span class="say">How are you?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">How is your class?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Have a good day.</span></li>
+      <li>(listen)</li>
+    </ol></div>
+    <div class="card bcard"><h4>Student B</h4><ol>
+      <li>(listen)</li>
+      <li><span class="say">Good morning.</span></li>
+      <li>(listen)</li>
+      <li><span class="say">I'm fine, thank you. And you?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Very good, thank you.</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Thank you. Goodbye.</span></li>
+    </ol></div>
+  </div>
+
+  <div class="pairhead">Pair 2 - afternoon, with a neighbour</div>
+  <div class="cards">
+    <div class="card"><h4>Student A</h4><ol>
+      <li><span class="say">Good afternoon.</span></li>
+      <li>(listen)</li>
+      <li><span class="say">How are you?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">How is your family?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">See you later.</span></li>
+      <li>(listen)</li>
+    </ol></div>
+    <div class="card bcard"><h4>Student B</h4><ol>
+      <li>(listen)</li>
+      <li><span class="say">Good afternoon.</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Not bad, thanks. And you?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Good, thank you.</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Bye-bye.</span></li>
+    </ol></div>
+  </div>
+
+  <div class="pairhead">Pair 3 - Monday, about the weekend (past)</div>
+  <div class="cards">
+    <div class="card"><h4>Student A</h4><ol>
+      <li><span class="say">Hello.</span></li>
+      <li>(listen)</li>
+      <li><span class="say">How are you?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">How was your weekend?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">See you tomorrow.</span></li>
+      <li>(listen)</li>
+    </ol></div>
+    <div class="card bcard"><h4>Student B</h4><ol>
+      <li>(listen)</li>
+      <li><span class="say">Hi.</span></li>
+      <li>(listen)</li>
+      <li><span class="say">I'm good, thank you. And you?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">It was great. And your weekend?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Bye!</span></li>
+    </ol></div>
+  </div>
+
+  <div class="pairhead">Pair 4 - a new classmate (first time)</div>
+  <div class="cards">
+    <div class="card"><h4>Student A</h4><ol>
+      <li><span class="say">Hello. My name is ...</span> <span class="blank">(your name)</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Nice to meet you. Where are you from?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">How is your first day?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">See you tomorrow.</span></li>
+      <li>(listen)</li>
+    </ol></div>
+    <div class="card bcard"><h4>Student B</h4><ol>
+      <li>(listen)</li>
+      <li><span class="say">Hello. My name is ...</span> <span class="blank">(your name)</span></li>
+      <li>(listen)</li>
+      <li><span class="say">I'm from ...</span> <span class="blank">(your country)</span> <span class="say">And you?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Very good, thank you.</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Bye-bye.</span></li>
+    </ol></div>
+  </div>
+
+  <div class="pairhead">Pair 5 - evening, casual, with a friend</div>
+  <div class="cards">
+    <div class="card"><h4>Student A</h4><ol>
+      <li><span class="say">Hey! Long time no see!</span></li>
+      <li>(listen)</li>
+      <li><span class="say">How's it going?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">How is your new job?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Gotta go. See ya!</span></li>
+      <li>(listen)</li>
+    </ol></div>
+    <div class="card bcard"><h4>Student B</h4><ol>
+      <li>(listen)</li>
+      <li><span class="say">Hi! Nice to see you!</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Not bad. And you?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">So-so. How was your holiday?</span></li>
+      <li>(listen)</li>
+      <li><span class="say">Bye! Good night!</span></li>
+    </ol></div>
+  </div>
+
+  <div class="pairhead">Pair 6 - your turn (write your own)</div>
+  <div class="cards">
+    <div class="card"><h4>Student A</h4><ol>
+      <li>Say a greeting. <span class="blank">........................</span></li>
+      <li>(listen)</li>
+      <li>Ask: How are you?</li>
+      <li>(listen)</li>
+      <li>Ask a how question. <span class="blank">How ....... your .......?</span></li>
+      <li>(listen)</li>
+      <li>Say goodbye. <span class="blank">........................</span></li>
+      <li>(listen)</li>
+    </ol></div>
+    <div class="card bcard"><h4>Student B</h4><ol>
+      <li>(listen)</li>
+      <li>Answer the greeting. <span class="blank">........................</span></li>
+      <li>(listen)</li>
+      <li>Answer, then say <strong>And you?</strong></li>
+      <li>(listen)</li>
+      <li>Answer the how question. <span class="blank">........................</span></li>
+      <li>(listen)</li>
+      <li>Say goodbye. <span class="blank">........................</span></li>
+    </ol></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Easy Everyday English 1-3 &middot; follow-up practice from our class on Tuesday 8 September.
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var score = 0, streak = 0, best = 0;
+  var elScore = document.getElementById("score");
+  var elStreak = document.getElementById("streak");
+  var elBest = document.getElementById("best");
+
+  function mark(ok){
+    if(ok){ score += 1; streak += 1; if(streak > best){ best = streak; } }
+    else { streak = 0; }
+    elScore.textContent = String(score);
+    elStreak.textContent = String(streak);
+    elBest.textContent = String(best);
+  }
+
+  function shuffle(list){
+    var a = list.slice(), i, j, t;
+    for(i = a.length - 1; i > 0; i--){
+      j = Math.floor(Math.random() * (i + 1));
+      t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  /* ---- tabs ---- */
+  var tabButtons = document.querySelectorAll("#tabs button");
+  var i;
+  for(i = 0; i < tabButtons.length; i++){
+    tabButtons[i].addEventListener("click", function(){
+      var target = this.getAttribute("data-tab");
+      var k;
+      for(k = 0; k < tabButtons.length; k++){
+        var isMe = tabButtons[k].getAttribute("data-tab") === target;
+        tabButtons[k].setAttribute("aria-selected", isMe ? "true" : "false");
+        document.getElementById(tabButtons[k].getAttribute("data-tab")).hidden = !isMe;
+      }
+      window.scrollTo(0, 0);
+    });
+  }
+
+  /* ---- generic multiple-choice exercise ---- */
+  function buildQuiz(hostId, items, opts){
+    opts = opts || {};
+    var host = document.getElementById(hostId);
+    if(!host){ return; }
+
+    function render(){
+      host.innerHTML = "";
+      var done = 0, right = 0;
+      var data = shuffle(items);
+
+      var head = document.createElement("div");
+      head.className = "exhead";
+      var tally = document.createElement("span");
+      tally.className = "exscore";
+      tally.textContent = "0 of " + data.length + " correct";
+      var again = document.createElement("button");
+      again.className = "again";
+      again.type = "button";
+      again.textContent = "Play again";
+      again.addEventListener("click", render);
+      head.appendChild(tally);
+      head.appendChild(again);
+      host.appendChild(head);
+
+      data.forEach(function(item){
+        var box = document.createElement("div");
+        box.className = "q";
+
+        var qt = document.createElement("p");
+        qt.className = "qtext";
+        qt.textContent = item.q;
+        box.appendChild(qt);
+
+        if(item.cue){
+          var cue = document.createElement("p");
+          cue.className = "qcue";
+          cue.textContent = item.cue;
+          box.appendChild(cue);
+        }
+
+        var row = document.createElement("div");
+        row.className = "opts";
+        var choices = opts.keepOrder ? item.options.slice() : shuffle(item.options);
+        var buttons = [];
+
+        choices.forEach(function(choice){
+          var b = document.createElement("button");
+          b.type = "button";
+          b.textContent = choice;
+          b.addEventListener("click", function(){
+            var isRight = (choice === item.answer);
+            var n;
+            for(n = 0; n < buttons.length; n++){
+              buttons[n].disabled = true;
+              if(buttons[n].textContent === item.answer){
+                buttons[n].className = isRight ? "" : "show-right";
+              }
+            }
+            b.className = isRight ? "pick-right" : "pick-wrong";
+            box.className = "q " + (isRight ? "right" : "wrong");
+
+            var fb = document.createElement("p");
+            fb.className = "fb " + (isRight ? "right" : "wrong");
+            fb.textContent = isRight ? "Correct!" : ("Not this one. The answer is: " + item.answer);
+            if(item.why){
+              var why = document.createElement("span");
+              why.className = "why";
+              why.textContent = item.why;
+              fb.appendChild(why);
+            }
+            box.appendChild(fb);
+
+            done += 1;
+            if(isRight){ right += 1; }
+            tally.textContent = right + " of " + data.length + " correct";
+            mark(isRight);
+          });
+          buttons.push(b);
+          row.appendChild(b);
+        });
+
+        box.appendChild(row);
+        host.appendChild(box);
+      });
+    }
+
+    render();
+  }
+
+  /* ---- 1. greetings and times ---- */
+  var G3 = ["Good morning.", "Good afternoon.", "Good evening."];
+  buildQuiz("ex1", [
+    { q: "It is 7:30 a.m. You see your teacher.", options: G3, answer: "Good morning.",
+      why: "Morning is 5:00 a.m. to 11:59 a.m." },
+    { q: "It is 2:15 p.m. You see your neighbour.", options: G3, answer: "Good afternoon.",
+      why: "Afternoon is 12:00 p.m. to 5:59 p.m." },
+    { q: "It is 8:00 p.m. You arrive at a party.", options: G3, answer: "Good evening.",
+      why: "Evening is 6:00 p.m. to 11:59 p.m." },
+    { q: "It is 10:45 a.m. You go into a shop.", options: G3, answer: "Good morning.",
+      why: "It is before 12:00 p.m., so it is still morning." },
+    { q: "It is 6:30 p.m. You see your boss.", options: G3, answer: "Good evening.",
+      why: "After 6:00 p.m. it is evening." },
+    { q: "It is 12:30 p.m. Your class starts.", options: G3, answer: "Good afternoon.",
+      why: "After 12:00 p.m. it is afternoon, not morning." },
+    { q: "It is 11:00 a.m. You meet a new student.", options: G3, answer: "Good morning.",
+      why: "11:00 a.m. is before 11:59 a.m., so it is morning." },
+    { q: "It is 4:00 p.m. You see your doctor.", options: G3, answer: "Good afternoon.",
+      why: "4:00 p.m. is in the afternoon." },
+    { q: "You go to bed. What do you say?",
+      options: ["Good night.", "Good evening.", "Good afternoon."], answer: "Good night.",
+      why: "Good night is a goodbye. We use it when we go to sleep." },
+    { q: "It is 7:00 p.m. You arrive at your friend's house. What do you say?",
+      options: ["Good evening.", "Good night.", "Good morning."], answer: "Good evening.",
+      why: "We say hello with good evening. Good night is only for goodbye." },
+    { q: "You leave your friend's house at 10:00 p.m. What do you say?",
+      options: ["Good night.", "Good evening.", "Good morning."], answer: "Good night.",
+      why: "You are leaving, so it is a goodbye. Good night is correct." },
+    { q: "You do not know the time. What is always safe?",
+      options: ["Hello.", "Good night.", "Good morning."], answer: "Hello.",
+      why: "Hello and hi are correct at any time of the day." }
+  ]);
+
+  /* ---- 2. formal or casual ---- */
+  var FC = ["Formal", "Casual"];
+  buildQuiz("ex2", [
+    { q: "Good morning.", options: FC, answer: "Formal", why: "We use it at work and at school." },
+    { q: "Hey!", options: FC, answer: "Casual", why: "Only with friends and family." },
+    { q: "Good afternoon.", options: FC, answer: "Formal" },
+    { q: "How's it going?", options: FC, answer: "Casual", why: "Very friendly, very informal." },
+    { q: "Good evening.", options: FC, answer: "Formal" },
+    { q: "Hey, what's up?", options: FC, answer: "Casual", why: "Very informal. Not for your boss." },
+    { q: "Goodbye.", options: FC, answer: "Formal", why: "Goodbye is safe with everybody." },
+    { q: "Bye-bye.", options: FC, answer: "Casual" },
+    { q: "Have a good day.", options: FC, answer: "Formal", why: "We hear it in shops and at work." },
+    { q: "See ya!", options: FC, answer: "Casual" },
+    { q: "Thank you, and goodbye.", options: FC, answer: "Formal" },
+    { q: "Later.", options: FC, answer: "Casual" },
+    { q: "See you next week.", options: FC, answer: "Formal" },
+    { q: "Gotta go.", options: FC, answer: "Casual", why: "It means: I must go quickly." },
+    { q: "Hi!", options: FC, answer: "Casual", why: "Friendly. Hello is a little more formal." },
+    { q: "Have a good weekend.", options: FC, answer: "Formal" }
+  ], { keepOrder: true });
+
+  /* ---- 3. is or was ---- */
+  var IW = ["is", "was"];
+  buildQuiz("ex3", [
+    { q: "How ____ your family?", cue: "Now.", options: IW, answer: "is" },
+    { q: "How ____ your weekend?", cue: "Last weekend. It is finished.", options: IW, answer: "was" },
+    { q: "How ____ your work?", cue: "Now.", options: IW, answer: "is" },
+    { q: "How ____ your holiday?", cue: "Last month. It is finished.", options: IW, answer: "was" },
+    { q: "How ____ your new house?", cue: "Now.", options: IW, answer: "is" },
+    { q: "How ____ your day?", cue: "It is 9:00 p.m. The day is finished.", options: IW, answer: "was" },
+    { q: "How ____ your school?", cue: "Now.", options: IW, answer: "is" },
+    { q: "How ____ your new job?", cue: "Now.", options: IW, answer: "is" },
+    { q: "How ____ your long weekend?", cue: "It is Tuesday. The long weekend is finished.",
+      options: IW, answer: "was" },
+    { q: "How ____ your class?", cue: "Now.", options: IW, answer: "is" },
+    { q: "How ____ your vacation?", cue: "You came home last week.", options: IW, answer: "was" },
+    { q: "How ____ your new neighbourhood?", cue: "Now.", options: IW, answer: "is" }
+  ], { keepOrder: true });
+
+  buildQuiz("ex3b", [
+    { q: "Your friend says: \"So-so.\" What does it mean?",
+      options: ["In the middle - not good, not bad", "The best", "Very bad"],
+      answer: "In the middle - not good, not bad" },
+    { q: "Your friend says: \"Great!\" What does it mean?",
+      options: ["The best", "In the middle", "Not good"], answer: "The best" },
+    { q: "Your friend says: \"Not bad.\" What does it mean?",
+      options: ["Between okay and good", "Very bad", "The best"],
+      answer: "Between okay and good",
+      why: "Not bad is a positive answer in English." },
+    { q: "How is your new job? You are very happy with it. What do you say?",
+      options: ["Very good!", "Not good.", "So-so."], answer: "Very good!" },
+    { q: "How was your weekend? It was okay, not special. What do you say?",
+      options: ["So-so.", "Great!", "Bad."], answer: "So-so." },
+    { q: "Your boss asks: \"How are you?\" You are tired, but you are at work. What do you say?",
+      options: ["I'm fine, thank you. And you?", "I'm tired. I did not sleep.", "Bad."],
+      answer: "I'm fine, thank you. And you?",
+      why: "At work we give a short, polite answer. We tell our real feelings only to family and close friends." }
+  ]);
+
+  /* ---- 4. meet or see ---- */
+  var MS = ["Nice to meet you.", "Nice to see you.", "Long time no see!"];
+  buildQuiz("ex4", [
+    { q: "Today is your first English class. You meet a new classmate.", options: MS,
+      answer: "Nice to meet you.", why: "First time = nice to meet you." },
+    { q: "You see the same classmate again on Wednesday.", options: MS,
+      answer: "Nice to see you.", why: "Second time, third time = nice to see you." },
+    { q: "You see an old friend. The last time was two years ago.", options: MS,
+      answer: "Long time no see!" },
+    { q: "Your teacher introduces you to a new student.", options: MS,
+      answer: "Nice to meet you." },
+    { q: "You see your neighbour. You see her every morning.", options: MS,
+      answer: "Nice to see you." },
+    { q: "You meet your friend's husband for the first time.", options: MS,
+      answer: "Nice to meet you." },
+    { q: "You see your cousin. The last time was in 2019.", options: MS,
+      answer: "Long time no see!" },
+    { q: "You go to the same doctor. You saw her last month.", options: MS,
+      answer: "Nice to see you." }
+  ]);
+
+  /* ---- 5a. put the conversation in order ---- */
+  (function(){
+    var host = document.getElementById("ex5order");
+    if(!host){ return; }
+
+    var lines = [
+      "Good morning.",
+      "Good morning. How are you?",
+      "I'm fine, thank you. And you?",
+      "Very good, thanks.",
+      "How was your weekend?",
+      "It was great. And your weekend?",
+      "So-so. Have a good day.",
+      "Thank you. Goodbye."
+    ];
+
+    function render(){
+      host.innerHTML = "";
+
+      var head = document.createElement("div");
+      head.className = "exhead";
+      var tally = document.createElement("span");
+      tally.className = "exscore";
+      tally.textContent = "0 of " + lines.length + " in order";
+      var again = document.createElement("button");
+      again.className = "again";
+      again.type = "button";
+      again.textContent = "Play again";
+      again.addEventListener("click", render);
+      head.appendChild(tally);
+      head.appendChild(again);
+      host.appendChild(head);
+
+      var built = document.createElement("div");
+      built.className = "built";
+      var empty = document.createElement("p");
+      empty.className = "empty";
+      empty.textContent = "Your conversation will appear here.";
+      built.appendChild(empty);
+      var list = document.createElement("ol");
+      built.appendChild(list);
+      host.appendChild(built);
+
+      var pool = document.createElement("div");
+      pool.className = "orderwrap";
+      host.appendChild(pool);
+
+      var next = 0;
+      shuffle(lines).forEach(function(text){
+        var b = document.createElement("button");
+        b.type = "button";
+        b.textContent = text;
+        b.addEventListener("click", function(){
+          if(text === lines[next]){
+            var li = document.createElement("li");
+            li.textContent = text;
+            list.appendChild(li);
+            empty.hidden = true;
+            b.disabled = true;
+            b.className = "";
+            next += 1;
+            tally.textContent = next + " of " + lines.length + " in order";
+            mark(true);
+          } else {
+            b.className = "bad";
+            mark(false);
+            window.setTimeout(function(){ b.className = ""; }, 700);
+          }
+        });
+        pool.appendChild(b);
+      });
+    }
+
+    render();
+  }());
+
+  /* ---- 5b. the polite answer ---- */
+  buildQuiz("ex5", [
+    { q: "Kate says: \"Hello, my name is Kate. What is your name?\" You are Maria. You say:",
+      options: ["Hello, my name is Maria.", "My name is Kate.", "What is your name?"],
+      answer: "Hello, my name is Maria.",
+      why: "Answer with YOUR information. Do not repeat your partner's words." },
+    { q: "\"Where are you from?\" You say:",
+      options: ["I'm from Syria.", "Where are you from?", "You are from Syria."],
+      answer: "I'm from Syria." },
+    { q: "\"How are you?\" The best answer is:",
+      options: ["I'm good, thank you. And you?", "Thanks.", "Good."],
+      answer: "I'm good, thank you. And you?",
+      why: "First say how you are, then thank you, then ask back: And you?" },
+    { q: "\"When did you come to Canada?\" You say:",
+      options: ["I came to Canada in 2024.", "When did you come to Canada?", "Canada."],
+      answer: "I came to Canada in 2024.",
+      why: "Use a full sentence. A short answer gets fewer points." },
+    { q: "\"How is your family?\" You say:",
+      options: ["Very good, thank you. And your family?", "How is your family?", "Family."],
+      answer: "Very good, thank you. And your family?" },
+    { q: "Your classmate says: \"Nice to meet you.\" You say:",
+      options: ["Nice to meet you, too.", "Nice to see you again.", "Long time no see!"],
+      answer: "Nice to meet you, too." },
+    { q: "You must leave quickly. You say:",
+      options: ["Gotta go. See you later!", "Long time no see!", "Nice to meet you."],
+      answer: "Gotta go. See you later!" },
+    { q: "\"How was your day?\" You say:",
+      options: ["It was good, thank you. And your day?", "It is good.", "How was your day?"],
+      answer: "It was good, thank you. And your day?",
+      why: "The question is about the past, so answer with WAS." }
+  ]);
+
+}());
+</script>
+
+</body>
+</html>
